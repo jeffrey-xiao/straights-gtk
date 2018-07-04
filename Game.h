@@ -4,7 +4,7 @@
 #include <vector>
 
 class Card;
-class Command;
+struct Command;
 class Player;
 enum class PlayerType;
 class Straight;
@@ -13,6 +13,7 @@ class Observer;
 const int CARD_COUNT = 52;
 const int STRAIGHT_COUNT = 4;
 const int PLAYER_COUNT = 4;
+const int MAX_SCORE = 80;
 
 enum class GameState {
   ROUND_START,

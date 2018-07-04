@@ -18,7 +18,8 @@ class Player {
 
     std::vector<Card> getCards() const;
     void setCards(std::vector<Card>);
-    void removeCard(Card);
+    void playCard(Card);
+    void discardCard(Card);
 
     std::vector<Card> getDiscardedCards() const;
 

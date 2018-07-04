@@ -65,6 +65,15 @@ std::vector<Card> Game::getDeck() const {
 }
 
 void Game::startRound() {
+  // check if game is over
+  for (int i = 0; i < PLAYER_COUNT; i++) {
+    if (players_[currentPlayer_].getScore() >= MAX_SCORE) {
+      gameState_ = GameState::GAME_END;
+      notify();
+      break;
+    }
+  }
+
   // shuffle the deck
   static std::mt19937 rng(seed_);
   int n = CARD_COUNT;
@@ -83,6 +92,7 @@ void Game::startRound() {
   }
 
   notify();
+  runRound();
 }
 
 // TODO: check if hand has card before discarding or playing
@@ -104,6 +114,7 @@ void Game::executeCommand(Command command) {
       }
 
       if (isValidMove) {
+        players_[currentPlayer_].playCard(command.card);
         gameState_ = GameState::PLAYED_CARD;
         notify();
         currentPlayer_ = (currentPlayer_ + 1) % 4;
@@ -117,6 +128,7 @@ void Game::executeCommand(Command command) {
 
     case DISCARD:
       if (getCurrentPlayerValidCards().size() == 0) {
+        players_[currentPlayer_].discardCard(command.card);
         gameState_ = GameState::DISCARDED_CARD;
         notify();
         currentPlayer_ = (currentPlayer_ + 1) % 4;
@@ -142,7 +154,27 @@ void Game::notify() {
 }
 
 void Game::runRound() {
-  while (players_[currentPlayer_].getPlayerType() == PlayerType::COMPUTER) {
+  if (getCurrentPlayerCards().size() == 0) {
+    gameState_ = GameState::ROUND_END;
+    notify();
+    startRound();
+  } else if (players_[currentPlayer_].getPlayerType() == PlayerType::COMPUTER) {
+    std::vector<Card> validCards = getCurrentPlayerValidCards();
 
+    // if no valid cards, discard first valid card
+    if (validCards.size() == 0) {
+      Card card = getCurrentPlayerCards()[0];
+      players_[currentPlayer_].discardCard(card);
+      gameState_ = GameState::PLAYED_CARD;
+    } else {
+      players_[currentPlayer_].playCard(validCards[0]);
+      gameState_ = GameState::DISCARDED_CARD;
+    }
+    notify();
+    currentPlayer_ = (currentPlayer_ + 1) % 4;
+    runRound();
+  } else {
+    gameState_ = GameState::HUMAN_INPUT;
+    notify();
   }
 }

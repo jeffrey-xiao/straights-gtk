@@ -14,7 +14,13 @@ void Player::setCards(std::vector<Card> cards) {
   cards_ = cards;
 }
 
-void Player::removeCard(Card card) {
+void Player::playCard(Card card) {
+  auto iter = std::find(cards_.begin(), cards_.end(), card);
+  assert(iter != cards_.end());
+  cards_.erase(iter);
+}
+
+void Player::discardCard(Card card) {
   auto iter = std::find(cards_.begin(), cards_.end(), card);
   assert(iter != cards_.end());
   discardedCards_.push_back(*iter);
