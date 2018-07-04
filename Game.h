@@ -45,6 +45,7 @@ class Game {
     Game(int, std::vector<PlayerType>, Observer*);
     std::vector<Straight> getStraights() const;
     std::vector<Player> getPlayers() const;
+    std::vector<int> getWinners() const;
     int getCurrentPlayer() const;
     Card getLastCard() const;
     std::vector<Card> getCurrentPlayerCards() const;

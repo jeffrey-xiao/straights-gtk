@@ -7,9 +7,9 @@ class Game;
 
 class TextUserInterface : public Observer {
   public:
-    TextUserInterface();
     void update() override;
     void setGame(Game* game);
+
   private:
     Game* game_;
     void getUserCommand();

@@ -27,7 +27,9 @@ class Player {
     void setPlayerType(PlayerType type);
 
     int getScore() const;
-    void setScore(int);
+    int getRoundScore() const;
+
+    void updateScore();
 };
 
 #endif

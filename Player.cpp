@@ -43,6 +43,15 @@ int Player::getScore() const {
   return score_;
 }
 
-void Player::setScore(int score) {
-  score_ = score;
+int Player::getRoundScore() const {
+  int roundScore = 0;
+  for (size_t i = 0; i < discardedCards_.size(); i++) {
+    roundScore += discardedCards_[i].getRank() + 1;
+  }
+  return roundScore;
+}
+
+void Player::updateScore() {
+  score_ += getRoundScore();
+  discardedCards_.clear();
 }

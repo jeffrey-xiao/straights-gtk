@@ -11,11 +11,8 @@ class Straight {
   public:
     Straight(Suit);
 
-    Rank getLoRank() const;
-    Rank getHiRank() const;
-
-    void setLoRank(Rank);
-    void setHiRank(Rank);
+    bool canPlayCard(Card) const;
+    void playCard(Card);
 
     friend std::ostream& operator<<(std::ostream &, const Straight &);
 };

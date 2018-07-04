@@ -1,26 +1,39 @@
 #include "Card.h"
 #include "Straight.h"
 
-Straight::Straight(Suit suit): suit_(suit), loRank_((Rank)8), hiRank_((Rank)6) {};
+Straight::Straight(Suit suit): suit_(suit), loRank_(EIGHT), hiRank_(SIX) {};
 
-Rank Straight::getLoRank() const {
-  return loRank_;
+bool Straight::canPlayCard(Card card) const {
+  Suit suit = card.getSuit();
+  if (suit != card.getSuit()) {
+    return false;
+  }
+
+  Rank rank = card.getRank();
+
+  if (hiRank_ == rank - 1) {
+    return true;
+  }
+
+  if (loRank_ == rank + 1) {
+    return true;
+  }
+
+  return false;
 }
 
-Rank Straight::getHiRank() const {
-  return hiRank_;
+void Straight::playCard(Card card) {
+  Rank rank = card.getRank();
+
+  if (hiRank_ == rank - 1) {
+    hiRank_ = rank;
+  }
+
+  if (loRank_ == rank + 1) {
+    loRank_ = rank;
+  }
 }
 
-void Straight::setLoRank(Rank loRank) {
-  loRank_ = loRank;
-}
-
-void Straight::setHiRank(Rank hiRank) {
-  hiRank_ = hiRank;
-}
-
-// TODO: Should the view be responsible for this representation or is it generic enough to be a 
-// << operator?
 std::ostream& operator<<(std::ostream &out, const Straight &straight) {
   std::string suits[SUIT_COUNT] = {"Clubs", "Diamonds", "Hearts", "Spades"};
   std::string ranks[RANK_COUNT] = {"A", "2", "3", "4", "5", "6",
