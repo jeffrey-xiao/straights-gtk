@@ -13,7 +13,8 @@
 const Card SEVEN_OF_SPADES = Card((Suit)CLUB, (Rank)SEVEN);
 
 Game::Game(int seed, std::vector<PlayerType> playerTypes, Observer *userInterface):
-  seed_(seed), userInterface_(userInterface), gameState_(GameState::ROUND_START)
+  seed_(seed), userInterface_(userInterface), gameState_(GameState::ROUND_START),
+  lastCard_(Card(SPADE, ACE))
 {
   assert(playerTypes.size() == PLAYER_COUNT);
 
@@ -40,6 +41,14 @@ std::vector<Straight> Game::getStraights() const {
 
 std::vector<Player> Game::getPlayers() const {
   return players_;
+}
+
+int Game::getCurrentPlayer() const {
+  return currentPlayer_ + 1;
+}
+
+Card Game::getLastCard() const {
+  return lastCard_;
 }
 
 std::vector<Card> Game::getCurrentPlayerCards() const {
@@ -116,11 +125,12 @@ void Game::executeCommand(Command command) {
       if (isValidMove) {
         players_[currentPlayer_].playCard(command.card);
         gameState_ = GameState::PLAYED_CARD;
+        lastCard_ = command.card;
         notify();
         currentPlayer_ = (currentPlayer_ + 1) % 4;
         runRound();
       } else {
-        gameState_ = GameState::INVALID_HUMAN_INPUT;
+        gameState_ = GameState::INVALID_PLAY_INPUT;
         notify();
       }
 
@@ -132,11 +142,12 @@ void Game::executeCommand(Command command) {
       if (getCurrentPlayerValidCards().size() == 0) {
         players_[currentPlayer_].discardCard(command.card);
         gameState_ = GameState::DISCARDED_CARD;
+        lastCard_ = command.card;
         notify();
         currentPlayer_ = (currentPlayer_ + 1) % 4;
         runRound();
       } else {
-        gameState_ = GameState::INVALID_HUMAN_INPUT;
+        gameState_ = GameState::INVALID_DISCARD_INPUT;
       }
 
       break;
