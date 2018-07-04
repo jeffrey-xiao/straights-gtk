@@ -2,8 +2,8 @@
 #define GAME_H
 
 #include <vector>
+#include "Card.h"
 
-class Card;
 struct Command;
 class Player;
 enum class PlayerType;
@@ -15,17 +15,19 @@ const int STRAIGHT_COUNT = 4;
 const int PLAYER_COUNT = 4;
 const int MAX_SCORE = 80;
 
-enum class GameState {
-  ROUND_START,
-  HUMAN_INPUT,
-  INVALID_HUMAN_INPUT,
-  DISCARDED_CARD,
-  PLAYED_CARD,
-  ROUND_END,
-  GAME_END,
-};
-
 class Game {
+  public:
+    enum class GameState {
+      ROUND_START,
+      HUMAN_INPUT,
+      INVALID_PLAY_INPUT,
+      INVALID_DISCARD_INPUT,
+      DISCARDED_CARD,
+      PLAYED_CARD,
+      ROUND_END,
+      GAME_END,
+    };
+
   private:
     int seed_;
     std::vector<Straight> straights_;
@@ -34,6 +36,7 @@ class Game {
     std::vector<Card> deck_;
     Observer *userInterface_;
     GameState gameState_;
+    Card lastCard_;
 
     void notify();
     void runRound();
@@ -42,6 +45,8 @@ class Game {
     Game(int, std::vector<PlayerType>, Observer*);
     std::vector<Straight> getStraights() const;
     std::vector<Player> getPlayers() const;
+    int getCurrentPlayer() const;
+    Card getLastCard() const;
     std::vector<Card> getCurrentPlayerCards() const;
     std::vector<Card> getCurrentPlayerValidCards() const;
     std::vector<Card> getDeck() const;
