@@ -11,8 +11,8 @@ class Straight {
   public:
     Straight(Suit);
 
-    Rank getLoRank();
-    Rank getHiRank();
+    Rank getLoRank() const;
+    Rank getHiRank() const;
 
     void setLoRank(Rank);
     void setHiRank(Rank);

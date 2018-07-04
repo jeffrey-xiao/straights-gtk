@@ -4,7 +4,9 @@
 #include <algorithm>
 #include <cassert>
 
-std::vector<Card> Player::getCards() {
+Player::Player(PlayerType type): type_(type) {}
+
+std::vector<Card> Player::getCards() const {
   return cards_;
 }
 
@@ -12,22 +14,32 @@ void Player::setCards(std::vector<Card> cards) {
   cards_ = cards;
 }
 
-void Player::removeCard(Card card) {
+void Player::playCard(Card card) {
+  auto iter = std::find(cards_.begin(), cards_.end(), card);
+  assert(iter != cards_.end());
+  cards_.erase(iter);
+}
+
+void Player::discardCard(Card card) {
   auto iter = std::find(cards_.begin(), cards_.end(), card);
   assert(iter != cards_.end());
   discardedCards_.push_back(*iter);
   cards_.erase(iter);
 }
 
-std::vector<Card> Player::getDiscardedCards() {
+std::vector<Card> Player::getDiscardedCards() const {
   return discardedCards_;
 }
 
-PlayerType Player::getPlayerType() {
+PlayerType Player::getPlayerType() const {
   return type_;
 }
 
-int Player::getScore() {
+void Player::setPlayerType(PlayerType type) {
+  type_ = type;
+}
+
+int Player::getScore() const {
   return score_;
 }
 
