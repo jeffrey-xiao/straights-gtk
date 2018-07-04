@@ -1,5 +1,5 @@
-#ifndef GUARD_H
-#define GUARD_H
+#ifndef GAME_H
+#define GAME_H
 
 #include <vector>
 

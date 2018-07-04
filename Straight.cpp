@@ -3,11 +3,11 @@
 
 Straight::Straight(Suit suit): suit_(suit), loRank_((Rank)8), hiRank_((Rank)6) {};
 
-Rank Straight::getLoRank() {
+Rank Straight::getLoRank() const {
   return loRank_;
 }
 
-Rank Straight::getHiRank() {
+Rank Straight::getHiRank() const {
   return hiRank_;
 }
 

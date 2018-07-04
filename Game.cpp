@@ -98,7 +98,7 @@ void Game::startRound() {
 // TODO: check if hand has card before discarding or playing
 void Game::executeCommand(Command command) {
   switch (command.type) {
-    case PLAY:
+    case PLAY: {
       Suit suit = command.card.getSuit();
       Rank rank = command.card.getRank();
       bool isValidMove = false;
@@ -125,8 +125,10 @@ void Game::executeCommand(Command command) {
       }
 
       break;
+    }
 
-    case DISCARD:
+
+    case DISCARD: {
       if (getCurrentPlayerValidCards().size() == 0) {
         players_[currentPlayer_].discardCard(command.card);
         gameState_ = GameState::DISCARDED_CARD;
@@ -138,14 +140,17 @@ void Game::executeCommand(Command command) {
       }
 
       break;
+    }
 
-    case RAGEQUIT:
+    case RAGEQUIT: {
       players_[currentPlayer_].setPlayerType(PlayerType::COMPUTER);
       runRound();
       break;
+    }
 
-    default:
+    default: {
       throw "Not Implemented";
+    }
   }
 }
 
