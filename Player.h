@@ -3,7 +3,7 @@
 
 #include <vector>
 
-enum PlayerType { HUMAN, COMPUTER };
+enum class PlayerType { HUMAN = 0, COMPUTER = 1 };
 
 class Card;
 
@@ -14,15 +14,18 @@ class Player {
     PlayerType type_;
 
   public:
-    std::vector<Card> getCards();
+    Player(PlayerType);
+
+    std::vector<Card> getCards() const;
     void setCards(std::vector<Card>);
     void removeCard(Card);
 
-    std::vector<Card> getDiscardedCards();
+    std::vector<Card> getDiscardedCards() const;
 
-    PlayerType getPlayerType();
+    PlayerType getPlayerType() const;
+    void setPlayerType(PlayerType type);
 
-    int getScore();
+    int getScore() const;
     void setScore(int);
 };
 
