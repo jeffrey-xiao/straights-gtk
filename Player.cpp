@@ -4,7 +4,7 @@
 #include <algorithm>
 #include <cassert>
 
-Player::Player(PlayerType type): type_(type) {}
+Player::Player(PlayerType type): cards_(), discardedCards_(), score_(0), type_(type) {}
 
 std::vector<Card> Player::getCards() const {
   return cards_;

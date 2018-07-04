@@ -28,21 +28,22 @@ void TextUserInterface::update() {
       vector<Card> cards = game_->getCurrentPlayerCards();
       cout << "Your hand: ";
       for (size_t i = 0; i < cards.size(); i++) {
+        cout << cards[i];
         if (i != cards.size() - 1) {
-          cout << cards[i] << " ";
-        } else {
-          cout << cards[i];
+          cout << " ";
         }
       }
       cout << endl;
 
       vector<Card> legalPlays = game_->getCurrentPlayerValidCards();
-      cout << "Legal plays: ";
+      cout << "Legal plays:";
+      if (!legalPlays.empty()) {
+        cout << " ";
+      }
       for (size_t i = 0; i < legalPlays.size(); i++) {
+        cout << legalPlays[i];
         if (i != legalPlays.size() - 1) {
-          cout << legalPlays[i] << " ";
-        } else {
-          cout << legalPlays[i];
+          cout << " ";
         }
       }
       cout << endl;
@@ -72,15 +73,15 @@ void TextUserInterface::update() {
     case Game::GameState::ROUND_END: {
       vector<Player> players = game_->getPlayers();
       for (size_t i = 0; i < players.size(); i++) {
-        cout << "Player " << i + 1 << "'s discards: ";
-
         vector<Card> discards = players[i].getDiscardedCards();
-
+        cout << "Player " << i + 1 << "'s discards:";
+        if (!discards.empty()) {
+          cout << " ";
+        }
         for (size_t j = 0; j < discards.size(); j++) {
-          if (j == discards.size() - 1) {
-            cout << discards[j];
-          } else {
-            cout << discards[j] << " ";
+          cout << discards[j];
+          if (j != discards.size() - 1) {
+            cout << " ";
           }
         }
         cout << endl;
@@ -106,13 +107,14 @@ void TextUserInterface::update() {
 
 void TextUserInterface::getUserCommand() {
   Command command;
-  std::cout << "<";
+  std::cout << ">";
   std::cin >> command;
 
   switch (command.type) {
+    case RAGEQUIT:
+      std::cout << "Player " << game_->getCurrentPlayer() << " ragequits. A computer will now take over." << std::endl;
     case PLAY:
     case DISCARD:
-    case RAGEQUIT:
       game_->executeCommand(command);
       break;
 

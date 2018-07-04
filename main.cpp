@@ -6,14 +6,17 @@
 #include <vector>
 
 int main(int argc, char** argv) {
-  int seed = atoi(argv[1]);
-  std::cout << seed << std::endl;
+  int seed = 0;
+  if (argc == 2) {
+    seed = atoi(argv[1]);
+  }
 
   std::vector<PlayerType> playerTypes;
   playerTypes.reserve(4);
   for (int i = 0; i < PLAYER_COUNT; i++) {
     std::cout << "Is player " << i + 1 << " a human(h) or a computer(c)?" << std::endl;
     char c;
+    std::cout << ">";
     std::cin >> c;
 
     if (c == 'h') {

@@ -73,17 +73,21 @@ std::vector<Card> Game::getCurrentPlayerCards() const {
 
 std::vector<Card> Game::getCurrentPlayerValidCards() const {
   std::vector<Card> validCards = players_[currentPlayer_].getCards();
-  validCards.erase(
-    std::remove_if(
-      validCards.begin(),
-      validCards.end(),
-      [this](const Card &card) {
-        Suit suit = card.getSuit();
-        return !straights_[suit].canPlayCard(card);
-      }
-    ),
-    validCards.end()
-  );
+  if (std::find(validCards.begin(), validCards.end(), SEVEN_OF_SPADES) != validCards.end()) {
+    return { SEVEN_OF_SPADES };
+  } else {
+    validCards.erase(
+      std::remove_if(
+        validCards.begin(),
+        validCards.end(),
+        [this](const Card &card) {
+          Suit suit = card.getSuit();
+          return !straights_[suit].canPlayCard(card);
+        }
+      ),
+      validCards.end()
+    );
+  }
   return validCards;
 }
 
@@ -147,12 +151,13 @@ void Game::startRound() {
   runRound();
 }
 
-// TODO: check if hand has card before discarding or playing
 void Game::executeCommand(Command command) {
   switch (command.type) {
     case PLAY: {
       Suit suit = command.card.getSuit();
-      bool isValidMove = straights_[suit].canPlayCard(command.card);
+      std::vector<Card> validCards = getCurrentPlayerValidCards();
+      bool isValidMove = straights_[suit].canPlayCard(command.card) &&
+        std::find(validCards.begin(), validCards.end(), command.card) != validCards.end();
 
       if (isValidMove) {
         straights_[suit].playCard(command.card);
@@ -172,7 +177,8 @@ void Game::executeCommand(Command command) {
 
 
     case DISCARD: {
-      if (getCurrentPlayerValidCards().size() == 0) {
+      std::vector<Card> cards = getCurrentPlayerCards();
+      if (getCurrentPlayerValidCards().empty() && std::find(cards.begin(), cards.end(), command.card) != cards.end()) {
         players_[currentPlayer_].discardCard(command.card);
         gameState_ = GameState::DISCARDED_CARD;
         lastCard_ = command.card;
@@ -202,7 +208,7 @@ void Game::notify() {
 }
 
 void Game::runRound() {
-  if (getCurrentPlayerCards().size() == 0) {
+  if (getCurrentPlayerCards().empty()) {
     gameState_ = GameState::ROUND_END;
     notify();
     startRound();

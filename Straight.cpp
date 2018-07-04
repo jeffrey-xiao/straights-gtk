@@ -39,9 +39,16 @@ std::ostream& operator<<(std::ostream &out, const Straight &straight) {
   std::string ranks[RANK_COUNT] = {"A", "2", "3", "4", "5", "6",
     "7", "8", "9", "10", "J", "Q", "K"};
 
-  out << suits[straight.suit_] << ": ";
+  out << suits[straight.suit_] << ":";
+  if (straight.loRank_ <= straight.hiRank_) {
+    out << " ";
+  }
+
   for (int i = straight.loRank_; i <= straight.hiRank_; i++) {
-    out << ranks[i] << " ";
+    out << ranks[i];
+    if (i != straight.hiRank_) {
+      out << " ";
+    }
   }
 
   return out;
