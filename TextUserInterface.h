@@ -7,6 +7,7 @@ class GameController;
 
 class TextUserInterface : public Observer {
   public:
+    virtual ~TextUserInterface() = default;
     void update() override;
     void setGameController(GameController* gameController);
 

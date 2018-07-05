@@ -32,5 +32,8 @@ int main(int argc, char** argv) {
 
   gameController->startGame();
 
+  delete userInterface;
+  delete gameController;
+
   return 0;
 }
