@@ -4,6 +4,7 @@
 
 #include <algorithm>
 #include <cassert>
+#include <iostream>
 
 GameController::GameController(int seed, std::vector<PlayerType> playerTypes, Observer *userInterface):
   game_(new Game(seed, playerTypes, userInterface)), nextCommand_(Command()) {}
@@ -28,7 +29,7 @@ void GameController::executeNextCommand() {
   Command command = nextCommand_;
   nextCommand_ = Command();
 
-  switch (nextCommand_.type) {
+  switch (command.type) {
     case PLAY:
       game_->playCard(command.card);
       break;
