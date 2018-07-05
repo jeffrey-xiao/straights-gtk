@@ -3,15 +3,15 @@
 
 #include "Observer.h"
 
-class Game;
+class GameController;
 
 class TextUserInterface : public Observer {
   public:
     void update() override;
-    void setGame(Game* game);
+    void setGameController(GameController* gameController);
 
   private:
-    Game* game_;
+    GameController* gameController_;
     void getUserCommand();
 };
 

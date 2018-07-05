@@ -35,38 +35,6 @@ Game::Game(int seed, std::vector<PlayerType> playerTypes, Observer *userInterfac
       deck_.push_back(Card((Suit)i, (Rank)j));
 }
 
-std::vector<Straight> Game::getStraights() const {
-  return straights_;
-}
-
-std::vector<Player> Game::getPlayers() const {
-  return players_;
-}
-
-std::vector<int> Game::getWinners() const {
-  int minScore = players_[0].getScore();
-  for (int i = 1; i < PLAYER_COUNT; i++) {
-    minScore = std::min(minScore, players_[i].getScore());
-  }
-
-  std::vector<int> winners;
-  for (int i = 0; i < PLAYER_COUNT; i++) {
-    if (minScore == players_[i].getScore()) {
-      winners.push_back(i + 1);
-    }
-  }
-
-  return winners;
-}
-
-int Game::getCurrentPlayer() const {
-  return currentPlayer_ + 1;
-}
-
-Card Game::getLastCard() const {
-  return lastCard_;
-}
-
 std::vector<Card> Game::getCurrentPlayerCards() const {
   return players_[currentPlayer_].getCards();
 }
@@ -91,12 +59,48 @@ std::vector<Card> Game::getCurrentPlayerValidCards() const {
   return validCards;
 }
 
-std::vector<Card> Game::getDeck() const {
-  return deck_;
+void Game::notify() {
+  userInterface_->update();
 }
 
-Game::GameState Game::getGameState() const {
-  return gameState_;
+void Game::setGameState(Game::GameState gameState) {
+  gameState_ = gameState;
+  notify();
+}
+
+void Game::playCard(Card card) {
+  Suit suit = card.getSuit();
+  std::vector<Card> validCards = getCurrentPlayerValidCards();
+  bool isValidMove = std::find(validCards.begin(), validCards.end(), card) != validCards.end();
+
+  if (isValidMove) {
+    straights_[suit].playCard(card);
+    players_[currentPlayer_].playCard(card);
+    lastCard_ = card;
+    setGameState(GameState::PLAYED_CARD);
+    currentPlayer_ = (currentPlayer_ + 1) % 4;
+    runRound();
+  } else {
+    setGameState(GameState::INVALID_PLAY_INPUT);
+  }
+}
+
+void Game::discardCard(Card card) {
+  std::vector<Card> cards = getCurrentPlayerCards();
+  if (getCurrentPlayerValidCards().empty() && std::find(cards.begin(), cards.end(), card) != cards.end()) {
+    players_[currentPlayer_].discardCard(card);
+    lastCard_ = card;
+    setGameState(GameState::DISCARDED_CARD);
+    currentPlayer_ = (currentPlayer_ + 1) % 4;
+    runRound();
+  } else {
+    setGameState(GameState::INVALID_DISCARD_INPUT);
+  }
+}
+
+void Game::ragequit() {
+  players_[currentPlayer_].setPlayerType(PlayerType::COMPUTER);
+  runRound();
 }
 
 void Game::startRound() {
@@ -108,8 +112,7 @@ void Game::startRound() {
   // check if game is over
   for (int i = 0; i < PLAYER_COUNT; i++) {
     if (players_[i].getScore() >= MAX_SCORE) {
-      gameState_ = GameState::GAME_END;
-      notify();
+      setGameState(GameState::GAME_END);
       return;
     }
   }
@@ -146,92 +149,27 @@ void Game::startRound() {
     }
   }
 
-  gameState_ = GameState::ROUND_START;
-  notify();
+  setGameState(GameState::ROUND_START);
   runRound();
-}
-
-void Game::executeCommand(Command command) {
-  switch (command.type) {
-    case PLAY: {
-      Suit suit = command.card.getSuit();
-      std::vector<Card> validCards = getCurrentPlayerValidCards();
-      bool isValidMove = straights_[suit].canPlayCard(command.card) &&
-        std::find(validCards.begin(), validCards.end(), command.card) != validCards.end();
-
-      if (isValidMove) {
-        straights_[suit].playCard(command.card);
-        players_[currentPlayer_].playCard(command.card);
-        gameState_ = GameState::PLAYED_CARD;
-        lastCard_ = command.card;
-        notify();
-        currentPlayer_ = (currentPlayer_ + 1) % 4;
-        runRound();
-      } else {
-        gameState_ = GameState::INVALID_PLAY_INPUT;
-        notify();
-      }
-
-      break;
-    }
-
-
-    case DISCARD: {
-      std::vector<Card> cards = getCurrentPlayerCards();
-      if (getCurrentPlayerValidCards().empty() && std::find(cards.begin(), cards.end(), command.card) != cards.end()) {
-        players_[currentPlayer_].discardCard(command.card);
-        gameState_ = GameState::DISCARDED_CARD;
-        lastCard_ = command.card;
-        notify();
-        currentPlayer_ = (currentPlayer_ + 1) % 4;
-        runRound();
-      } else {
-        gameState_ = GameState::INVALID_DISCARD_INPUT;
-        notify();
-      }
-
-      break;
-    }
-
-    case RAGEQUIT:
-      players_[currentPlayer_].setPlayerType(PlayerType::COMPUTER);
-      runRound();
-      break;
-
-    default:
-      assert(false);
-  }
-}
-
-void Game::notify() {
-  userInterface_->update();
 }
 
 void Game::runRound() {
   if (getCurrentPlayerCards().empty()) {
-    gameState_ = GameState::ROUND_END;
-    notify();
+    setGameState(GameState::ROUND_END);
     startRound();
-  } else if (players_[currentPlayer_].getPlayerType() == PlayerType::COMPUTER) {
+  } else if (players_[currentPlayer_].getPlayerType() == PlayerType::HUMAN) {
+    setGameState(GameState::HUMAN_INPUT);
+  } else {
     std::vector<Card> validCards = getCurrentPlayerValidCards();
 
     // if no valid cards, discard first valid card
     if (validCards.empty()) {
-      Card card = getCurrentPlayerCards()[0];
-      players_[currentPlayer_].discardCard(card);
-      lastCard_ = card;
-      gameState_ = GameState::DISCARDED_CARD;
-    } else {
-      players_[currentPlayer_].playCard(validCards[0]);
-      straights_[validCards[0].getSuit()].playCard(validCards[0]);
-      lastCard_ = validCards[0];
-      gameState_ = GameState::PLAYED_CARD;
+      discardCard(getCurrentPlayerCards()[0]);
     }
-    notify();
-    currentPlayer_ = (currentPlayer_ + 1) % 4;
-    runRound();
-  } else {
-    gameState_ = GameState::HUMAN_INPUT;
-    notify();
+
+    // play first valid card
+    else {
+      playCard(validCards[0]);
+    }
   }
 }
