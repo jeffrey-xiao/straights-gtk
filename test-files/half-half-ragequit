@@ -1,0 +1,27 @@
+h
+c
+h
+c
+discard 10D
+play 7C
+play 8C
+deck
+play 5C
+play 9C
+discard 2D
+ragequit
+play 8D
+play 6H
+play 2S
+play 9H
+play JS
+play 5H
+play JC
+play KC
+deck
+discard AD
+discard KC
+play KC
+discard QD
+ragequit
+quit

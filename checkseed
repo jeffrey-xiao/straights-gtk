@@ -1,0 +1,149 @@
+#!/bin/bash
+# Usage:  checkexpect tests program provided
+#  where program is your program's executable, provided is the given 
+#  executable, and tests is a text file containing entries of the form
+#    testName1
+#    testName2...
+#  and for each such testName, file testName.in is supplied
+# 
+# for example: ./checkexpect tests count.exe provided
+
+if [ $# -ne 3 ]; then
+    echo "Usage:  $0 tests program provided [seedarg]" >&2
+    exit 1
+fi
+
+tests=$1
+prog=$2
+prov=$3
+passed=1
+total=0
+failed=0
+
+if [ ! -r "$tests" ]; then
+    echo "File $tests does not exist or is not readable" >&2
+    exit 1
+fi
+
+if [ ! -x "$prog" ]; then
+    echo "Executable $prog does not exist or is not executable" >&2
+    exit 1
+fi
+
+if [ ! -x "$prov" ]; then
+    echo "Executable $prov does not exist or is not executable" >&2
+    exit 1
+fi
+
+hr() {
+  local start=$'\e(0' end=$'\e(B' line='qqqqqqqqqqqqqqqq'
+  local cols=${COLUMNS:-$(tput cols)}
+  while ((${#line} < cols)); do line+="$line"; done
+  printf '%s%s%s\n' "$start" "${line:0:cols}" "$end"
+}
+
+cat tests | \
+while read testline; do
+    test=$(echo $testline | awk '{print $1}')
+    seed=$(echo $testline | awk '{print $2}')
+    infile="${test}"
+    echo "TESTING ${test}"
+    outfile=`mktemp`
+    provfile=`mktemp`
+    if [ ! -r "$infile" ]; then
+        echo "File $infile does not exist or is not readable" >&2
+        exit 1
+    fi
+    let "total += 1"
+
+    if [ -z "$seed" ]; then
+        ./"$prog" < "$infile" > "$outfile"
+        ./"$prov" < "$infile" > "$provfile"
+        if ! diff "$outfile" "$provfile" > /dev/null; then
+            passed=0
+            let "failed += 1"
+            echo ""
+            echo "TEST FAILED: $test WITH SEED 0"
+            echo ""
+            echo "INPUT:"
+            hr
+            cat $infile
+            echo ""
+            echo "EXPECTED:"
+            hr
+            cat $provfile
+            echo ""
+            echo "ACTUAL:"
+            hr
+            cat $outfile
+            echo ""
+            echo "DIFF"
+            hr
+            diff "$outfile" "$provfile"
+            continue
+        fi
+
+        for seed in `seq 0 100`;do
+            ./"$prog" "$seed" < "$infile" > "$outfile"
+            ./"$prov" "$seed" < "$infile" > "$provfile"
+            if ! diff "$outfile" "$provfile" > /dev/null; then
+                passed=0
+                let "failed += 1"
+                echo ""
+                echo "TEST FAILED: $test WITH SEED $seed"
+                echo ""
+                echo "INPUT:"
+                hr
+                cat $infile
+                echo ""
+                echo "EXPECTED:"
+                hr
+                cat $provfile
+                echo ""
+                echo "ACTUAL:"
+                hr
+                cat $outfile
+                echo ""
+                echo "DIFF"
+                hr
+                diff "$outfile" "$provfile"
+                break
+            fi
+        done
+    else
+        ./"$prog" "$seed" < "$infile" > "$outfile"
+        ./"$prov" "$seed" < "$infile" > "$provfile"
+        if ! diff "$outfile" "$provfile" > /dev/null; then
+            passed=0
+            let "failed += 1"
+            echo ""
+            echo "TEST FAILED: $test WITH SEED $seed"
+            echo ""
+            echo "INPUT:"
+            hr
+            cat $infile
+            echo ""
+            echo "EXPECTED:"
+            hr
+            cat $provfile
+            echo ""
+            echo "ACTUAL:"
+            hr
+            cat $outfile
+            echo ""
+            echo "DIFF"
+            hr
+            diff "$outfile" "$provfile"
+        fi
+    fi
+    echo ""
+    echo "FINISHED TESTING ${test}"
+    hr
+    rm $outfile
+    rm $provfile
+done
+
+if [ $passed = 1 ];
+    then echo "ALL PASSED"
+    else echo "FAILED $failed OF $total"
+fi

@@ -1,4 +1,4 @@
-#include "Game.h"
+#include "GameController.h"
 #include "Player.h"
 #include "TextUserInterface.h"
 
@@ -27,10 +27,10 @@ int main(int argc, char** argv) {
   }
 
   TextUserInterface *userInterface = new TextUserInterface();
-  Game *game = new Game(seed, playerTypes, userInterface);
-  userInterface->setGame(game);
+  GameController *gameController = new GameController(seed, playerTypes, userInterface);
+  userInterface->setGameController(gameController);
 
-  game->startRound();
+  gameController->startGame();
 
   return 0;
 }
