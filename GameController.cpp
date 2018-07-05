@@ -15,9 +15,9 @@ GameController::~GameController() {
 void GameController::startGame() {
   game_->startRound();
 
-  do {
+  while (nextCommand_.type != BAD_COMMAND) {
     executeNextCommand();
-  } while (nextCommand_.type != BAD_COMMAND); 
+  } 
 
 }
 
