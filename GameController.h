@@ -2,11 +2,11 @@
 #define GAME_CONTROLLER_H
 
 #include "Game.h"
+#include "Command.h"
 
 #include <vector>
 
 class Card;
-struct Command;
 class Observer;
 class Straight;
 class Player;
@@ -15,13 +15,15 @@ enum class PlayerType;
 class GameController {
   private:
     Game *game_;
+    Command nextCommand_;
+    void executeNextCommand();
 
   public:
     GameController(int, std::vector<PlayerType>, Observer *);
     ~GameController();
 
     void startGame();
-    void executeCommand(Command);
+    void setNextCommand(Command);
 
     std::vector<Straight> getStraights() const;
     std::vector<Player> getPlayers() const;

@@ -119,7 +119,7 @@ void TextUserInterface::getUserCommand() {
         << " ragequits. A computer will now take over." << std::endl;
     case PLAY:
     case DISCARD:
-      gameController_->executeCommand(command);
+      gameController_->setNextCommand(command);
       break;
 
     case DECK: {

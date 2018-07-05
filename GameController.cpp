@@ -6,7 +6,7 @@
 #include <cassert>
 
 GameController::GameController(int seed, std::vector<PlayerType> playerTypes, Observer *userInterface):
-  game_(new Game(seed, playerTypes, userInterface)) {}
+  game_(new Game(seed, playerTypes, userInterface)), nextCommand_(Command()) {}
 
 GameController::~GameController() {
   delete game_;
@@ -14,10 +14,21 @@ GameController::~GameController() {
 
 void GameController::startGame() {
   game_->startRound();
+
+  do {
+    executeNextCommand();
+  } while (nextCommand_.type != BAD_COMMAND); 
+
 }
 
-void GameController::executeCommand(Command command) {
-  switch (command.type) {
+void GameController::setNextCommand(Command command) {
+  nextCommand_ = command;
+}
+void GameController::executeNextCommand() {
+  Command command = nextCommand_;
+  nextCommand_ = Command();
+
+  switch (nextCommand_.type) {
     case PLAY:
       game_->playCard(command.card);
       break;
