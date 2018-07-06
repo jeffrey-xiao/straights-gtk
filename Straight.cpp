@@ -1,6 +1,8 @@
 #include "Card.h"
 #include "Straight.h"
 
+#include <cassert>
+
 Straight::Straight(Suit suit): suit_(suit), loRank_(EIGHT), hiRank_(SIX) {};
 
 bool Straight::canPlayCard(Card card) const {
@@ -23,6 +25,7 @@ bool Straight::canPlayCard(Card card) const {
 }
 
 void Straight::playCard(Card card) {
+  assert(canPlayCard(card));
   Rank rank = card.getRank();
 
   if (hiRank_ == rank - 1) {

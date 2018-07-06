@@ -3,14 +3,15 @@
 #include "Game.h"
 #include "Observer.h"
 #include "Player.h"
-#include "Straight.h"
+#include "Deck.h"
 
 #include <algorithm>
 #include <cassert>
-#include <random>
 #include <vector>
 
 const Card SEVEN_OF_SPADES = Card(SPADE, SEVEN);
+const int PLAYER_COUNT = 4;
+const int MAX_SCORE = 80;
 
 Game::Game(int seed, std::vector<PlayerType> playerTypes, Observer *userInterface):
   seed_(seed), userInterface_(userInterface), gameState_(GameState::ROUND_START),
@@ -18,21 +19,10 @@ Game::Game(int seed, std::vector<PlayerType> playerTypes, Observer *userInterfac
 {
   assert(playerTypes.size() == PLAYER_COUNT);
 
-  // treating vectors like static arrays by reserving space
-  // we opted to use vectors since objects do not have default constructors
   players_.reserve(PLAYER_COUNT);
-  straights_.reserve(STRAIGHT_COUNT);
-  deck_.reserve(CARD_COUNT);
-
-  for (int i = 0; i < PLAYER_COUNT; i++)
+  for (int i = 0; i < PLAYER_COUNT; i++) {
     players_.push_back(Player(playerTypes[i]));
-
-  for (int i = 0; i < STRAIGHT_COUNT; i++)
-    straights_.push_back(Straight((Suit)i));
-
-  for (int i = 0; i < SUIT_COUNT; i++)
-    for (int j = 0; j < RANK_COUNT; j++)
-      deck_.push_back(Card((Suit)i, (Rank)j));
+  }
 }
 
 std::vector<Card> Game::getCurrentPlayerCards() const {
@@ -48,15 +38,36 @@ std::vector<Card> Game::getCurrentPlayerValidCards() const {
       std::remove_if(
         validCards.begin(),
         validCards.end(),
-        [this](const Card &card) {
-          Suit suit = card.getSuit();
-          return !straights_[suit].canPlayCard(card);
-        }
+        [this](const Card &card) { return !gameBoard_.canPlayCard(card); }
       ),
       validCards.end()
     );
   }
   return validCards;
+}
+
+GameBoard Game::getGameBoard() const {
+  return gameBoard_;
+}
+
+std::vector<Player> Game::getPlayers() const {
+  return players_;
+}
+
+int Game::getCurrentPlayer() const {
+  return currentPlayer_;
+}
+
+Card Game::getLastCard() const {
+  return lastCard_;
+}
+
+std::vector<Card> Game::getDeckCards() const {
+  return deck_.getCards();
+}
+
+Game::GameState Game::getGameState() const {
+  return gameState_;
 }
 
 void Game::notify() {
@@ -69,12 +80,11 @@ void Game::setGameState(Game::GameState gameState) {
 }
 
 void Game::playCard(Card card) {
-  Suit suit = card.getSuit();
   std::vector<Card> validCards = getCurrentPlayerValidCards();
   bool isValidMove = std::find(validCards.begin(), validCards.end(), card) != validCards.end();
 
   if (isValidMove) {
-    straights_[suit].playCard(card);
+    gameBoard_.playCard(card);
     players_[currentPlayer_].playCard(card);
     lastCard_ = card;
     setGameState(GameState::PLAYED_CARD);
@@ -118,26 +128,14 @@ void Game::startRound() {
   }
 
   // shuffle the deck
-  static std::mt19937 rng(seed_);
-  int n = CARD_COUNT;
-  while (n > 1) {
-    int k = (int)(rng() % n--);
-    std::swap(deck_[k], deck_[n]);
-  }
+  deck_.shuffle(seed_);
 
-  // reset straights
-  for (int i = 0; i < SUIT_COUNT; i++) {
-    straights_[i] = Straight((Suit)i);
-  }
+  // reset the game board
+  gameBoard_.resetBoard();
 
   // assign cards
-  std::vector<Card> currentHand;
   for (int i = 0; i < PLAYER_COUNT; i++) {
-    for (int j = 0; j < CARD_COUNT / PLAYER_COUNT; j++) {
-      currentHand.push_back(deck_[13 * i + j]);
-    }
-    players_[i].setCards(currentHand);
-    currentHand.clear();
+    players_[i].setCards(deck_.getHand(i));
   }
 
   // find the player with 7 of spades

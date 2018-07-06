@@ -13,7 +13,7 @@ class TextUserInterface : public Observer {
     void startGame();
 
   private:
-    GameController* gameController_;
+    GameController *gameController_;
 };
 
 #endif

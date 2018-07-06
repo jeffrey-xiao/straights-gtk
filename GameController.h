@@ -8,7 +8,6 @@
 class Card;
 struct Command;
 class Observer;
-class Straight;
 class Player;
 enum class PlayerType;
 
@@ -23,7 +22,7 @@ class GameController {
     void startGame();
     void executeCommand(Command);
 
-    std::vector<Straight> getStraights() const;
+    GameBoard getGameBoard() const;
     std::vector<Player> getPlayers() const;
     std::vector<int> getWinners() const;
     int getCurrentPlayer() const;

@@ -35,23 +35,24 @@ void GameController::executeCommand(Command command) {
   }
 }
 
-std::vector<Straight> GameController::getStraights() const {
-  return game_->straights_;
+GameBoard GameController::getGameBoard() const {
+  return game_->getGameBoard();
 }
 
 std::vector<Player> GameController::getPlayers() const {
-  return game_->players_;
+  return game_->getPlayers();
 }
 
 std::vector<int> GameController::getWinners() const {
-  int minScore = game_->players_[0].getScore();
-  for (int i = 1; i < PLAYER_COUNT; i++) {
-    minScore = std::min(minScore, game_->players_[i].getScore());
+  std::vector<Player> players = game_->getPlayers();
+  int minScore = players[0].getScore();
+  for (size_t i = 1; i < players.size(); i++) {
+    minScore = std::min(minScore, players[i].getScore());
   }
 
   std::vector<int> winners;
-  for (int i = 0; i < PLAYER_COUNT; i++) {
-    if (minScore == game_->players_[i].getScore()) {
+  for (size_t i = 0; i < players.size(); i++) {
+    if (minScore == players[i].getScore()) {
       winners.push_back(i + 1);
     }
   }
@@ -60,11 +61,11 @@ std::vector<int> GameController::getWinners() const {
 }
 
 int GameController::getCurrentPlayer() const {
-  return game_->currentPlayer_ + 1;
+  return game_->getCurrentPlayer() + 1;
 }
 
 Card GameController::getLastCard() const {
-  return game_->lastCard_;
+  return game_->getLastCard();
 }
 
 std::vector<Card> GameController::getCurrentPlayerCards() const {
@@ -76,9 +77,9 @@ std::vector<Card> GameController::getCurrentPlayerValidCards() const {
 }
 
 std::vector<Card> GameController::getDeck() const {
-  return game_->deck_;
+  return game_->getDeckCards();
 }
 
 Game::GameState GameController::getGameState() const {
-  return game_->gameState_;
+  return game_->getGameState();
 }
