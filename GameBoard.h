@@ -9,17 +9,34 @@
 class Card;
 
 class GameBoard {
-  private:
+  // Represents the played cards in a game of Straights
+  // Specification Fields:
+  //   clubs = clubs played on board
+  //   diamonds = diamonds played on board
+  //   hearts = hearts played on board
+  //   spades = spades played on board
+
     std::vector<Straight> straights_;
 
   public:
     GameBoard();
+    // ensures: initializes this to a GameBoard with no cards played
 
     void resetBoard();
-    bool canPlayCard(Card) const;
-    void playCard(Card);
+    // ensures: resets this to a GameBoard with no cards played
 
-    friend std::ostream& operator<<(std::ostream &, const GameBoard &);
+    bool canPlayCard(Card card) const;
+    // returns: true if card is a valid play on the board
+    //          false if card is not a valid play on the board
+
+    void playCard(Card card);
+    // requires: canPlayCard(card)
+    // ensures: this represents this@pre with card played
+
+    friend std::ostream& operator<<(std::ostream &out, const GameBoard &gameBoard);
+    // modifies: out
+    // ensures: out = out@pre + clubs + \n + diamonds + \n + hearts + spades
+    // returns: out
 };
 
 #endif

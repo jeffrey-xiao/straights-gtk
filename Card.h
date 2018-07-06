@@ -34,6 +34,7 @@ class Card {
   private:
     Suit suit_;
     Rank rank_;
+
 };
 
 bool operator==(const Card &a, const Card &b);
@@ -42,8 +43,8 @@ bool operator==(const Card &a, const Card &b);
 
 //output/input Card in the format <rank><suit>
 std::ostream &operator<<(std::ostream &out, const Card &c);
-// modifies: os
-// ensures: os = os@pre + rankString + suitString
-// returns: os
+// modifies: out
+// ensures: out = out@pre + rankString + suitString
+// returns: out
 
 #endif

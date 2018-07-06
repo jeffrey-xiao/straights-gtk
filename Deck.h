@@ -20,8 +20,12 @@ class Deck {
     std::vector<Card> getHand(int i) const;
     // returns: list of 13 cards storing the i'th player's hand
 
-    void shuffle(int);
+    void shuffle(int seed);
+    // ensures: the order of cards is shuffled
+
     Card& operator[](const int index);
+    // returns: the card at position index in cards
+
   private:
     std::vector<Card> cards_;
 };

@@ -12,6 +12,7 @@ struct Command {
   // Specification Fields:
   //   type = type of command
   //   card = card associated with a command
+
   Type type;
   Card card;
 
@@ -21,7 +22,6 @@ struct Command {
 };
 
 std::istream &operator>>(std::istream &in, Command &c);
-  // TO DO
   // modifies: in, c
   // ensures: in@pre = commandString + cardString (only if commandString = play, disard) + in,
   //          c.type = commandString, c.card = cardString
