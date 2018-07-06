@@ -44,12 +44,14 @@ std::vector<Player> GameController::getPlayers() const {
 }
 
 std::vector<int> GameController::getWinners() const {
+  // find the minimum score among all the players
   std::vector<Player> players = game_->getPlayers();
   int minScore = players[0].getScore();
   for (size_t i = 1; i < players.size(); i++) {
     minScore = std::min(minScore, players[i].getScore());
   }
 
+  // find all players that have the minimum score
   std::vector<int> winners;
   for (size_t i = 0; i < players.size(); i++) {
     if (minScore == players[i].getScore()) {

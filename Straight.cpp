@@ -3,6 +3,8 @@
 
 #include <cassert>
 
+// initialize loRank_ to EIGHT and hiRank_ to SIX to account for the corner cases where no cards
+// have been played for a particular straight.
 Straight::Straight(Suit suit): suit_(suit), loRank_(EIGHT), hiRank_(SIX) {};
 
 bool Straight::canPlayCard(Card card) const {
