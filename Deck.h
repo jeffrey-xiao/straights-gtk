@@ -18,6 +18,7 @@ class Deck {
     // returns: cards
 
     std::vector<Card> getHand(int i) const;
+    // requires: 0 <= i < 4
     // returns: list of 13 cards storing the i'th player's hand
 
     void shuffle(int seed);
