@@ -15,14 +15,18 @@ void Player::setCards(std::vector<Card> cards) {
 }
 
 void Player::playCard(Card card) {
+  // remove the card from hand
   auto iter = std::find(cards_.begin(), cards_.end(), card);
   assert(iter != cards_.end());
   cards_.erase(iter);
 }
 
 void Player::discardCard(Card card) {
+  // remove the card from hand
   auto iter = std::find(cards_.begin(), cards_.end(), card);
   assert(iter != cards_.end());
+
+  // add card to discard pile
   discardedCards_.push_back(*iter);
   cards_.erase(iter);
 }
