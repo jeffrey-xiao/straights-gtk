@@ -42,19 +42,15 @@ void TextUserInterface::update() {
         }
       }
       cout << endl;
-
-      getUserCommand();
       break;
     }
 
     case Game::GameState::INVALID_PLAY_INPUT:
       cout << "This is not a legal play." << endl;
-      getUserCommand();
       break;
 
     case Game::GameState::INVALID_DISCARD_INPUT:
       cout << "You have a legal play. You may not discard." << endl;
-      getUserCommand();
       break;
 
     case Game::GameState::DISCARDED_CARD:
@@ -102,40 +98,43 @@ void TextUserInterface::update() {
   }
 }
 
-void TextUserInterface::getUserCommand() {
-  Command command;
-  std::cout << ">";
-  std::cin >> command;
+void TextUserInterface::startGame() {
+  gameController_->startGame();
 
-  switch (command.type) {
-    case RAGEQUIT:
-      std::cout << "Player " << gameController_->getCurrentPlayer()
-        << " ragequits. A computer will now take over." << std::endl;
-    case PLAY:
-    case DISCARD:
-      gameController_->executeCommand(command);
-      break;
+  while (gameController_->getGameState() != Game::GameState::GAME_END) {
+    Command command;
+    std::cout << ">";
+    std::cin >> command;
 
-    case DECK: {
-      std::vector<Card> deck = gameController_->getDeck();
+    switch (command.type) {
+      case RAGEQUIT:
+        std::cout << "Player " << gameController_->getCurrentPlayer()
+          << " ragequits. A computer will now take over." << std::endl;
 
-      for (size_t i = 0; i < deck.size(); i++) {
-        if ((i + 1) % RANK_COUNT == 0) {
-          std::cout << deck[i] << std::endl;
-        } else {
-          std::cout << deck[i] << " ";
+      case PLAY:
+      case DISCARD:
+        gameController_->executeCommand(command);
+        break;
+
+      case DECK: {
+        std::vector<Card> deck = gameController_->getDeck();
+
+        for (size_t i = 0; i < deck.size(); i++) {
+          if ((i + 1) % RANK_COUNT == 0) {
+            std::cout << deck[i] << std::endl;
+          } else {
+            std::cout << deck[i] << " ";
+          }
         }
+        break;
       }
 
-      getUserCommand();
-      break;
+      case QUIT:
+        return;
+
+      default:
+        assert(false);
     }
-
-    case QUIT:
-      break;
-
-    default:
-      assert(false);
   }
 }
 
