@@ -117,15 +117,18 @@ void TextUserInterface::startGame() {
         break;
 
       case DECK: {
-        std::vector<Card> deck = gameController_->getDeck();
+        Deck deck = gameController_->getDeck();
 
-        for (size_t i = 0; i < deck.size(); i++) {
-          if ((i + 1) % RANK_COUNT == 0) {
-            std::cout << deck[i] << std::endl;
-          } else {
-            std::cout << deck[i] << " ";
+        for (int i = 0; i < SUIT_COUNT; i++) {
+          for (int j = 0; j < RANK_COUNT; j++) {
+            std::cout << deck[i * RANK_COUNT + j];
+            if (j != RANK_COUNT - 1) {
+              std::cout << " ";
+            }
           }
+          std::cout << std::endl;
         }
+
         break;
       }
 

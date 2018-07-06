@@ -62,8 +62,8 @@ Card Game::getLastCard() const {
   return lastCard_;
 }
 
-std::vector<Card> Game::getDeckCards() const {
-  return deck_.getCards();
+Deck Game::getDeck() const {
+  return deck_;
 }
 
 Game::GameState Game::getGameState() const {

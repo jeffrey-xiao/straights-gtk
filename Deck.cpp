@@ -15,10 +15,6 @@ Deck::Deck() {
   }
 }
 
-std::vector<Card> Deck::getCards() const {
-  return cards_;
-}
-
 std::vector<Card> Deck::getHand(int i) const {
   auto first = cards_.begin() + 13 * i;
   auto last = cards_.begin() + 13 * (i + 1);
@@ -33,4 +29,8 @@ void Deck::shuffle(int seed) {
     int k = (int)(rng() % n--);
     std::swap(cards_[k], cards_[n]);
   }
+}
+
+Card& Deck::operator[](const int index) {
+  return cards_[index];
 }

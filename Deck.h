@@ -8,9 +8,9 @@
 class Deck {
   public:
     Deck();
-    std::vector<Card> getCards() const;
     std::vector<Card> getHand(int) const;
     void shuffle(int);
+    Card& operator[](const int index);
   private:
     std::vector<Card> cards_;
 };

@@ -3,7 +3,7 @@
 
 #include <vector>
 
-enum class PlayerType { HUMAN = 0, COMPUTER = 1 };
+enum class PlayerType { HUMAN, COMPUTER };
 
 class Card;
 

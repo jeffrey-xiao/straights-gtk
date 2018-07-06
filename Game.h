@@ -37,7 +37,7 @@ class Game {
     std::vector<Player> getPlayers() const;
     int getCurrentPlayer() const;
     Card getLastCard() const;
-    std::vector<Card> getDeckCards() const;
+    Deck getDeck() const;
     GameState getGameState() const;
 
   private:
