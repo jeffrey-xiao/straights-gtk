@@ -30,7 +30,7 @@ int main(int argc, char** argv) {
   GameController *gameController = new GameController(seed, playerTypes, userInterface);
   userInterface->setGameController(gameController);
 
-  gameController->startGame();
+  userInterface->startGame();
 
   return 0;
 }

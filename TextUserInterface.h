@@ -9,10 +9,10 @@ class TextUserInterface : public Observer {
   public:
     void update() override;
     void setGameController(GameController* gameController);
+    void startGame();
 
   private:
     GameController* gameController_;
-    void getUserCommand();
 };
 
 #endif
