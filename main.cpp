@@ -12,17 +12,17 @@ int main(int argc, char** argv) {
   }
 
   std::vector<PlayerType> playerTypes;
-  playerTypes.reserve(4);
-  for (int i = 0; i < PLAYER_COUNT; i++) {
+  playerTypes.resize(4);
+  for (size_t i = 0; i < playerTypes.size(); i++) {
     std::cout << "Is player " << i + 1 << " a human(h) or a computer(c)?" << std::endl;
     char c;
     std::cout << ">";
     std::cin >> c;
 
     if (c == 'h') {
-      playerTypes.push_back(PlayerType::HUMAN);
+      playerTypes[i] = PlayerType::HUMAN;
     } else {
-      playerTypes.push_back(PlayerType::COMPUTER);
+      playerTypes[i] = PlayerType::COMPUTER;
     }
   }
 
