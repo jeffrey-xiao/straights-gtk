@@ -35,8 +35,8 @@ void GameController::executeCommand(Command command) {
   }
 }
 
-std::vector<Straight> GameController::getStraights() const {
-  return game_->getStraights();
+GameBoard GameController::getGameBoard() const {
+  return game_->getGameBoard();
 }
 
 std::vector<Player> GameController::getPlayers() const {

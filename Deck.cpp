@@ -1,7 +1,7 @@
 #include "Card.h"
 #include "Deck.h"
 
-#include<vector>
+#include <vector>
 #include <random>
 
 const int CARD_COUNT = 52;
@@ -20,8 +20,8 @@ std::vector<Card> Deck::getCards() const {
 }
 
 std::vector<Card> Deck::getHand(int i) const {
-  auto first = cards_.begin() + 13*i;
-  auto last = cards_.begin() + 13*(i+1); 
+  auto first = cards_.begin() + 13 * i;
+  auto last = cards_.begin() + 13 * (i + 1);
   std::vector<Card> hand(first, last);
   return hand;
 }

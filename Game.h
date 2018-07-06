@@ -2,8 +2,8 @@
 #define GAME_H
 
 #include "Card.h"
+#include "GameBoard.h"
 #include "Player.h"
-#include "Straight.h"
 #include "Deck.h"
 
 #include <vector>
@@ -33,7 +33,7 @@ class Game {
     void discardCard(Card);
     void ragequit();
 
-    std::vector<Straight> getStraights() const;
+    GameBoard getGameBoard() const;
     std::vector<Player> getPlayers() const;
     int getCurrentPlayer() const;
     Card getLastCard() const;
@@ -42,7 +42,7 @@ class Game {
 
   private:
     int seed_;
-    std::vector<Straight> straights_;
+    GameBoard gameBoard_;
     std::vector<Player> players_;
     int currentPlayer_;
     Deck deck_;

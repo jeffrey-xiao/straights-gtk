@@ -3,7 +3,6 @@
 #include "Game.h"
 #include "Observer.h"
 #include "Player.h"
-#include "Straight.h"
 #include "Deck.h"
 
 #include <algorithm>
@@ -11,7 +10,6 @@
 #include <vector>
 
 const Card SEVEN_OF_SPADES = Card(SPADE, SEVEN);
-const int STRAIGHT_COUNT = 4;
 const int PLAYER_COUNT = 4;
 const int MAX_SCORE = 80;
 
@@ -21,19 +19,10 @@ Game::Game(int seed, std::vector<PlayerType> playerTypes, Observer *userInterfac
 {
   assert(playerTypes.size() == PLAYER_COUNT);
 
-  // treating vectors like static arrays by reserving space
-  // we opted to use vectors since objects do not have default constructors
   players_.reserve(PLAYER_COUNT);
-  straights_.reserve(STRAIGHT_COUNT);
-
   for (int i = 0; i < PLAYER_COUNT; i++) {
     players_.push_back(Player(playerTypes[i]));
   }
-
-  for (int i = 0; i < STRAIGHT_COUNT; i++) {
-    straights_.push_back(Straight((Suit)i));
-  }
-
 }
 
 std::vector<Card> Game::getCurrentPlayerCards() const {
@@ -49,10 +38,7 @@ std::vector<Card> Game::getCurrentPlayerValidCards() const {
       std::remove_if(
         validCards.begin(),
         validCards.end(),
-        [this](const Card &card) {
-          Suit suit = card.getSuit();
-          return !straights_[suit].canPlayCard(card);
-        }
+        [this](const Card &card) { return !gameBoard_.canPlayCard(card); }
       ),
       validCards.end()
     );
@@ -60,8 +46,8 @@ std::vector<Card> Game::getCurrentPlayerValidCards() const {
   return validCards;
 }
 
-std::vector<Straight> Game::getStraights() const {
-  return straights_;
+GameBoard Game::getGameBoard() const {
+  return gameBoard_;
 }
 
 std::vector<Player> Game::getPlayers() const {
@@ -94,12 +80,11 @@ void Game::setGameState(Game::GameState gameState) {
 }
 
 void Game::playCard(Card card) {
-  Suit suit = card.getSuit();
   std::vector<Card> validCards = getCurrentPlayerValidCards();
   bool isValidMove = std::find(validCards.begin(), validCards.end(), card) != validCards.end();
 
   if (isValidMove) {
-    straights_[suit].playCard(card);
+    gameBoard_.playCard(card);
     players_[currentPlayer_].playCard(card);
     lastCard_ = card;
     setGameState(GameState::PLAYED_CARD);
@@ -145,10 +130,8 @@ void Game::startRound() {
   // shuffle the deck
   deck_.shuffle(seed_);
 
-  // reset straights
-  for (int i = 0; i < SUIT_COUNT; i++) {
-    straights_[i] = Straight((Suit)i);
-  }
+  // reset the game board
+  gameBoard_.resetBoard();
 
   // assign cards
   for (int i = 0; i < PLAYER_COUNT; i++) {

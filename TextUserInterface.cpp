@@ -1,8 +1,5 @@
-#include "Card.h"
 #include "Command.h"
 #include "GameController.h"
-#include "Player.h"
-#include "Straight.h"
 #include "TextUserInterface.h"
 
 #include <cassert>
@@ -21,10 +18,7 @@ void TextUserInterface::update() {
       break;
 
     case Game::GameState::HUMAN_INPUT: {
-      cout << "Cards on the table:" << endl;
-      for (Straight straight : gameController_->getStraights()) {
-        cout << straight << endl;
-      }
+      cout << gameController_->getGameBoard();
 
       vector<Card> cards = gameController_->getCurrentPlayerCards();
       cout << "Your hand: ";

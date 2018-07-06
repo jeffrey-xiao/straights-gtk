@@ -12,7 +12,7 @@ class TextUserInterface : public Observer {
     void setGameController(GameController* gameController);
 
   private:
-    GameController* gameController_;
+    GameController *gameController_;
     void getUserCommand();
 };
 
