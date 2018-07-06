@@ -1,7 +1,6 @@
 test-files/start-quit
 test-files/all-computers
 test-files/single-human 0
-test-files/single-human 1
 test-files/single-human-seeded 999
 test-files/deck-after-moves 0
 test-files/deck-seeded

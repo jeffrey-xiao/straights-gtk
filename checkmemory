@@ -1,0 +1,39 @@
+#!/bin/bash
+
+if [ $# -ne 2 ]; then
+  echo "Usage:  $0 tests program" >&2
+  exit 1
+fi
+
+tests=$1
+prog=$2
+
+if [ ! -r "$tests" ]; then
+  echo "File $tests does not exist or is not readable" >&2
+  exit 1
+fi
+
+if [ ! -x "$prog" ]; then
+  echo "Executable $prog does not exist or is not executable" >&2
+  exit 1
+fi
+
+while read testline; do
+  test=$(echo $testline | awk '{print $1}')
+  seed=$(echo $testline | awk '{print $2}')
+  infile="${test}"
+  echo "TESTING ${test}"
+  outfile=`mktemp`
+  if [ ! -r "$infile" ]; then
+      echo "File $infile does not exist or is not readable" >&2
+      exit 1
+  fi
+
+  if [ -z "$seed" ]; then
+    valgrind --error-exitcode=1 --leak-resolution=low --quiet --leak-check=full \
+      --show-possibly-lost=no ./"$prog" < "$infile" > "$outfile"
+  else
+    valgrind --error-exitcode=1 --leak-resolution=low --quiet --leak-check=full \
+      --show-possibly-lost=no ./"$prog" "$seed" < "$infile" > "$outfile"
+  fi
+done < tests
