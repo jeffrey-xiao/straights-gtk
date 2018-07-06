@@ -42,7 +42,7 @@ class GameController {
     // returns: a list of players that are participating in the game
 
     std::vector<int> getWinners() const;
-    // returns: a list of player id that have the lowest scores in the game
+    // returns: a list of player ids that have the lowest scores in the game
 
     int getCurrentPlayer() const;
     // returns: the id of the current player in the game

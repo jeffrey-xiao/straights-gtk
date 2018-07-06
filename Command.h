@@ -17,13 +17,12 @@ struct Command {
   Card card;
 
   Command(): type(BAD_COMMAND), card(SPADE, ACE) {}
-  // ensures: initializes this to Command with type BAD_COMMAND and
-  //          card Ace of Spades
+  // ensures: initializes this to Command with type BAD_COMMAND and card Ace of Spades
 };
 
 std::istream &operator>>(std::istream &in, Command &c);
   // modifies: in, c
-  // ensures: in@pre = commandString + cardString (only if commandString = play, disard) + in,
+  // ensures: in@pre = commandString + cardString (only if commandString = play, discard) + in,
   //          c.type = commandString, c.card = cardString
   // returns: in
 

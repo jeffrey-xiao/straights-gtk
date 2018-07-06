@@ -35,7 +35,7 @@ class GameBoard {
 
     friend std::ostream& operator<<(std::ostream &out, const GameBoard &gameBoard);
     // modifies: out
-    // ensures: out = out@pre + clubs + \n + diamonds + \n + hearts + spades
+    // ensures: out = out@pre + clubs + \n + diamonds + \n + hearts + \n + spades + \n
     // returns: out
 };
 

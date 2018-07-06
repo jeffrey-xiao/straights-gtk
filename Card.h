@@ -38,8 +38,8 @@ class Card {
 };
 
 bool operator==(const Card &a, const Card &b);
-// returns: true if cards a and b are identical cards
-//          false if cards a and b are different cards
+// returns: true if cards a and b have the same rank and suit
+//          false if cards a and b have different ranks or different suits
 
 //output/input Card in the format <rank><suit>
 std::ostream &operator<<(std::ostream &out, const Card &c);
