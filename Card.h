@@ -5,26 +5,45 @@
 #include <istream>
 
 enum Suit { CLUB, DIAMOND, HEART, SPADE, SUIT_COUNT };
+// enum representing the suit of the card
+
 enum Rank { ACE, TWO, THREE, FOUR, FIVE, SIX, SEVEN,
   EIGHT, NINE, TEN, JACK, QUEEN, KING, RANK_COUNT };
+// enum representing the rank of the card
 
 class Card {
-  friend std::istream &operator>>(std::istream &, Card &);
+  // Represents a Poker card with a rank and a suit
+  // Specification Fields:
+  //   rank = rank of the card
+  //   suit = suit of the card
+  friend std::istream &operator>>(std::istream &in, Card &c);
+  // modifies: in, num
+  // ensures: in@pre = cardString + in, c stores the Card represented by cardString
+  // returns: in
 
   public:
-    Card(Suit, Rank);
+    Card(Suit s, Rank r);
+    // ensures: initializes this to a Card with suit s and rank r
+
     Suit getSuit() const;
+    // returns: suit
+
     Rank getRank() const;
+    // returns: rank
 
   private:
     Suit suit_;
     Rank rank_;
 };
 
-bool operator==(const Card &, const Card &);
+bool operator==(const Card &a, const Card &b);
+// returns: true if cards a and b are identical cards
+//          false if cards a and b are different cards
 
 //output/input Card in the format <rank><suit>
-std::ostream &operator<<(std::ostream &, const Card &);
-
+std::ostream &operator<<(std::ostream &out, const Card &c);
+// modifies: os
+// ensures: os = os@pre + rankString + suitString
+// returns: os
 
 #endif
