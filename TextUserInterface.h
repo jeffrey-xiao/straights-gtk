@@ -10,10 +10,10 @@ class TextUserInterface : public Observer {
     virtual ~TextUserInterface() = default;
     void update() override;
     void setGameController(GameController* gameController);
+    void startGame();
 
   private:
     GameController* gameController_;
-    void getUserCommand();
 };
 
 #endif
