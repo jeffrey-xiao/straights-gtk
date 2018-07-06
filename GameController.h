@@ -20,11 +20,12 @@ class GameController {
 
   public:
     GameController(int seed, std::vector<PlayerType>, Observer *);
-    // ensures: initializes this to a new GameController with a new Game
+    // ensures: initializes this to a new GameController with a new Game, the new Game
+    //          is made using the specified seed, PlayerTypes and Observer
 
     ~GameController();
     // modifies: this
-    // ensures:  this no longer exists; memory is deallocated
+    // ensures:  this no longer exists; owned memory is deallocated
 
     void startGame();
     // modifies: this
