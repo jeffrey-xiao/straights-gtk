@@ -21,8 +21,6 @@ class Deck {
     // returns: list of 13 cards storing the i'th player's hand
 
     void shuffle(int);
-    std::vector<Card> getHand(int) const;
-    void shuffle(int);
     Card& operator[](const int index);
   private:
     std::vector<Card> cards_;
