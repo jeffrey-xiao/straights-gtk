@@ -9,7 +9,7 @@
 # for example: ./checkexpect tests count.exe provided
 
 if [ $# -ne 3 ]; then
-    echo "Usage:  $0 tests program provided [seedarg]" >&2
+    echo "Usage:  $0 tests program provided" >&2
     exit 1
 fi
 
@@ -42,7 +42,6 @@ hr() {
   printf '%s%s%s\n' "$start" "${line:0:cols}" "$end"
 }
 
-cat tests | \
 while read testline; do
     test=$(echo $testline | awk '{print $1}')
     seed=$(echo $testline | awk '{print $2}')
@@ -141,7 +140,7 @@ while read testline; do
     hr
     rm $outfile
     rm $provfile
-done
+done < tests
 
 if [ $passed = 1 ];
     then echo "ALL PASSED"

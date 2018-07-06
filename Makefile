@@ -18,3 +18,12 @@ $(EXEC): $(OBJECTS)
 .PHONY: clean
 clean:
 	rm  -f $(OBJECTS) $(DEPENDS) $(EXEC)
+
+.PHONY: test
+test: $(EXEC)
+	./checkseed tests straights sample_straights
+
+.PHONY: check
+check: $(EXEC)
+	./checkmemory tests straights
+	cppcheck .
