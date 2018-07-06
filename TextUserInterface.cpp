@@ -107,15 +107,16 @@ void TextUserInterface::update() {
 void TextUserInterface::startGame() {
   gameController_->startGame();
 
-  while(gameController_->getGameState() != Game::GameState::GAME_END) {
+  while (gameController_->getGameState() != Game::GameState::GAME_END) {
     Command command;
     std::cout << ">";
     std::cin >> command;
-    
+
     switch (command.type) {
       case RAGEQUIT:
         std::cout << "Player " << gameController_->getCurrentPlayer()
           << " ragequits. A computer will now take over." << std::endl;
+
       case PLAY:
       case DISCARD:
         gameController_->executeCommand(command);
@@ -133,10 +134,10 @@ void TextUserInterface::startGame() {
         }
         break;
       }
-  
+
       case QUIT:
-	return;
-  
+        return;
+
       default:
         assert(false);
     }
