@@ -29,7 +29,7 @@ class GameController {
     Card getLastCard() const;
     std::vector<Card> getCurrentPlayerCards() const;
     std::vector<Card> getCurrentPlayerValidCards() const;
-    std::vector<Card> getDeck() const;
+    Deck getDeck() const;
     Game::GameState getGameState() const;
 };
 

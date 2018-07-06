@@ -76,8 +76,8 @@ std::vector<Card> GameController::getCurrentPlayerValidCards() const {
   return game_->getCurrentPlayerValidCards();
 }
 
-std::vector<Card> GameController::getDeck() const {
-  return game_->getDeckCards();
+Deck GameController::getDeck() const {
+  return game_->getDeck();
 }
 
 Game::GameState GameController::getGameState() const {
