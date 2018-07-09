@@ -1,16 +1,17 @@
 CXX = g++ -std=c++14
 CXXFLAGS = -Wall -O -g -MMD
-GTKFLAGS = `pkg-config gtkmm-3.0 --cflags --libs`
+GTKFLAGS = `pkg-config gtkmm-3.0 --cflags`
+GTKLIBS = `pkg-config gtkmm-3.0 --libs`
 SOURCES = $(wildcard *.cpp)
 OBJECTS = $(SOURCES:.cpp=.o)
 DEPENDS = ${OBJECTS:.o=.d}
 EXEC=straights
 
 $(EXEC): $(OBJECTS)
-	$(CXX) $(CXXFLAGS) $(OBJECTS) -o $(EXEC) $(GTKFLAGS)
+	$(CXX) $(GTKFLAGS) $(CXXFLAGS) $(OBJECTS) -o $(EXEC) $(GTKLIBS)
 
 %.o: %.cpp
-	$(CXX) -c -o $@ $< $(CXXFLAGS) $(GTKFLAGS)
+	$(CXX) -c -o $@ $< $(GTKFLAGS) $(CXXFLAGS) $(GTKLIBS)
 
 -include ${DEPENDS}
 
