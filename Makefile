@@ -1,17 +1,16 @@
 CXX = g++ -std=c++14
 CXXFLAGS = -Wall -O -g -MMD
+GTKFLAGS = `pkg-config gtkmm-3.0 --cflags --libs`
 SOURCES = $(wildcard *.cpp)
 OBJECTS = $(SOURCES:.cpp=.o)
 DEPENDS = ${OBJECTS:.o=.d}
 EXEC=straights
 
-# First target in the makefile is the default target.
-# Note that the LIBFLAGS must come last in the command
 $(EXEC): $(OBJECTS)
-	$(CXX) $(CXXFLAGS) $(OBJECTS) -o $(EXEC)
+	$(CXX) $(CXXFLAGS) $(OBJECTS) -o $(EXEC) $(GTKFLAGS)
 
-%.o: %.cc
-	$(CXX) -c -o $@ $< $(CXXFLAGS) $(LIBFLAGS)
+%.o: %.cpp
+	$(CXX) -c -o $@ $< $(CXXFLAGS) $(GTKFLAGS)
 
 -include ${DEPENDS}
 
