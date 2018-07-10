@@ -26,7 +26,7 @@ void GraphicalUserInterface::setGameController(GameController *gameController) {
 }
 
 void GraphicalUserInterface::on_activate() {
-  auto straightsWindow = new StraightsWindow();
+  auto straightsWindow = new StraightsWindow(this);
   add_window(*straightsWindow);
   straightsWindow->signal_hide().connect(sigc::bind<Gtk::Window*>(sigc::mem_fun(*this, &GraphicalUserInterface::on_hide_window), straightsWindow));
   straightsWindow->present();
