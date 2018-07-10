@@ -18,7 +18,7 @@ class TextUserInterface : public Observer {
     // modifies: cout
     // ensures: cout is updated in response to changes in the game
 
-    void setGameController(GameController* gameController);
+    void setGameController(GameController *gameController);
     // requires: gameController points to a valid GameController
     // ensures: controller = gameController
 

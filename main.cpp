@@ -1,6 +1,6 @@
 #include "GameController.h"
 #include "Player.h"
-#include "TextUserInterface.h"
+#include "GraphicalUserInterface.h"
 
 #include <iostream>
 #include <vector>
@@ -26,10 +26,9 @@ int main(int argc, char** argv) {
     }
   }
 
-  TextUserInterface *userInterface = new TextUserInterface();
+  GraphicalUserInterface *userInterface = new GraphicalUserInterface();
   GameController *gameController = new GameController(seed, playerTypes, userInterface);
   userInterface->setGameController(gameController);
-
   userInterface->startGame();
 
   delete userInterface;
