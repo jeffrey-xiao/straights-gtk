@@ -36,4 +36,6 @@ while read testline; do
     valgrind --error-exitcode=1 --leak-resolution=low --quiet --leak-check=full \
       --show-possibly-lost=no ./"$prog" "$seed" < "$infile" > "$outfile"
   fi
-done < tests
+done < "$tests"
+
+echo -e "Passed Memory Checks\n"

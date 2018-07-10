@@ -21,9 +21,9 @@ clean:
 
 .PHONY: test
 test: $(EXEC)
-	./checkseed tests straights sample_straights
+	./checkseed tests/tests-config straights sample_straights
 
 .PHONY: check
 check: $(EXEC)
-	./checkmemory tests straights
+	./checkmemory tests/tests-config straights
 	cppcheck .

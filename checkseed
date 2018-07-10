@@ -1,11 +1,11 @@
 #!/bin/bash
 # Usage:  checkexpect tests program provided
-#  where program is your program's executable, provided is the given 
+#  where program is your program's executable, provided is the given
 #  executable, and tests is a text file containing entries of the form
 #    testName1
 #    testName2...
 #  and for each such testName, file testName.in is supplied
-# 
+#
 # for example: ./checkexpect tests count.exe provided
 
 if [ $# -ne 3 ]; then
@@ -140,9 +140,9 @@ while read testline; do
     hr
     rm $outfile
     rm $provfile
-done < tests
+done < "$tests"
 
 if [ $passed = 1 ];
-    then echo "ALL PASSED"
-    else echo "FAILED $failed OF $total"
+    then echo -e "Passed Integration Tests\n"
+    else echo -e "Failed $failed of $total\n"
 fi

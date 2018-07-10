@@ -1,0 +1,8 @@
+tests/start-quit
+tests/all-computers
+tests/single-human 0
+tests/single-human-seeded 999
+tests/deck-after-moves 0
+tests/deck-seeded
+tests/humans-to-completion 0
+tests/half-half-ragequit 0
