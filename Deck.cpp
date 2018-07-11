@@ -4,10 +4,8 @@
 #include <vector>
 #include <random>
 
-const int CARD_COUNT = 52;
-
 Deck::Deck() {
-  cards_.reserve(CARD_COUNT);
+  cards_.reserve(SUIT_COUNT * RANK_COUNT);
   for (int i = 0; i < SUIT_COUNT; i++) {
     for (int j = 0; j < RANK_COUNT; j++) {
       cards_.push_back(Card((Suit)i, (Rank)j));
@@ -24,7 +22,7 @@ std::vector<Card> Deck::getHand(int i) const {
 
 void Deck::shuffle(int seed) {
   static std::mt19937 rng(seed);
-  int n = CARD_COUNT;
+  int n = SUIT_COUNT * RANK_COUNT;
   while (n > 1) {
     int k = (int)(rng() % n--);
     std::swap(cards_[k], cards_[n]);

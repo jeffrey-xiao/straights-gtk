@@ -7,7 +7,6 @@
 const std::string CARD_IMG_PREFIX = "./img/";
 const std::string CARD_IMG_SUFFIX = ".png";
 const std::string NOTHING_IMG = CARD_IMG_PREFIX + "nothing.png";
-const Card SEVEN_OF_SPADES = Card(SPADE, SEVEN);
 
 CardButton::CardButton(HandFrame* handFrame): handFrame_(handFrame), card_(SEVEN_OF_SPADES),
   image_(Gtk::Image(NOTHING_IMG))

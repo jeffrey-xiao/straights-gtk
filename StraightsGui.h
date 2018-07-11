@@ -26,7 +26,7 @@ class StraightsGui : public Gtk::Application, public Observer {
     bool isRunning_;
     GameController *gameController_;
     StraightsWindow window_;
-    std::array<Gtk::CheckButton*, 4> playerTypeButtons_;
+    std::array<Gtk::CheckButton*, PLAYER_COUNT> playerTypeButtons_;
 
     void openPlayerTypesDialog();
 };
