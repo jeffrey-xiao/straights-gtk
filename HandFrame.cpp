@@ -1,11 +1,13 @@
+#include "Card.h"
 #include "HandFrame.h"
 
 #include <gtkmm/button.h>
 
-const int HAND_SIZE = 13;
 
-HandFrame::HandFrame(): Gtk::Frame("Hand Frame") {
-  hand_.resize(HAND_SIZE);
+HandFrame::HandFrame(StraightsGuiComponent *parent): Gtk::Frame("Hand Frame"),
+  StraightsGuiComponent(parent)
+{
+  hand_.resize(RANK_COUNT);
 
   add(contents_);
   for(Gtk::Button &c : hand_) {

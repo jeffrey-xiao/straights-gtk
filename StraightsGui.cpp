@@ -1,13 +1,14 @@
+#include "Command.h"
 #include "GameController.h"
-#include "GraphicalUserInterface.h"
+#include "StraightsGui.h"
 #include "StraightsWindow.h"
 
 #include <gtkmm/main.h>
 #include <gtkmm/applicationwindow.h>
 
-GraphicalUserInterface::GraphicalUserInterface(): window_(this) {}
+StraightsGui::StraightsGui(): window_(this) {}
 
-void GraphicalUserInterface::update() {
+void StraightsGui::update() {
   Game::GameState gameState = gameController_->getGameState();
 
   switch (gameState) {
@@ -17,15 +18,19 @@ void GraphicalUserInterface::update() {
   }
 }
 
-void GraphicalUserInterface::startGame() {
+void StraightsGui::notify(Command command) {
+  gameController_->executeCommand(command);
+}
+
+void StraightsGui::startGame() {
   gameController_->startGame();
 }
 
-void GraphicalUserInterface::setGameController(GameController *gameController) {
+void StraightsGui::setGameController(GameController *gameController) {
   gameController_ = gameController;
 }
 
-void GraphicalUserInterface::on_activate() {
+void StraightsGui::on_activate() {
   add_window(window_);
   window_.present();
 }

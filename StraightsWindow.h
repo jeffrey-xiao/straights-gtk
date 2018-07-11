@@ -2,22 +2,21 @@
 #define STRAIGHTS_WINDOW_H
 
 #include "BoardFrame.h"
+#include "HandFrame.h"
 #include "MenuFrame.h"
 #include "PlayerFrame.h"
-#include "HandFrame.h"
+#include "StraightsGuiComponent.h"
 
 #include <gtkmm/applicationwindow.h>
 #include <vector>
 
 class GraphicalUserInterface;
 
-class StraightsWindow : public Gtk::ApplicationWindow {
+class StraightsWindow : public Gtk::ApplicationWindow, public StraightsGuiComponent {
   public:
-    explicit StraightsWindow(GraphicalUserInterface *);
+    explicit StraightsWindow(StraightsGuiComponent *);
 
   private:
-    GraphicalUserInterface *parent_;
-
     Gtk::VBox contents_;
     BoardFrame boardFrame_;
     MenuFrame menuFrame_;

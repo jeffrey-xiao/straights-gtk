@@ -1,7 +1,9 @@
 #include "MenuFrame.h"
+#include "StraightsGuiComponent.h"
 
-MenuFrame::MenuFrame(): Gtk::Frame("Menu Frame"), newGameButton_("New Game With Seed:"),
-  quitButton_("Quit Game"), rageButton_("Rage")
+MenuFrame::MenuFrame(StraightsGuiComponent *parent): Gtk::Frame("Menu Frame"),
+  StraightsGuiComponent(parent), newGameButton_("New Game With Seed:"), quitButton_("Quit Game"),
+  rageButton_("Rage")
 {
   add(contents_);
   contents_.pack_start(newGameButton_);

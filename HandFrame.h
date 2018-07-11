@@ -2,15 +2,16 @@
 #define HAND_FRAME_H
 
 #include "CardButton.h"
+#include "StraightsGuiComponent.h"
 
 #include <gtkmm/box.h>
 #include <gtkmm/frame.h>
 
 #include <vector>
 
-class HandFrame : public Gtk::Frame {
+class HandFrame : public Gtk::Frame, public StraightsGuiComponent {
   public:
-    HandFrame();
+    explicit HandFrame(StraightsGuiComponent *);
 
   private:
     Gtk::Box contents_;

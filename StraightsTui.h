@@ -5,13 +5,13 @@
 
 class GameController;
 
-class TextUserInterface : public Observer {
+class StraightsTui : public Observer {
   // A terminal UI for a game of Straights
   // Specification Fields:
   //   game = representation for the game of straights
   //   controller = object that handles communication to the game
   public:
-    virtual ~TextUserInterface() = default;
+    virtual ~StraightsTui() = default;
     // ensures: this no longer exists; owned memory is deallocated
 
     void update() override;

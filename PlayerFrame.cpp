@@ -1,6 +1,9 @@
 #include "PlayerFrame.h"
+#include "StraightsGuiComponent.h"
 
-PlayerFrame::PlayerFrame(std::string name): Gtk::Frame(name) {
+PlayerFrame::PlayerFrame(StraightsGuiComponent *parent, std::string name): Gtk::Frame(name),
+  StraightsGuiComponent(parent)
+{
   add(contents_);
   contents_.pack_start(pointsLabel_);
   contents_.pack_start(discardsLabel_);

@@ -5,16 +5,19 @@
 
 #include "Observer.h"
 #include "StraightsWindow.h"
+#include "StraightsGuiComponent.h"
 
+class Command;
 class GameController;
 class StraightsWindow;
 
-class GraphicalUserInterface : public Gtk::Application, public Observer {
+class StraightsGui : public Gtk::Application, public Observer, public StraightsGuiComponent {
   public:
-    GraphicalUserInterface();
-    virtual ~GraphicalUserInterface() = default;
+    StraightsGui();
+    virtual ~StraightsGui() = default;
 
     void update() override;
+    void notify(Command);
     void setGameController(GameController *gameController);
     void startGame();
 

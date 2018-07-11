@@ -2,15 +2,16 @@
 #define DECK_FRAME_H
 
 #include "Card.h"
+#include "StraightsGuiComponent.h"
 
 #include <array>
 #include <gtkmm/box.h>
 #include <gtkmm/image.h>
 #include <gtkmm/frame.h>
 
-class BoardFrame : public Gtk::Frame {
+class BoardFrame : public Gtk::Frame, public StraightsGuiComponent {
   public:
-    BoardFrame();
+    explicit BoardFrame(StraightsGuiComponent *);
 
   private:
     Gtk::VBox contents_;

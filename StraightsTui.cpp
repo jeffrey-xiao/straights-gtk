@@ -1,12 +1,12 @@
 #include "Command.h"
 #include "GameController.h"
-#include "TextUserInterface.h"
+#include "StraightsTui.h"
 
 #include <cassert>
 #include <iostream>
 #include <vector>
 
-void TextUserInterface::update() {
+void StraightsTui::update() {
   using namespace std;
 
   Game::GameState gameState = gameController_->getGameState();
@@ -107,7 +107,7 @@ void TextUserInterface::update() {
   }
 }
 
-void TextUserInterface::startGame() {
+void StraightsTui::startGame() {
   gameController_->startGame();
 
   // While the game is still in progress, read in user commands
@@ -155,6 +155,6 @@ void TextUserInterface::startGame() {
   }
 }
 
-void TextUserInterface::setGameController(GameController *gameController) {
+void StraightsTui::setGameController(GameController *gameController) {
   gameController_ = gameController;
 }

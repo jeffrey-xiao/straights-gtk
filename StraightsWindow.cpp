@@ -1,6 +1,9 @@
 #include "StraightsWindow.h"
+#include "StraightsGuiComponent.h"
 
-StraightsWindow::StraightsWindow(GraphicalUserInterface *parent): parent_(parent) {
+StraightsWindow::StraightsWindow(StraightsGuiComponent *parent): StraightsGuiComponent(parent),
+  boardFrame_(this), menuFrame_(this), handFrame_(this)
+{
   set_title("Straights");
   set_default_size(400, 400);
 
@@ -11,7 +14,7 @@ StraightsWindow::StraightsWindow(GraphicalUserInterface *parent): parent_(parent
   contents_.pack_start(playerContents_);
   playerFrames_.reserve(4);
   for (size_t i = 0; i < 4; i++) {
-    playerFrames_.push_back("Player " + std::to_string(i + 1));
+    playerFrames_.push_back(PlayerFrame(this, "Player " + std::to_string(i + 1)));
     playerContents_.pack_start(playerFrames_[i]);
   }
 
