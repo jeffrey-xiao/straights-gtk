@@ -26,4 +26,4 @@ test: $(EXEC)
 .PHONY: check
 check: $(EXEC)
 	./checkmemory tests/tests-config straights
-	cppcheck .
+	cppcheck . --enable=all --quiet --inconclusive

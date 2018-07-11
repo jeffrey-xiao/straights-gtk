@@ -10,7 +10,7 @@ std::vector<Card> Player::getCards() const {
   return cards_;
 }
 
-void Player::setCards(std::vector<Card> cards) {
+void Player::setCards(const std::vector<Card> &cards) {
   cards_ = cards;
 }
 
@@ -63,6 +63,7 @@ void Player::updateScore() {
   discardedCards_.clear();
 }
 
-void Player::resetScore() {
+void Player::reset() {
   score_ = 0;
+  discardedCards_.clear();
 }

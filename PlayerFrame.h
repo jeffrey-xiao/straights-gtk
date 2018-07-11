@@ -12,7 +12,7 @@ class GameController;
 
 class PlayerFrame : public Gtk::Frame {
   public:
-    explicit PlayerFrame(std::string);
+    explicit PlayerFrame(const std::string&);
     virtual ~PlayerFrame() = default;
 
     void setFocus(bool);
