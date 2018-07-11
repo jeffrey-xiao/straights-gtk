@@ -11,5 +11,6 @@ HandFrame::HandFrame(): Gtk::Frame("Hand Frame") {
   for(Gtk::Button &c : hand_) {
     contents_.pack_start(c);
   }
+  contents_.set_spacing(10);
   show_all_children();
 }
