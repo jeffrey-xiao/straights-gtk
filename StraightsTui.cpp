@@ -19,7 +19,7 @@ void StraightsTui::update() {
   switch (gameState) {
     // Notify the user that a round is starting
     case Game::GameState::ROUND_START:
-      cout << "A new round begins. It's player " << gameController_->getCurrentPlayer()
+      cout << "A new round begins. It's player " << gameController_->getCurrentPlayerId()
         << "'s turn to play." << endl;
       break;
 
@@ -64,13 +64,13 @@ void StraightsTui::update() {
 
     // Notify the user that a player has discarded a card
     case Game::GameState::DISCARDED_CARD:
-      cout << "Player " << gameController_->getCurrentPlayer() << " discards "
+      cout << "Player " << gameController_->getCurrentPlayerId() << " discards "
         << gameController_->getLastCard() << "." << endl;
       break;
 
     // Notify the user that a player has played a card
     case Game::GameState::PLAYED_CARD:
-      cout << "Player " << gameController_->getCurrentPlayer() << " plays "
+      cout << "Player " << gameController_->getCurrentPlayerId() << " plays "
         << gameController_->getLastCard() << "." << endl;
       break;
 
@@ -123,7 +123,7 @@ void StraightsTui::startGame() {
     switch (command.type) {
       // Set the current player to be controlled by the computer
       case RAGEQUIT:
-        std::cout << "Player " << gameController_->getCurrentPlayer()
+        std::cout << "Player " << gameController_->getCurrentPlayerId()
           << " ragequits. A computer will now take over." << std::endl;
 
       // Tell the game to play/discard a card

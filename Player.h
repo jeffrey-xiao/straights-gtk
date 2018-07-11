@@ -10,19 +10,21 @@ class Card;
 class Player {
   // Represents a player in a game of Straights
   // Specification Fields:
+  //   id = the players id in the game
   //   score = the players score in the game
   //   hand = the cards in the players hand, hand size is less than or equal to 13
   //   discarded = the cards the player has discarded in the round
   //   type = the type of player (Computer, Human)
 
   private:
+    int id_;
     std::vector<Card> cards_, discardedCards_;
     int score_;
     PlayerType type_;
 
   public:
-    explicit Player(PlayerType type);
-    // ensures: initializes this to a Player with the specified type
+    Player(int i, PlayerType type);
+    // ensures: initializes this to a Player with the specified id and type
     //          with score = 0, hand = empty, discarded = empty
 
     std::vector<Card> getCards() const;
@@ -45,6 +47,9 @@ class Player {
 
     PlayerType getPlayerType() const;
     // returns: type
+
+    int getId() const;
+    // returns: id
 
     void setPlayerType(PlayerType type);
     // ensures: type is set to the specified type

@@ -16,11 +16,13 @@ class HandFrame : public Gtk::Frame, public Observer {
     explicit HandFrame(GameController *);
     virtual ~HandFrame() = default;
     void update() override;
+    void executeCommand(Card);
 
   private:
     GameController *gameController_;
     Gtk::Box contents_;
     std::vector<CardButton> hand_;
+    bool isDiscard_;
 };
 
 #endif

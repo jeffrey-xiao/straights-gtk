@@ -1,9 +1,13 @@
 #include "GameController.h"
+#include "Player.h"
 #include "StraightsWindow.h"
+
+#include <vector>
 
 StraightsWindow::StraightsWindow(GameController *gameController): gameController_(gameController),
   boardFrame_(gameController), menuFrame_(gameController), handFrame_(gameController)
 {
+  gameController->addObserver(this);
   set_title("Straights");
   set_default_size(400, 400);
 
@@ -30,5 +34,10 @@ StraightsWindow::~StraightsWindow() {
 }
 
 void StraightsWindow::update() {
+  std::vector<Player> players = gameController_->getPlayers();
 
+  for(size_t i = 0; i < players.size(); i++) {
+    playerFrames_[i]->setPoints(players[i].getScore());
+    playerFrames_[i]->setDiscards(players[i].getDiscardedCards().size());
+  }
 }

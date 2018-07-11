@@ -6,13 +6,17 @@
 #include <gtkmm/image.h>
 #include <gtkmm/button.h>
 
+class HandFrame;
+
 class CardButton : public Gtk::Button {
   public:
-    CardButton();
+    CardButton(HandFrame *);
     void setCard(Card card);
     void reset();
+    void on_clicked() override;
 
   private:
+    HandFrame *handFrame_;
     Card card_;
     Gtk::Image image_;
 };

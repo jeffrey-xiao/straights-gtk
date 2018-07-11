@@ -1,7 +1,7 @@
 #ifndef SUBJECT_H
 #define SUBJECT_H
 
-#include <unordered_set>
+#include <vector>
 
 class Observer;
 
@@ -11,7 +11,7 @@ class Subject {
   protected:
     void notify();
   private:
-    std::unordered_set<Observer *> observers_;
+    std::vector<Observer *> observers_;
 };
 
 #endif

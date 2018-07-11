@@ -67,7 +67,7 @@ class Game : public Subject {
     void ragequit();
     // modifies: this
     // ensures: the current player changed to a computer player
-    
+
     void quit();
     // modifies: this
     // ensures: the game is terminated
@@ -78,7 +78,7 @@ class Game : public Subject {
     std::vector<Player> getPlayers() const;
     // returns: a list of players that are participating in the game
 
-    int getCurrentPlayer() const;
+    Player getCurrentPlayer() const;
     // returns: the id of the current player in the game
 
     Card getLastCard() const;

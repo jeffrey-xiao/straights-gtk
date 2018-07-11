@@ -45,7 +45,7 @@ class GameController : public Subject {
     std::vector<int> getWinners() const;
     // returns: a list of player ids that have the lowest scores in the game
 
-    int getCurrentPlayer() const;
+    int getCurrentPlayerId() const;
     // returns: the id of the current player in the game
 
     Card getLastCard() const;
@@ -63,7 +63,7 @@ class GameController : public Subject {
 
     Game::GameState getGameState() const;
     // returns: the state of the game
-    
+
     void addObserver(Observer *);
 };
 

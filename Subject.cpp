@@ -1,10 +1,10 @@
 #include "Observer.h"
 #include "Subject.h"
 
-#include <unordered_set>
+#include <vector>
 
 void Subject::addObserver(Observer *observer) {
-  observers_.insert(observer);
+  observers_.push_back(observer);
 }
 
 void Subject::notify() {

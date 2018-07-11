@@ -21,7 +21,7 @@ Game::Game(int seed, std::vector<PlayerType> playerTypes):
 
   players_.reserve(PLAYER_COUNT);
   for (int i = 0; i < PLAYER_COUNT; i++) {
-    players_.push_back(Player(playerTypes[i]));
+    players_.push_back(Player(i, playerTypes[i]));
   }
 }
 
@@ -60,8 +60,8 @@ std::vector<Player> Game::getPlayers() const {
   return players_;
 }
 
-int Game::getCurrentPlayer() const {
-  return currentPlayer_;
+Player Game::getCurrentPlayer() const {
+  return players_[currentPlayer_];
 }
 
 Card Game::getLastCard() const {

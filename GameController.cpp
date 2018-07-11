@@ -66,8 +66,8 @@ std::vector<int> GameController::getWinners() const {
   return winners;
 }
 
-int GameController::getCurrentPlayer() const {
-  return game_->getCurrentPlayer() + 1;
+int GameController::getCurrentPlayerId() const {
+  return game_->getCurrentPlayer().getId() + 1;
 }
 
 Card GameController::getLastCard() const {
