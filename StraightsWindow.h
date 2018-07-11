@@ -13,10 +13,10 @@ class GraphicalUserInterface;
 
 class StraightsWindow : public Gtk::ApplicationWindow {
   public:
-    StraightsWindow(GraphicalUserInterface *);
+    explicit StraightsWindow(GraphicalUserInterface *);
 
   private:
-    GraphicalUserInterface *root_;
+    GraphicalUserInterface *parent_;
 
     Gtk::VBox contents_;
     BoardFrame boardFrame_;

@@ -21,7 +21,7 @@ class Player {
     PlayerType type_;
 
   public:
-    Player(PlayerType type);
+    explicit Player(PlayerType type);
     // ensures: initializes this to a Player with the specified type
     //          with score = 0, hand = empty, discarded = empty
 

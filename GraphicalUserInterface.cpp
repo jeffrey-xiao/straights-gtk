@@ -5,7 +5,7 @@
 #include <gtkmm/main.h>
 #include <gtkmm/applicationwindow.h>
 
-GraphicalUserInterface::GraphicalUserInterface() : Gtk::Application() {}
+GraphicalUserInterface::GraphicalUserInterface(): window_(this) {}
 
 void GraphicalUserInterface::update() {
   Game::GameState gameState = gameController_->getGameState();
@@ -26,12 +26,6 @@ void GraphicalUserInterface::setGameController(GameController *gameController) {
 }
 
 void GraphicalUserInterface::on_activate() {
-  auto straightsWindow = new StraightsWindow(this);
-  add_window(*straightsWindow);
-  straightsWindow->signal_hide().connect(sigc::bind<Gtk::Window*>(sigc::mem_fun(*this, &GraphicalUserInterface::on_hide_window), straightsWindow));
-  straightsWindow->present();
-}
-
-void GraphicalUserInterface::on_hide_window(Gtk::Window* window) {
-  delete window;
+  add_window(window_);
+  window_.present();
 }

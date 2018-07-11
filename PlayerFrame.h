@@ -8,14 +8,13 @@
 
 class PlayerFrame : public Gtk::Frame {
   public:
-    PlayerFrame(std::string);
+    explicit PlayerFrame(std::string);
 
     void setPoints(int);
     void setDiscards(int);
 
   private:
     Gtk::VBox contents_;
-    Gtk::Button rageButton_;
     Gtk::Label pointsLabel_, discardsLabel_;
 };
 

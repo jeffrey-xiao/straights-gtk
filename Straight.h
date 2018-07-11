@@ -13,7 +13,7 @@ class Straight {
     Rank loRank_, hiRank_;
 
   public:
-    Straight(Suit);
+    explicit Straight(Suit);
     // ensures: initializes this to an empty straight with the specified suit,
 
     bool canPlayCard(Card card) const;

@@ -12,7 +12,7 @@ class MenuFrame : public Gtk::Frame {
 
   private:
     Gtk::Box contents_;
-    Gtk::Button newGameButton_, quitButton_;
+    Gtk::Button newGameButton_, quitButton_, rageButton_;
     Gtk::Entry seedEntry_;
 };
 

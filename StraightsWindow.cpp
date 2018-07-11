@@ -1,6 +1,6 @@
 #include "StraightsWindow.h"
 
-StraightsWindow::StraightsWindow(GraphicalUserInterface *root): root_(root) {
+StraightsWindow::StraightsWindow(GraphicalUserInterface *parent): parent_(parent) {
   set_title("Straights");
   set_default_size(400, 400);
 
@@ -11,7 +11,7 @@ StraightsWindow::StraightsWindow(GraphicalUserInterface *root): root_(root) {
   contents_.pack_start(playerContents_);
   playerFrames_.reserve(4);
   for (size_t i = 0; i < 4; i++) {
-    playerFrames_.push_back("Player " + std::to_string(i));
+    playerFrames_.push_back("Player " + std::to_string(i + 1));
     playerContents_.pack_start(playerFrames_[i]);
   }
 

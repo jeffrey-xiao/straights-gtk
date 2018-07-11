@@ -4,6 +4,7 @@
 #include <gtkmm/window.h>
 
 #include "Observer.h"
+#include "StraightsWindow.h"
 
 class GameController;
 class StraightsWindow;
@@ -22,7 +23,7 @@ class GraphicalUserInterface : public Gtk::Application, public Observer {
 
   private:
     GameController *gameController_;
-    void on_hide_window(Gtk::Window* window);
+    StraightsWindow window_;
 };
 
 #endif
