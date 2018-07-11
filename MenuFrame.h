@@ -1,8 +1,8 @@
 #ifndef MENU_FRAME_H
 #define MENU_FRAME_H
 
-#include <gtkmm/button.h>
 #include <gtkmm/box.h>
+#include <gtkmm/button.h>
 #include <gtkmm/entry.h>
 #include <gtkmm/frame.h>
 

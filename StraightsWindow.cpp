@@ -15,5 +15,7 @@ StraightsWindow::StraightsWindow(GraphicalUserInterface *root): root_(root) {
     playerContents_.pack_start(playerFrames_[i]);
   }
 
+  contents_.pack_start(handFrame_);
+
   show_all_children();
 }

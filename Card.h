@@ -31,6 +31,9 @@ class Card {
     Rank getRank() const;
     // returns: rank
 
+    std::string getString() const;
+    // returns: string representation of Card (rankString + suitString)
+
   private:
     Suit suit_;
     Rank rank_;
