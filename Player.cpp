@@ -4,7 +4,7 @@
 #include <algorithm>
 #include <cassert>
 
-Player::Player(int id, PlayerType type): id_(id), cards_(), discardedCards_(), score_(0), type_(type) {}
+Player::Player(int id): id_(id), cards_(), discardedCards_(), score_(0), type_(PlayerType::COMPUTER) {}
 
 std::vector<Card> Player::getCards() const {
   return cards_;
@@ -61,4 +61,8 @@ int Player::getRoundScore() const {
 void Player::updateScore() {
   score_ += getRoundScore();
   discardedCards_.clear();
+}
+
+void Player::resetScore() {
+  score_ = 0;
 }

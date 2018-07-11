@@ -23,6 +23,7 @@ class MenuFrame : public Gtk::Frame, public Observer {
     Gtk::Button newGameButton_, quitButton_, rageButton_;
     Gtk::Entry seedEntry_;
 
+    void onNewGameButtonClick();
     void onRageButtonClick();
     void onQuitButtonClick();
 };

@@ -5,15 +5,18 @@
 #include <algorithm>
 #include <cassert>
 
-GameController::GameController(int seed, std::vector<PlayerType> playerTypes):
-  game_(new Game(seed, playerTypes)) {}
+GameController::GameController(int seed): game_(new Game(seed)) {}
 
 GameController::~GameController() {
   delete game_;
 }
 
-void GameController::startGame() {
-  game_->startRound();
+void GameController::initGame() {
+  game_->initGame();
+}
+
+void GameController::startGame(std::vector<PlayerType> playerTypes) {
+  game_->startGame(playerTypes);
 }
 
 void GameController::executeCommand(Command command) {
@@ -47,7 +50,7 @@ std::vector<Player> GameController::getPlayers() const {
   return game_->getPlayers();
 }
 
-std::vector<int> GameController::getWinners() const {
+std::vector<Player> GameController::getWinners() const {
   // find the minimum score among all the players
   std::vector<Player> players = game_->getPlayers();
   int minScore = players[0].getScore();
@@ -56,10 +59,10 @@ std::vector<int> GameController::getWinners() const {
   }
 
   // find all players that have the minimum score
-  std::vector<int> winners;
+  std::vector<Player> winners;
   for (size_t i = 0; i < players.size(); i++) {
     if (minScore == players[i].getScore()) {
-      winners.push_back(i + 1);
+      winners.push_back(players[i]);
     }
   }
 
@@ -67,7 +70,7 @@ std::vector<int> GameController::getWinners() const {
 }
 
 int GameController::getCurrentPlayerId() const {
-  return game_->getCurrentPlayer().getId() + 1;
+  return game_->getCurrentPlayer().getId();
 }
 
 Card GameController::getLastCard() const {
@@ -92,4 +95,8 @@ Game::GameState GameController::getGameState() const {
 
 void GameController::addObserver(Observer *observer) {
   game_->addObserver(observer);
+}
+
+void GameController::setSeed(int seed) {
+  game_->setSeed(seed);
 }

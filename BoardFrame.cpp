@@ -1,4 +1,3 @@
-#include <iostream>
 #include "BoardFrame.h"
 #include "Card.h"
 #include "Game.h"

@@ -79,7 +79,7 @@ void StraightsTui::update() {
       vector<Player> players = gameController_->getPlayers();
       for (size_t i = 0; i < players.size(); i++) {
         vector<Card> discards = players[i].getDiscardedCards();
-        cout << "Player " << i + 1 << "'s discards:";
+        cout << "Player " << players[i].getId() << "'s discards:";
         if (!discards.empty()) {
           cout << " ";
         }
@@ -93,7 +93,7 @@ void StraightsTui::update() {
 
         int score = players[i].getScore();
         int roundScore = players[i].getRoundScore();
-        cout << "Player " << i + 1 << "'s score: " << score << " + " << roundScore << " = "
+        cout << "Player " << players[i].getId() << "'s score: " << score << " + " << roundScore << " = "
           << score + roundScore << endl;
       }
       break;
@@ -101,8 +101,8 @@ void StraightsTui::update() {
 
     // Notify the user that the game has ended and print results
     case Game::GameState::GAME_END:
-      for (int winner : gameController_->getWinners()) {
-        cout << "Player " << winner << " wins!" << endl;
+      for (Player winner : gameController_->getWinners()) {
+        cout << "Player " << winner.getId() << " wins!" << endl;
       }
       break;
 
@@ -111,6 +111,7 @@ void StraightsTui::update() {
   }
 }
 
+/*
 void StraightsTui::startGame() {
   gameController_->startGame();
 
@@ -158,7 +159,4 @@ void StraightsTui::startGame() {
     }
   }
 }
-
-void StraightsTui::setGameController(GameController *gameController) {
-  gameController_ = gameController;
-}
+*/

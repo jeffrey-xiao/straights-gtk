@@ -20,15 +20,19 @@ class GameController : public Subject {
     Game *game_;
 
   public:
-    GameController(int seed, std::vector<PlayerType>);
+    explicit GameController(int seed);
     // ensures: initializes this to a new GameController with a new Game, the new Game
-    //          is made using the specified seed and PlayerTypes
+    //          is made using the specified seed
 
     ~GameController();
     // modifies: this
     // ensures:  this no longer exists; owned memory is deallocated
 
-    void startGame();
+    void initGame();
+    // modifies: this
+    // ensures: the game is prepared to start and all observers are notified
+    
+    void startGame(std::vector<PlayerType>);
     // modifies: this
     // ensures: the game is started
 
@@ -42,8 +46,8 @@ class GameController : public Subject {
     std::vector<Player> getPlayers() const;
     // returns: a list of players that are participating in the game
 
-    std::vector<int> getWinners() const;
-    // returns: a list of player ids that have the lowest scores in the game
+    std::vector<Player> getWinners() const;
+    // returns: a list of players that have the lowest scores in the game
 
     int getCurrentPlayerId() const;
     // returns: the id of the current player in the game
@@ -65,6 +69,12 @@ class GameController : public Subject {
     // returns: the state of the game
 
     void addObserver(Observer *);
+    // modifies: this
+    // ensures: adds an observer to the game
+
+    void setSeed(int);
+    // modifies: this
+    // ensures: sets the seed of the game
 };
 
 #endif

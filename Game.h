@@ -25,6 +25,7 @@ class Game : public Subject {
   //   GAME_END: Represents that the game has ended
   public:
     enum class GameState {
+      GAME_START,
       ROUND_START,
       HUMAN_INPUT,
       INVALID_PLAY_INPUT,
@@ -35,7 +36,7 @@ class Game : public Subject {
       GAME_END,
       GAME_QUIT,
     };
-    Game(int, std::vector<PlayerType>);
+    explicit Game(int);
     // ensures: initializes this to a new Game with a specified seed and list of Players
 
     std::vector<Card> getCurrentPlayerCards() const;
@@ -43,6 +44,14 @@ class Game : public Subject {
 
     std::vector<Card> getCurrentPlayerValidCards() const;
     // returns: a list of cards associated with the current player that can be played on the boar
+    
+    void initGame();
+    // modifies: this
+    // ensures: the game is prepared to start and all observers are notified
+
+    void startGame(std::vector<PlayerType>);
+    // modifies: this
+    // ensures: the game is started
 
     void startRound();
     // modifies: this
@@ -90,6 +99,10 @@ class Game : public Subject {
 
     GameState getGameState() const;
     // returns: the state of the game
+
+    void setSeed(int);
+    // modifies: this
+    // ensures: sets of the seed of the game
 
   private:
     int seed_;

@@ -13,15 +13,10 @@ const Card SEVEN_OF_SPADES = Card(SPADE, SEVEN);
 const int PLAYER_COUNT = 4;
 const int MAX_SCORE = 80;
 
-Game::Game(int seed, std::vector<PlayerType> playerTypes):
-  seed_(seed), gameState_(GameState::ROUND_START),
-  lastCard_(Card(SPADE, ACE))
-{
-  assert(playerTypes.size() == PLAYER_COUNT);
-
+Game::Game(int seed): seed_(seed), gameState_(GameState::ROUND_START), lastCard_(Card(SPADE, ACE)) {
   players_.reserve(PLAYER_COUNT);
   for (int i = 0; i < PLAYER_COUNT; i++) {
-    players_.push_back(Player(i, playerTypes[i]));
+    players_.push_back(Player(i + 1));
   }
 }
 
@@ -133,6 +128,25 @@ void Game::quit() {
   setGameState(Game::GameState::GAME_QUIT);
 }
 
+void Game::initGame() {
+  setGameState(Game::GameState::GAME_START);
+}
+
+void Game::startGame(std::vector<PlayerType> playerTypes) {
+  assert(playerTypes.size() == players_.size());
+
+  for (size_t i = 0; i < players_.size(); i++) {
+    players_[i].setPlayerType(playerTypes[i]); 
+  }
+
+  // reset scores
+  for (size_t i = 0; i < players_.size(); i++) {
+    players_[i].resetScore();
+  }
+
+  startRound();
+}
+
 void Game::startRound() {
   // update scores
   for (int i = 0; i < PLAYER_COUNT; i++) {
@@ -197,4 +211,8 @@ void Game::runRound() {
       playCard(validCards[0]);
     }
   }
+}
+
+void Game::setSeed(int seed) {
+  seed_ = seed;
 }

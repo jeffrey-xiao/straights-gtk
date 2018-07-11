@@ -6,7 +6,6 @@
 #include <gtkmm/button.h>
 
 #include <algorithm>
-#include <iostream>
 #include <vector>
 
 HandFrame::HandFrame(GameController *gameController): Gtk::Frame("Hand Frame"),

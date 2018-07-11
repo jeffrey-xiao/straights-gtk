@@ -21,16 +21,6 @@ class StraightsTui : public Observer {
     // modifies: cout
     // ensures: cout is updated in response to changes in the game
 
-    void setGameController(GameController *gameController);
-    // requires: gameController points to a valid GameController
-    // ensures: controller = gameController
-
-    void startGame();
-    // requires: gameController_ is a valid controller
-    // modifies: cin, cout
-    // ensures: this continues to read game commands from cin and prints
-    //          the game changes to cout until the game is over
-
   private:
     GameController *gameController_;
 };

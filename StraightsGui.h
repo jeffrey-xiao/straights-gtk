@@ -1,6 +1,9 @@
 #ifndef GRAPHICAL_USER_INTERFACE_H
 #define GRAPHICAL_USER_INTERFACE_H
 
+#include <array>
+#include <gtkmm/button.h>
+#include <gtkmm/checkbutton.h>
 #include <gtkmm/window.h>
 
 #include "Observer.h"
@@ -13,11 +16,8 @@ class StraightsWindow;
 class StraightsGui : public Gtk::Application, public Observer {
   public:
     explicit StraightsGui(GameController *gameController);
-    virtual ~StraightsGui() = default;
-
+    virtual ~StraightsGui();
     void update() override;
-    void setGameController(GameController *gameController);
-    void startGame();
 
   protected:
     void on_activate() override;
@@ -26,6 +26,9 @@ class StraightsGui : public Gtk::Application, public Observer {
     bool isRunning_;
     GameController *gameController_;
     StraightsWindow window_;
+    std::array<Gtk::CheckButton*, 4> playerTypeButtons_;
+
+    void openPlayerTypesDialog();
 };
 
 #endif

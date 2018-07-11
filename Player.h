@@ -23,22 +23,25 @@ class Player {
     PlayerType type_;
 
   public:
-    explicit Player(int i, PlayerType type);
-    // ensures: initializes this to a Player with the specified id and type
-    //          with score = 0, hand = empty, discarded = empty
+    explicit Player(int i);
+    // ensures: initializes this to a Player with the specified id
+    //          with score = 0, hand = empty, discarded = empty, type = COMPUTER
 
     std::vector<Card> getCards() const;
     // returns: cards
 
     void setCards(std::vector<Card> cards);
+    // modifies: this
     // requires: cards.size() <= 13
     // ensures: hand = cards
 
     void playCard(Card card);
+    // modifies: this
     // requires: card is in hand
     // ensures: hand = hand@pre - card
 
     void discardCard(Card);
+    // modifies: this
     // requires: card is in hand
     // ensures: hand = hand@pre - card, discarded = discarded@pre + card
 
@@ -52,6 +55,7 @@ class Player {
     // returns: id
 
     void setPlayerType(PlayerType type);
+    // modifies: this
     // ensures: type is set to the specified type
 
     int getScore() const;
@@ -61,7 +65,12 @@ class Player {
     // returns: sum of the scores of the discarded cards
 
     void updateScore();
+    // modifies: this
     // ensures: score = score + roundScore, discarded = empty
+
+    void resetScore();
+    // modifies: this
+    // ensures: score = 0
 };
 
 #endif

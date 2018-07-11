@@ -2,7 +2,6 @@
 #include "Player.h"
 #include "StraightsGui.h"
 
-#include <iostream>
 #include <vector>
 
 int main(int argc, char** argv) {
@@ -11,25 +10,9 @@ int main(int argc, char** argv) {
     seed = atoi(argv[1]);
   }
 
-  std::vector<PlayerType> playerTypes;
-  playerTypes.resize(4);
-  for (size_t i = 0; i < playerTypes.size(); i++) {
-    std::cout << "Is player " << i + 1 << " a human(h) or a computer(c)?" << std::endl;
-    char c;
-    std::cout << ">";
-    std::cin >> c;
-
-    if (c == 'h') {
-      playerTypes[i] = PlayerType::HUMAN;
-    } else {
-      playerTypes[i] = PlayerType::COMPUTER;
-    }
-  }
-
-  GameController *gameController = new GameController(seed, playerTypes);
+  GameController *gameController = new GameController(seed);
   StraightsGui *userInterface = new StraightsGui(gameController);
-  userInterface->setGameController(gameController);
-  userInterface->startGame();
+  gameController->initGame();
 
   delete userInterface;
   delete gameController;

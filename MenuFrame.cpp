@@ -18,6 +18,7 @@ MenuFrame::MenuFrame(GameController *gameController): Gtk::Frame("Menu Frame"),
   contents_.pack_start(rageButton_);
   contents_.pack_start(quitButton_);
 
+  newGameButton_.signal_clicked().connect(sigc::mem_fun(*this, &MenuFrame::onNewGameButtonClick));
   rageButton_.signal_clicked().connect(sigc::mem_fun(*this, &MenuFrame::onRageButtonClick));
   quitButton_.signal_clicked().connect(sigc::mem_fun(*this, &MenuFrame::onQuitButtonClick));
 
@@ -25,6 +26,11 @@ MenuFrame::MenuFrame(GameController *gameController): Gtk::Frame("Menu Frame"),
 }
 
 void MenuFrame::update() {}
+
+void MenuFrame::onNewGameButtonClick() {
+  gameController_->setSeed(atoi(seedEntry_.get_text().c_str()));
+  gameController_->initGame();
+}
 
 void MenuFrame::onRageButtonClick() {
   Command command;
