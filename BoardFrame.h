@@ -22,6 +22,8 @@ class BoardFrame : public Gtk::Frame, public Observer {
     Gtk::VBox contents_;
     std::array<Gtk::Box, SUIT_COUNT> straightBoxes_;
     std::array<Gtk::Image, SUIT_COUNT * RANK_COUNT> cardImages_;
+
+    void reset();
 };
 
 #endif

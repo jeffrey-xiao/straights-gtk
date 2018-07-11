@@ -129,6 +129,10 @@ void Game::ragequit() {
   runRound();
 }
 
+void Game::quit() {
+  setGameState(Game::GameState::GAME_END);
+}
+
 void Game::startRound() {
   // update scores
   for (int i = 0; i < PLAYER_COUNT; i++) {

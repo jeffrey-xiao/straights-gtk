@@ -24,9 +24,7 @@ MenuFrame::MenuFrame(GameController *gameController): Gtk::Frame("Menu Frame"),
   show_all_children();
 }
 
-void MenuFrame::update() {
-
-}
+void MenuFrame::update() {}
 
 void MenuFrame::onRageButtonClick() {
   Command command;

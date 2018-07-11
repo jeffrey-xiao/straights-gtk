@@ -66,6 +66,10 @@ class Game : public Subject {
     void ragequit();
     // modifies: this
     // ensures: the current player changed to a computer player
+    
+    void quit();
+    // modifies: this
+    // ensures: the game is terminated
 
     GameBoard getGameBoard() const;
     // returns: the game board associated with the game

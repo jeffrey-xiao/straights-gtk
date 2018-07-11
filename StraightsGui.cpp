@@ -15,10 +15,10 @@ StraightsGui::StraightsGui(GameController *gameController): gameController_(game
 void StraightsGui::update() {
   Game::GameState gameState = gameController_->getGameState();
 
-  switch (gameState) {
-    case Game::GameState::ROUND_START:
-      this->run();
-      return;
+  if (gameState == Game::GameState::ROUND_START) {
+    this->run();
+  } else if (gameState == Game::GameState::GAME_END) {
+    this->quit();
   }
 }
 

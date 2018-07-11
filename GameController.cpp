@@ -30,6 +30,10 @@ void GameController::executeCommand(Command command) {
       game_->ragequit();
       break;
 
+    case QUIT:
+      game_->quit();
+      break;
+
     default:
       assert(false);
   }
