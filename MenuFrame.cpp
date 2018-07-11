@@ -26,7 +26,14 @@ MenuFrame::MenuFrame(GameController *gameController): Gtk::Frame("Menu Frame"),
   show_all_children();
 }
 
-void MenuFrame::update() {}
+void MenuFrame::update() {
+  Game::GameState gameState = gameController_->getGameState();
+  if (gameState == Game::GameState::HUMAN_INPUT) {
+    rageButton_.set_sensitive(true);
+  } else {
+    rageButton_.set_sensitive(false);
+  }
+}
 
 void MenuFrame::onNewGameButtonClick() {
   gameController_->setSeed(atoi(seedEntry_.get_text().c_str()));

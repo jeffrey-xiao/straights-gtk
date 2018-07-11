@@ -13,9 +13,10 @@ PlayerFrame::PlayerFrame(const std::string &name): Gtk::Frame(), name_(name) {
   show_all_children();
 }
 
-std::string focusedMarkup(std::string text) {
+std::string focusedMarkup(const std::string &text) {
   return "<span foreground=\"blue\">" + text + "</span>";
 }
+
 void PlayerFrame::setFocus(bool isFocus) {
   if (isFocus) {
     titleLabel_.set_markup(focusedMarkup(name_));
