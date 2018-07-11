@@ -6,6 +6,10 @@
 #include <iostream>
 #include <vector>
 
+StraightsTui::StraightsTui(GameController *gameController): gameController_(gameController) {
+  gameController_->addObserver(this);
+}
+
 void StraightsTui::update() {
   using namespace std;
 

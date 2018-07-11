@@ -1,12 +1,13 @@
 #include "Card.h"
+#include "GameController.h"
 #include "HandFrame.h"
 
 #include <gtkmm/button.h>
 
-
-HandFrame::HandFrame(StraightsGuiComponent *parent): Gtk::Frame("Hand Frame"),
-  StraightsGuiComponent(parent)
+HandFrame::HandFrame(GameController *gameController): Gtk::Frame("Hand Frame"),
+  gameController_(gameController)
 {
+  gameController_->addObserver(this);
   hand_.resize(RANK_COUNT);
 
   add(contents_);
@@ -15,4 +16,8 @@ HandFrame::HandFrame(StraightsGuiComponent *parent): Gtk::Frame("Hand Frame"),
   }
   contents_.set_spacing(10);
   show_all_children();
+}
+
+void HandFrame::update() {
+
 }

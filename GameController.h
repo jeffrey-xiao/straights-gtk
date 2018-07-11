@@ -2,6 +2,7 @@
 #define GAME_CONTROLLER_H
 
 #include "Game.h"
+#include "Subject.h"
 
 #include <vector>
 
@@ -11,7 +12,7 @@ class Observer;
 class Player;
 enum class PlayerType;
 
-class GameController {
+class GameController : public Subject {
   // Handles communication between the model (Game) and the view (TextUserInterface)
   // Specification Fields:
   //   game = representation of the state of a game of straights
@@ -19,9 +20,9 @@ class GameController {
     Game *game_;
 
   public:
-    GameController(int seed, std::vector<PlayerType>, Observer *);
+    GameController(int seed, std::vector<PlayerType>);
     // ensures: initializes this to a new GameController with a new Game, the new Game
-    //          is made using the specified seed, PlayerTypes and Observer
+    //          is made using the specified seed and PlayerTypes
 
     ~GameController();
     // modifies: this
@@ -62,6 +63,8 @@ class GameController {
 
     Game::GameState getGameState() const;
     // returns: the state of the game
+    
+    void addObserver(Observer *);
 };
 
 #endif

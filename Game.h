@@ -2,16 +2,17 @@
 #define GAME_H
 
 #include "Card.h"
+#include "Deck.h"
 #include "GameBoard.h"
 #include "Player.h"
-#include "Deck.h"
+#include "Subject.h"
 
 #include <vector>
 
 struct Command;
 class Observer;
 
-class Game {
+class Game : public Subject {
   // Represents the state of a game of straights
   // Specification Fields:
   //   ROUND_START: Represents that the game of straights has started
@@ -33,7 +34,7 @@ class Game {
       ROUND_END,
       GAME_END,
     };
-    Game(int, std::vector<PlayerType>, Observer*);
+    Game(int, std::vector<PlayerType>);
     // ensures: initializes this to a new Game with a specified seed and list of Players
 
     std::vector<Card> getCurrentPlayerCards() const;
@@ -91,13 +92,8 @@ class Game {
     std::vector<Player> players_;
     int currentPlayer_;
     Deck deck_;
-    Observer *userInterface_;
     GameState gameState_;
     Card lastCard_;
-
-    void notify();
-    // modifies: this
-    // ensures: the user interface is updated
 
     void runRound();
     // modifies: this

@@ -1,10 +1,11 @@
-#include "Card.h"
 #include "BoardFrame.h"
-#include "StraightsGuiComponent.h"
+#include "Card.h"
+#include "GameController.h"
 
-BoardFrame::BoardFrame(StraightsGuiComponent *parent): Gtk::Frame("Cards on the table"),
-  StraightsGuiComponent(parent)
+BoardFrame::BoardFrame(GameController *gameController): Gtk::Frame("Cards on the table"),
+  gameController_(gameController)
 {
+  gameController_->addObserver(this);
   add(contents_);
 
   contents_.set_spacing(5);
@@ -23,4 +24,8 @@ BoardFrame::BoardFrame(StraightsGuiComponent *parent): Gtk::Frame("Cards on the 
   }
 
   show_all_children();
+}
+
+void BoardFrame::update() {
+
 }

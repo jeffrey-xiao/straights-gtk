@@ -6,7 +6,11 @@
 #include <gtkmm/main.h>
 #include <gtkmm/applicationwindow.h>
 
-StraightsGui::StraightsGui(): window_(this) {}
+StraightsGui::StraightsGui(GameController *gameController): gameController_(gameController),
+  window_(gameController)
+{
+  gameController_->addObserver(this);
+}
 
 void StraightsGui::update() {
   Game::GameState gameState = gameController_->getGameState();
@@ -16,10 +20,6 @@ void StraightsGui::update() {
       this->run();
       return;
   }
-}
-
-void StraightsGui::notify(Command command) {
-  gameController_->executeCommand(command);
 }
 
 void StraightsGui::startGame() {

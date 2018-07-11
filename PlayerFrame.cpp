@@ -1,15 +1,20 @@
+#include "GameController.h"
 #include "PlayerFrame.h"
-#include "StraightsGuiComponent.h"
 
-PlayerFrame::PlayerFrame(StraightsGuiComponent *parent, std::string name): Gtk::Frame(name),
-  StraightsGuiComponent(parent)
+PlayerFrame::PlayerFrame(GameController *gameController, std::string name): Gtk::Frame(name),
+  gameController_(gameController)
 {
+  gameController_->addObserver(this);
   add(contents_);
   contents_.pack_start(pointsLabel_);
   contents_.pack_start(discardsLabel_);
   setPoints(0);
   setDiscards(0);
   show_all_children();
+}
+
+void PlayerFrame::update() {
+
 }
 
 void PlayerFrame::setPoints(int points) {

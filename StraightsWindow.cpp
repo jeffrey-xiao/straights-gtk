@@ -1,8 +1,8 @@
+#include "GameController.h"
 #include "StraightsWindow.h"
-#include "StraightsGuiComponent.h"
 
-StraightsWindow::StraightsWindow(StraightsGuiComponent *parent): StraightsGuiComponent(parent),
-  boardFrame_(this), menuFrame_(this), handFrame_(this)
+StraightsWindow::StraightsWindow(GameController *gameController): gameController_(gameController),
+  boardFrame_(gameController), menuFrame_(gameController), handFrame_(gameController)
 {
   set_title("Straights");
   set_default_size(400, 400);
@@ -14,11 +14,21 @@ StraightsWindow::StraightsWindow(StraightsGuiComponent *parent): StraightsGuiCom
   contents_.pack_start(playerContents_);
   playerFrames_.reserve(4);
   for (size_t i = 0; i < 4; i++) {
-    playerFrames_.push_back(PlayerFrame(this, "Player " + std::to_string(i + 1)));
-    playerContents_.pack_start(playerFrames_[i]);
+    playerFrames_.push_back(new PlayerFrame(gameController, "Player " + std::to_string(i + 1)));
+    playerContents_.pack_start(*playerFrames_[i]);
   }
 
   contents_.pack_start(handFrame_);
 
   show_all_children();
+}
+
+StraightsWindow::~StraightsWindow() {
+  for (PlayerFrame *playerFrame : playerFrames_) {
+    delete playerFrame;
+  }
+}
+
+void StraightsWindow::update() {
+
 }

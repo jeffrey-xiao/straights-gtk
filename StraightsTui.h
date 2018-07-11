@@ -11,6 +11,9 @@ class StraightsTui : public Observer {
   //   game = representation for the game of straights
   //   controller = object that handles communication to the game
   public:
+    explicit StraightsTui(GameController *gameController);
+    // ensures: initializes this to a new StraightsTui with a specified game controller
+
     virtual ~StraightsTui() = default;
     // ensures: this no longer exists; owned memory is deallocated
 

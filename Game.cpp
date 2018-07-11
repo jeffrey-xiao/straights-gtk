@@ -13,8 +13,8 @@ const Card SEVEN_OF_SPADES = Card(SPADE, SEVEN);
 const int PLAYER_COUNT = 4;
 const int MAX_SCORE = 80;
 
-Game::Game(int seed, std::vector<PlayerType> playerTypes, Observer *userInterface):
-  seed_(seed), userInterface_(userInterface), gameState_(GameState::ROUND_START),
+Game::Game(int seed, std::vector<PlayerType> playerTypes):
+  seed_(seed), gameState_(GameState::ROUND_START),
   lastCard_(Card(SPADE, ACE))
 {
   assert(playerTypes.size() == PLAYER_COUNT);
@@ -74,10 +74,6 @@ Deck Game::getDeck() const {
 
 Game::GameState Game::getGameState() const {
   return gameState_;
-}
-
-void Game::notify() {
-  userInterface_->update();
 }
 
 void Game::setGameState(Game::GameState gameState) {

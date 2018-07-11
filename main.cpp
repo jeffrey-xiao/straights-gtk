@@ -26,8 +26,8 @@ int main(int argc, char** argv) {
     }
   }
 
-  StraightsGui *userInterface = new StraightsGui();
-  GameController *gameController = new GameController(seed, playerTypes, userInterface);
+  GameController *gameController = new GameController(seed, playerTypes);
+  StraightsGui *userInterface = new StraightsGui(gameController);
   userInterface->setGameController(gameController);
   userInterface->startGame();
 

@@ -2,18 +2,23 @@
 #define HAND_FRAME_H
 
 #include "CardButton.h"
-#include "StraightsGuiComponent.h"
+#include "Observer.h"
 
 #include <gtkmm/box.h>
 #include <gtkmm/frame.h>
 
 #include <vector>
 
-class HandFrame : public Gtk::Frame, public StraightsGuiComponent {
+class GameController;
+
+class HandFrame : public Gtk::Frame, public Observer {
   public:
-    explicit HandFrame(StraightsGuiComponent *);
+    explicit HandFrame(GameController *);
+    virtual ~HandFrame() = default;
+    void update() override;
 
   private:
+    GameController *gameController_;
     Gtk::Box contents_;
     std::vector<CardButton> hand_;
 };

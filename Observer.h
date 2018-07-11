@@ -1,6 +1,8 @@
 #ifndef OBSERVER_H
 #define OBSERVER_H
 
+class Subject;
+
 class Observer {
   // Abstract base class for the Subject-Observer Pattern
   public:

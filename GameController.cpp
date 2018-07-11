@@ -5,8 +5,8 @@
 #include <algorithm>
 #include <cassert>
 
-GameController::GameController(int seed, std::vector<PlayerType> playerTypes, Observer *userInterface):
-  game_(new Game(seed, playerTypes, userInterface)) {}
+GameController::GameController(int seed, std::vector<PlayerType> playerTypes):
+  game_(new Game(seed, playerTypes)) {}
 
 GameController::~GameController() {
   delete game_;
@@ -84,4 +84,8 @@ Deck GameController::getDeck() const {
 
 Game::GameState GameController::getGameState() const {
   return game_->getGameState();
+}
+
+void GameController::addObserver(Observer *observer) {
+  game_->addObserver(observer);
 }
