@@ -12,6 +12,7 @@
 HandFrame::HandFrame(GameController *gameController): Gtk::Frame("Hand Frame"),
   gameController_(gameController), isDiscard_(false)
 {
+  set_border_width(6);
   gameController_->addObserver(this);
   hand_.reserve(RANK_COUNT);
 
@@ -24,12 +25,12 @@ HandFrame::HandFrame(GameController *gameController): Gtk::Frame("Hand Frame"),
     contents_.pack_start(c);
     c.set_sensitive(false);
   }
-  contents_.set_spacing(10);
+  contents_.set_spacing(8);
   show_all_children();
 }
 
 bool compareCard(Card &a, Card &b) {
-  if(a.getSuit() != b.getSuit()) {
+  if (a.getSuit() != b.getSuit()) {
     return a.getSuit() < b.getSuit();
   } else {
     return a.getRank() < b.getRank();
@@ -50,7 +51,7 @@ void HandFrame::update() {
     for (size_t i = 0; i < cards.size(); i++) {
       hand_[i].setCard(cards[i]);
       if (isDiscard_ || std::find(legalPlays.begin(), legalPlays.end(), cards[i]) != legalPlays.end()) {
-        if(isDiscard_) {
+        if (isDiscard_) {
           hand_[i].setColor(Gdk::RGBA("red"));
         } else {
           hand_[i].setColor(Gdk::RGBA("green"));
@@ -72,7 +73,7 @@ void HandFrame::update() {
 void HandFrame::executeCommand(Card card) {
   Command command;
   command.card = card;
-  if(isDiscard_) {
+  if (isDiscard_) {
     command.type = DISCARD;
   } else {
     command.type = PLAY;

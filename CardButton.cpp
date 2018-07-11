@@ -12,14 +12,14 @@ const Card SEVEN_OF_SPADES = Card(SPADE, SEVEN);
 CardButton::CardButton(HandFrame* handFrame): handFrame_(handFrame), card_(SEVEN_OF_SPADES),
   image_(Gtk::Image(NOTHING_IMG))
 {
-  image_.set_padding(2 ,2);
+  image_.set_padding(2, 2);
   set_image(image_);
 }
 
 void CardButton::setCard(Card card) {
   card_ = card;
   image_ = Gtk::Image(CARD_IMG_PREFIX + card.getString() + CARD_IMG_SUFFIX);
-  image_.set_padding(2 ,2);
+  image_.set_padding(2, 2);
   set_image(image_);
 }
 
@@ -30,7 +30,7 @@ void CardButton::setColor(Gdk::RGBA color) {
 void CardButton::reset() {
   card_ = SEVEN_OF_SPADES;
   image_ = Gtk::Image(NOTHING_IMG);
-  image_.set_padding(2 ,2);
+  image_.set_padding(2, 2);
   set_image(image_);
 }
 

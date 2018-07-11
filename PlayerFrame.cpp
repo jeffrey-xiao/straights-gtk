@@ -13,23 +13,29 @@ PlayerFrame::PlayerFrame(const std::string &name): Gtk::Frame(), name_(name) {
   show_all_children();
 }
 
+std::string focusedMarkup(std::string text) {
+  return "<span foreground=\"blue\">" + text + "</span>";
+}
 void PlayerFrame::setFocus(bool isFocus) {
-  if(isFocus)
-    titleLabel_.set_markup("<b>" + name_ + "</b>");
-  else
+  if (isFocus) {
+    titleLabel_.set_markup(focusedMarkup(name_));
+  } else {
     titleLabel_.set_text(name_);
+  }
 }
 
 void PlayerFrame::setPoints(int points, bool isFocus) {
-  if(isFocus)
-    pointsLabel_.set_markup("<b>" + std::to_string(points) + " points" + "</b>");
-  else
+  if (isFocus) {
+    pointsLabel_.set_markup(focusedMarkup(std::to_string(points) + " points"));
+  } else {
     pointsLabel_.set_text(std::to_string(points) + " points");
+  }
 }
 
 void PlayerFrame::setDiscards(int discards, bool isFocus) {
-  if(isFocus)
-    discardsLabel_.set_markup("<b>" + std::to_string(discards) + " discards" + "</b>");
-  else
+  if (isFocus) {
+    discardsLabel_.set_markup(focusedMarkup(std::to_string(discards) + " discards"));
+  } else {
     discardsLabel_.set_text(std::to_string(discards) + " discards");
+  }
 }

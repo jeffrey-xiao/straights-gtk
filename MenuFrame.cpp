@@ -6,6 +6,7 @@ MenuFrame::MenuFrame(GameController *gameController): Gtk::Frame("Menu Frame"),
   gameController_(gameController), newGameButton_("New Game With Seed:"), quitButton_("Quit Game"),
   rageButton_("Rage")
 {
+  set_border_width(6);
   gameController_->addObserver(this);
   add(contents_);
   contents_.set_layout(Gtk::BUTTONBOX_START);
