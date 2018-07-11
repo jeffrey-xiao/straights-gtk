@@ -1,7 +1,7 @@
 #ifndef STRAIGHTS_WINDOW_H
 #define STRAIGHTS_WINDOW_H
 
-#include "DeckFrame.h"
+#include "BoardFrame.h"
 #include "MenuFrame.h"
 #include "PlayerFrame.h"
 #include "HandFrame.h"
@@ -19,8 +19,8 @@ class StraightsWindow : public Gtk::ApplicationWindow {
     GraphicalUserInterface *root_;
 
     Gtk::VBox contents_;
+    BoardFrame boardFrame_;
     MenuFrame menuFrame_;
-    DeckFrame deckFrame_;
 
     Gtk::Box playerContents_;
     std::vector<PlayerFrame> playerFrames_;
