@@ -6,7 +6,7 @@ StraightsWindow::StraightsWindow(GraphicalUserInterface *root): root_(root) {
 
   add(contents_);
   contents_.pack_start(menuFrame_);
-  contents_.pack_start(deckFrame_);
+  contents_.pack_start(boardFrame_);
 
   contents_.pack_start(playerContents_);
   playerFrames_.reserve(4);
