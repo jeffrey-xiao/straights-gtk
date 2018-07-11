@@ -23,6 +23,7 @@ class StraightsGui : public Gtk::Application, public Observer {
     void on_activate() override;
 
   private:
+    bool isRunning_;
     GameController *gameController_;
     StraightsWindow window_;
 };

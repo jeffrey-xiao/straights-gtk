@@ -1,3 +1,4 @@
+#include <iostream>
 #include "BoardFrame.h"
 #include "Card.h"
 #include "Game.h"
@@ -27,8 +28,9 @@ BoardFrame::BoardFrame(GameController *gameController): Gtk::Frame("Cards on the
 void BoardFrame::update() {
   Game::GameState gameState = gameController_->getGameState();
   if (gameState == Game::GameState::PLAYED_CARD) {
+    std::cout << "PLAYED CARD" << std::endl;
     Card card = gameController_->getLastCard();
-    cardImages_[card.getSuit() * SUIT_COUNT + card.getRank()].set("img/" + card.getString() + ".png");
+    cardImages_[card.getSuit() * RANK_COUNT + card.getRank()].set("img/" + card.getString() + ".png");
   } else if (gameState == Game::GameState::ROUND_START) {
     reset();
   }

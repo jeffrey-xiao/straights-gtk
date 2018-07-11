@@ -33,6 +33,7 @@ class Game : public Subject {
       PLAYED_CARD,
       ROUND_END,
       GAME_END,
+      GAME_QUIT,
     };
     Game(int, std::vector<PlayerType>);
     // ensures: initializes this to a new Game with a specified seed and list of Players

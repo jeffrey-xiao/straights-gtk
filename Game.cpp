@@ -130,7 +130,7 @@ void Game::ragequit() {
 }
 
 void Game::quit() {
-  setGameState(Game::GameState::GAME_END);
+  setGameState(Game::GameState::GAME_QUIT);
 }
 
 void Game::startRound() {

@@ -1,3 +1,4 @@
+#include <iostream>
 #include "Command.h"
 #include "GameController.h"
 #include "StraightsGui.h"
@@ -15,10 +16,13 @@ StraightsGui::StraightsGui(GameController *gameController): gameController_(game
 void StraightsGui::update() {
   Game::GameState gameState = gameController_->getGameState();
 
-  if (gameState == Game::GameState::ROUND_START) {
-    this->run();
-  } else if (gameState == Game::GameState::GAME_END) {
+  if (gameState == Game::GameState::GAME_QUIT) {
     this->quit();
+  } else if (gameState == Game::GameState::HUMAN_INPUT || gameState == Game::GameState::GAME_END) {
+    if (!isRunning_) {
+      isRunning_ = true;
+      this->run();
+    }
   }
 }
 
