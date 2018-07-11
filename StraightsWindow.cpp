@@ -18,7 +18,7 @@ StraightsWindow::StraightsWindow(GameController *gameController): gameController
   contents_.pack_start(playerContents_);
   playerFrames_.reserve(4);
   for (size_t i = 0; i < 4; i++) {
-    playerFrames_.push_back(new PlayerFrame(gameController, "Player " + std::to_string(i + 1)));
+    playerFrames_.push_back(new PlayerFrame("Player " + std::to_string(i + 1)));
     playerContents_.pack_start(*playerFrames_[i]);
   }
 

@@ -23,7 +23,7 @@ class Player {
     PlayerType type_;
 
   public:
-    Player(int i, PlayerType type);
+    explicit Player(int i, PlayerType type);
     // ensures: initializes this to a Player with the specified id and type
     //          with score = 0, hand = empty, discarded = empty
 

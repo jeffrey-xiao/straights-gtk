@@ -1,8 +1,6 @@
 #ifndef PLAYER_FRAME_H
 #define PLAYER_FRAME_H
 
-#include "Observer.h"
-
 #include "gtkmm/box.h"
 #include "gtkmm/button.h"
 #include "gtkmm/frame.h"
@@ -10,17 +8,15 @@
 
 class GameController;
 
-class PlayerFrame : public Gtk::Frame, public Observer {
+class PlayerFrame : public Gtk::Frame {
   public:
-    explicit PlayerFrame(GameController *, std::string);
+    explicit PlayerFrame(std::string);
     virtual ~PlayerFrame() = default;
-    void update() override;
 
     void setPoints(int);
     void setDiscards(int);
 
   private:
-    GameController *gameController_;
     Gtk::VBox contents_;
     Gtk::Label pointsLabel_, discardsLabel_;
 };

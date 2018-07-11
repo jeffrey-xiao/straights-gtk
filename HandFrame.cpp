@@ -36,7 +36,7 @@ void HandFrame::update() {
 
   for (size_t i = 0; i < cards.size(); i++) {
     hand_[i].setCard(cards[i]);
-    if (legalPlays.empty() || std::find(legalPlays.begin(), legalPlays.end(), cards[i]) != legalPlays.end()) {
+    if (isDiscard_ || std::find(legalPlays.begin(), legalPlays.end(), cards[i]) != legalPlays.end()) {
       hand_[i].set_sensitive(true);
     } else {
       hand_[i].set_sensitive(false);
