@@ -20,6 +20,7 @@ HandFrame::HandFrame(GameController *gameController): Gtk::Frame("Hand Frame"),
     hand_.push_back(CardButton(this));
   }
 
+  contents_.set_border_width(3);
   add(contents_);
   for (Gtk::Button &c : hand_) {
     contents_.pack_start(c);

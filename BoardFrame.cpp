@@ -6,7 +6,7 @@
 BoardFrame::BoardFrame(GameController *gameController): Gtk::Frame("Cards on the table"),
   gameController_(gameController)
 {
-  set_border_width(4);
+  set_border_width(6);
   gameController_->addObserver(this);
   add(contents_);
 
