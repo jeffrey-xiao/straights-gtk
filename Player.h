@@ -68,9 +68,9 @@ class Player {
     // modifies: this
     // ensures: score = score + roundScore, discarded = empty
 
-    void resetScore();
+    void reset();
     // modifies: this
-    // ensures: score = 0
+    // ensures: score = 0, discarded = empty
 };
 
 #endif

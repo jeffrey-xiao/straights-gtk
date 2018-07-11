@@ -63,6 +63,7 @@ void Player::updateScore() {
   discardedCards_.clear();
 }
 
-void Player::resetScore() {
+void Player::reset() {
   score_ = 0;
+  discardedCards_.clear();
 }

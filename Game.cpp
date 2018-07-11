@@ -139,9 +139,9 @@ void Game::startGame(std::vector<PlayerType> playerTypes) {
     players_[i].setPlayerType(playerTypes[i]); 
   }
 
-  // reset scores
+  // reset players
   for (size_t i = 0; i < players_.size(); i++) {
-    players_[i].resetScore();
+    players_[i].reset();
   }
 
   startRound();
