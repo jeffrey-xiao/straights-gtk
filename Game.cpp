@@ -13,7 +13,9 @@ const Card SEVEN_OF_SPADES = Card(SPADE, SEVEN);
 const int PLAYER_COUNT = 4;
 const int MAX_SCORE = 80;
 
-Game::Game(int seed): seed_(seed), gameState_(GameState::ROUND_START), lastCard_(Card(SPADE, ACE)) {
+Game::Game(int seed): seed_(seed), currentPlayer_(0), gameState_(GameState::ROUND_START),
+  lastCard_(Card(SPADE, ACE))
+{
   players_.reserve(PLAYER_COUNT);
   for (int i = 0; i < PLAYER_COUNT; i++) {
     players_.push_back(Player(i + 1));
@@ -136,7 +138,7 @@ void Game::startGame(std::vector<PlayerType> playerTypes) {
   assert(playerTypes.size() == players_.size());
 
   for (size_t i = 0; i < players_.size(); i++) {
-    players_[i].setPlayerType(playerTypes[i]); 
+    players_[i].setPlayerType(playerTypes[i]);
   }
 
   // reset players

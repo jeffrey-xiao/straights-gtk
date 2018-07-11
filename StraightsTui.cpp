@@ -17,6 +17,70 @@ void StraightsTui::update() {
 
   // Update the view to reflect the Game's state
   switch (gameState) {
+    // Read in player types when game is initialized
+    case Game::GameState::GAME_START: {
+      std::vector<PlayerType> playerTypes;
+      playerTypes.reserve(4);
+      for (size_t i = 0; i < 4; i++) {
+        std::cout << "Is player " << i + 1 << " a human(h) or a computer(c)?" << std::endl;
+        char c;
+        std::cout << ">";
+        std::cin >> c;
+
+        if (c == 'h') {
+          playerTypes.push_back(PlayerType::HUMAN);
+        } else {
+          playerTypes.push_back(PlayerType::COMPUTER);
+        }
+      }
+      gameController_->startGame(playerTypes);
+
+      // Read in user commands until end of game
+      while (gameController_->getGameState() != Game::GameState::GAME_END) {
+        Command command;
+        std::cout << ">";
+        std::cin >> command;
+
+        switch (command.type) {
+          // Set the current player to be controlled by the computer
+          case RAGEQUIT:
+            std::cout << "Player " << gameController_->getCurrentPlayerId()
+              << " ragequits. A computer will now take over." << std::endl;
+
+          // Tell the game to play/discard a card
+          case PLAY:
+          case DISCARD:
+            gameController_->executeCommand(command);
+            break;
+
+          // Print the order of the cards in the deck
+          case DECK: {
+            Deck deck = gameController_->getDeck();
+
+            for (int i = 0; i < SUIT_COUNT; i++) {
+              for (int j = 0; j < RANK_COUNT; j++) {
+                std::cout << deck[i * RANK_COUNT + j];
+                if (j != RANK_COUNT - 1) {
+                  std::cout << " ";
+                }
+              }
+              std::cout << std::endl;
+            }
+
+            break;
+          }
+
+          // Terminate the game
+          case QUIT:
+            return;
+
+          default:
+            assert(false);
+        }
+      }
+      break;
+    }
+
     // Notify the user that a round is starting
     case Game::GameState::ROUND_START:
       cout << "A new round begins. It's player " << gameController_->getCurrentPlayerId()
@@ -115,48 +179,5 @@ void StraightsTui::update() {
 void StraightsTui::startGame() {
   gameController_->startGame();
 
-  // While the game is still in progress, read in user commands
-  while (gameController_->getGameState() != Game::GameState::GAME_END) {
-    Command command;
-    std::cout << ">";
-    std::cin >> command;
-
-    switch (command.type) {
-      // Set the current player to be controlled by the computer
-      case RAGEQUIT:
-        std::cout << "Player " << gameController_->getCurrentPlayerId()
-          << " ragequits. A computer will now take over." << std::endl;
-
-      // Tell the game to play/discard a card
-      case PLAY:
-      case DISCARD:
-        gameController_->executeCommand(command);
-        break;
-
-      // Print the order of the cards in the deck
-      case DECK: {
-        Deck deck = gameController_->getDeck();
-
-        for (int i = 0; i < SUIT_COUNT; i++) {
-          for (int j = 0; j < RANK_COUNT; j++) {
-            std::cout << deck[i * RANK_COUNT + j];
-            if (j != RANK_COUNT - 1) {
-              std::cout << " ";
-            }
-          }
-          std::cout << std::endl;
-        }
-
-        break;
-      }
-
-      // Terminate the game
-      case QUIT:
-        return;
-
-      default:
-        assert(false);
-    }
-  }
 }
 */

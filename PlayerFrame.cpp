@@ -1,7 +1,7 @@
 #include "GameController.h"
 #include "PlayerFrame.h"
 
-PlayerFrame::PlayerFrame(std::string name): Gtk::Frame(name) {
+PlayerFrame::PlayerFrame(const std::string &name): Gtk::Frame(name) {
   add(contents_);
   contents_.pack_start(pointsLabel_);
   contents_.pack_start(discardsLabel_);

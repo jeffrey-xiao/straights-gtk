@@ -10,7 +10,7 @@ std::vector<Card> Player::getCards() const {
   return cards_;
 }
 
-void Player::setCards(std::vector<Card> cards) {
+void Player::setCards(const std::vector<Card> &cards) {
   cards_ = cards;
 }
 
