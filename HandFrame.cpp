@@ -1,5 +1,6 @@
 #include "Card.h"
 #include "Command.h"
+#include "Game.h"
 #include "GameController.h"
 #include "HandFrame.h"
 
@@ -27,24 +28,44 @@ HandFrame::HandFrame(GameController *gameController): Gtk::Frame("Hand Frame"),
   show_all_children();
 }
 
+bool compareCard(Card &a, Card &b) {
+  if(a.getSuit() != b.getSuit()) {
+    return a.getSuit() < b.getSuit();
+  } else {
+    return a.getRank() < b.getRank();
+  }
+}
+
 void HandFrame::update() {
-  std::vector<Card> cards = gameController_->getCurrentPlayerCards();
-  std::vector<Card> legalPlays = gameController_->getCurrentPlayerValidCards();
+  Game::GameState gameState = gameController_->getGameState();
 
-  isDiscard_ = legalPlays.empty();
+  if (gameState == Game::GameState::HUMAN_INPUT || gameState == Game::GameState::ROUND_END) {
+    std::vector<Card> cards = gameController_->getCurrentPlayerCards();
+    std::vector<Card> legalPlays = gameController_->getCurrentPlayerValidCards();
 
-  for (size_t i = 0; i < cards.size(); i++) {
-    hand_[i].setCard(cards[i]);
-    if (isDiscard_ || std::find(legalPlays.begin(), legalPlays.end(), cards[i]) != legalPlays.end()) {
-      hand_[i].set_sensitive(true);
-    } else {
+    std::sort(cards.begin(), cards.end(), compareCard);
+
+    isDiscard_ = legalPlays.empty();
+
+    for (size_t i = 0; i < cards.size(); i++) {
+      hand_[i].setCard(cards[i]);
+      if (isDiscard_ || std::find(legalPlays.begin(), legalPlays.end(), cards[i]) != legalPlays.end()) {
+        if(isDiscard_) {
+          hand_[i].setColor(Gdk::RGBA("red"));
+        } else {
+          hand_[i].setColor(Gdk::RGBA("green"));
+        }
+
+        hand_[i].set_sensitive(true);
+      } else {
+        hand_[i].set_sensitive(false);
+      }
+    }
+
+    for (size_t i = cards.size(); i < RANK_COUNT; i++) {
+      hand_[i].reset();
       hand_[i].set_sensitive(false);
     }
-  }
-
-  for (size_t i = cards.size(); i < RANK_COUNT; i++) {
-    hand_[i].reset();
-    hand_[i].set_sensitive(false);
   }
 }
 
@@ -59,4 +80,3 @@ void HandFrame::executeCommand(Card card) {
 
   gameController_->executeCommand(command);
 }
-

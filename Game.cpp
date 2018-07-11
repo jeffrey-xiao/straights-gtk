@@ -136,7 +136,7 @@ void Game::startGame(std::vector<PlayerType> playerTypes) {
   assert(playerTypes.size() == players_.size());
 
   for (size_t i = 0; i < players_.size(); i++) {
-    players_[i].setPlayerType(playerTypes[i]); 
+    players_[i].setPlayerType(playerTypes[i]);
   }
 
   // reset scores

@@ -6,6 +6,8 @@
 #include "gtkmm/frame.h"
 #include "gtkmm/label.h"
 
+#include <string>
+
 class GameController;
 
 class PlayerFrame : public Gtk::Frame {
@@ -13,12 +15,14 @@ class PlayerFrame : public Gtk::Frame {
     explicit PlayerFrame(std::string);
     virtual ~PlayerFrame() = default;
 
-    void setPoints(int);
-    void setDiscards(int);
+    void setFocus(bool);
+    void setPoints(int, bool = false);
+    void setDiscards(int, bool = false);
 
   private:
+    std::string name_;
     Gtk::VBox contents_;
-    Gtk::Label pointsLabel_, discardsLabel_;
+    Gtk::Label pointsLabel_, discardsLabel_, titleLabel_;
 };
 
 #endif

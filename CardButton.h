@@ -10,8 +10,9 @@ class HandFrame;
 
 class CardButton : public Gtk::Button {
   public:
-    explicit CardButton(HandFrame *);
-    void setCard(Card card);
+    CardButton(HandFrame *);
+    void setCard(Card);
+    void setColor(Gdk::RGBA);
     void reset();
     void on_clicked() override;
 

@@ -35,14 +35,22 @@ StraightsWindow::~StraightsWindow() {
 }
 
 void StraightsWindow::update() {
+  Game::GameState gameState = gameController_->getGameState();
   std::vector<Player> players = gameController_->getPlayers();
 
-  for(size_t i = 0; i < players.size(); i++) {
-    playerFrames_[i]->setPoints(players[i].getScore());
-    playerFrames_[i]->setDiscards(players[i].getDiscardedCards().size());
+  int currentPlayer = -1;
+
+  if(gameState != Game::GameState::GAME_START) {
+    currentPlayer = gameController_->getCurrentPlayerId() - 1;
   }
 
-  Game::GameState gameState = gameController_->getGameState();
+  for(size_t i = 0; i < players.size(); i++) {
+    bool isFocus = (currentPlayer == i);
+    playerFrames_[i]->setFocus(isFocus);
+    playerFrames_[i]->setPoints(players[i].getScore(), isFocus);
+    playerFrames_[i]->setDiscards(players[i].getDiscardedCards().size(), isFocus);
+  }
+
 
   if (gameState == Game::GameState::ROUND_END) {
     Gtk::MessageDialog roundEndDialog(*this, "Round Over.");

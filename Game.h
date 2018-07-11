@@ -44,7 +44,6 @@ class Game : public Subject {
 
     std::vector<Card> getCurrentPlayerValidCards() const;
     // returns: a list of cards associated with the current player that can be played on the boar
-    
     void initGame();
     // modifies: this
     // ensures: the game is prepared to start and all observers are notified
