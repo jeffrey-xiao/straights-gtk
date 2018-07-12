@@ -7,6 +7,7 @@
 
 #include <algorithm>
 #include <cassert>
+#include <climits>
 #include <vector>
 
 Game::Game(int seed): seed_(seed), currentPlayer_(0), gameState_(GameState::ROUND_START),
@@ -197,16 +198,86 @@ void Game::runRound() {
 
   // else the current player is a computer player
   else {
+    std::vector<Card> cards = getCurrentPlayerCards();
     std::vector<Card> validCards = getCurrentPlayerValidCards();
 
-    // if no valid cards, discard first valid card
+    // if no valid cards, discard the card that maximizes the average opponent score gained
+    // subtracted by your points gained
     if (validCards.empty()) {
-      discardCard(getCurrentPlayerCards()[0]);
+      double maxValue = INT_MIN;
+      int maxIndex = -1;
+
+      for (size_t i = 0; i < cards.size(); i++) {
+        double currValue = -(cards[i].getRank() + 1);
+
+        if (cards[i].getRank() >= SEVEN) {
+          int cardCount = KING - cards[i].getRank();
+          currValue += (KING + 1 + cards[i].getRank() + 2) * cardCount / 2.0 / (PLAYER_COUNT - 1.0);
+        }
+
+        if (cards[i].getRank() <= SEVEN) {
+          int cardCount = cards[i].getRank() - ACE;
+          currValue += (ACE + 1 + cards[i].getRank()) * cardCount / 2.0 / (PLAYER_COUNT - 1.0);
+        }
+
+        for (const Card &card : cards) {
+          if (cards[i].getSuit() != card.getSuit()) {
+            continue;
+          }
+          if (cards[i].getRank() >= SEVEN && card.getRank() > cards[i].getRank()) {
+            currValue -= (card.getRank() + 1) * PLAYER_COUNT / (PLAYER_COUNT - 1.0);
+          }
+          if (cards[i].getRank() <= SEVEN && card.getRank() < cards[i].getRank()) {
+            currValue -= (card.getRank() + 1) * PLAYER_COUNT / (PLAYER_COUNT - 1.0);
+          }
+        }
+
+        if (currValue > maxValue) {
+          maxValue = currValue;
+          maxIndex = i;
+        }
+      }
+
+      discardCard(cards[maxIndex]);
     }
 
-    // play first valid card
+    // play the card that maximizes the points of your future plays subtracted by the average opponent
+    // plays
     else {
-      playCard(validCards[0]);
+      double maxValue = INT_MIN;
+      int maxIndex = -1;
+
+      for (size_t i = 0; i < validCards.size(); i++) {
+        double currValue = 0;
+
+        if (validCards[i].getRank() >= SEVEN) {
+          int cardCount = KING - validCards[i].getRank();
+          currValue -= (KING + 1 + validCards[i].getRank() + 2) * cardCount / 2.0 / (PLAYER_COUNT - 1.0);
+        }
+
+        if (validCards[i].getRank() <= SEVEN) {
+          int cardCount = validCards[i].getRank() - ACE;
+          currValue -= (ACE + 1 + validCards[i].getRank()) * cardCount / 2.0 / (PLAYER_COUNT - 1.0);
+        }
+
+        for (const Card &card : cards) {
+          if (validCards[i].getSuit() != card.getSuit()) {
+            continue;
+          }
+          if (validCards[i].getRank() >= SEVEN && card.getRank() > validCards[i].getRank()) {
+            currValue += (card.getRank() + 1) * PLAYER_COUNT / (PLAYER_COUNT - 1.0);
+          }
+          if (validCards[i].getRank() <= SEVEN && card.getRank() < validCards[i].getRank()) {
+            currValue += (card.getRank() + 1) * PLAYER_COUNT / (PLAYER_COUNT - 1.0);
+          }
+        }
+
+        if (currValue > maxValue) {
+          maxValue = currValue;
+          maxIndex = i;
+        }
+      }
+      playCard(validCards[maxIndex]);
     }
   }
 }
