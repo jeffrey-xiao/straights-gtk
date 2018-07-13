@@ -16,9 +16,6 @@ class GraphicalUserInterface;
 class StraightsWindow : public Gtk::ApplicationWindow, public Observer {
   // Window that shows a game of straights
   // Specification Fields:
-  //   menu = the menu that holds buttons (
-  //   board = the frame that holds the straights of the game
-  //   hand = the frame that represents the cards in the current players hand
   //   players = the frames that represents the scores and discards of all players
   //   game = the game of straights the board is monitoring
 
@@ -33,8 +30,7 @@ class StraightsWindow : public Gtk::ApplicationWindow, public Observer {
 
     void update() override;
     // modifies: this
-    // ensures: menu, board, hand, and players frames are updated to reflect the state of
-    //          the game
+    // ensures: players frames are updated to reflect the state of the game
 
   private:
     GameController *gameController_;
