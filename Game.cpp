@@ -10,9 +10,7 @@
 #include <climits>
 #include <vector>
 
-Game::Game(int seed): seed_(seed), currentPlayer_(0), gameState_(GameState::ROUND_START),
-  lastCard_(Card(SPADE, ACE))
-{
+Game::Game(int seed): seed_(seed), currentPlayer_(0), gameState_(GameState::ROUND_START) {
   players_.reserve(PLAYER_COUNT);
   for (int i = 0; i < PLAYER_COUNT; i++) {
     players_.push_back(Player(i + 1));
@@ -59,7 +57,8 @@ Player Game::getCurrentPlayer() const {
 }
 
 Card Game::getLastCard() const {
-  return lastCard_;
+  assert(cardsPlayed_.size() != 0);
+  return cardsPlayed_[cardsPlayed_.size() - 1];
 }
 
 Deck Game::getDeck() const {
@@ -84,8 +83,8 @@ void Game::playCard(Card card) {
   // player's hand and continue the game
   if (isValidMove) {
     gameBoard_.playCard(card);
+    cardsPlayed_.push_back(card);
     players_[currentPlayer_].playCard(card);
-    lastCard_ = card;
     setGameState(GameState::PLAYED_CARD);
     currentPlayer_ = (currentPlayer_ + 1) % PLAYER_COUNT;
     runRound();
@@ -104,8 +103,8 @@ void Game::discardCard(Card card) {
   // the card is removed from the player's hand and added to the player's discard pile, and play is
   // continued
   if (getCurrentPlayerValidCards().empty() && std::find(cards.begin(), cards.end(), card) != cards.end()) {
+    cardsPlayed_.push_back(card);
     players_[currentPlayer_].discardCard(card);
-    lastCard_ = card;
     setGameState(GameState::DISCARDED_CARD);
     currentPlayer_ = (currentPlayer_ + 1) % PLAYER_COUNT;
     runRound();
@@ -180,6 +179,7 @@ void Game::startRound() {
     }
   }
 
+  cardsPlayed_.clear();
   setGameState(GameState::ROUND_START);
   runRound();
 }
@@ -237,7 +237,6 @@ void Game::runRound() {
           maxIndex = i;
         }
       }
-
       discardCard(cards[maxIndex]);
     }
 
@@ -284,4 +283,27 @@ void Game::runRound() {
 
 void Game::setSeed(int seed) {
   seed_ = seed;
+}
+
+bool Game::canUndoMove() const {
+  for (size_t i = 0; i < players_.size(); i++) {
+    if (players_[i].getPlayerType() == PlayerType::HUMAN &&
+       players_[i].getCards().size() != RANK_COUNT) {
+      return true;
+    }
+  }
+  return false;
+}
+void Game::undoMove() {
+  assert(canUndoMove());
+
+  do {
+    currentPlayer_ = (currentPlayer_ - 1 + PLAYER_COUNT) % PLAYER_COUNT;
+    Card lastCard = cardsPlayed_[cardsPlayed_.size() - 1];
+    cardsPlayed_.pop_back();
+    players_[currentPlayer_].undoMove(lastCard);
+    gameBoard_.undoMove(lastCard);
+  } while (!cardsPlayed_.empty() && players_[currentPlayer_].getPlayerType() != PlayerType::HUMAN);
+
+  notify();
 }

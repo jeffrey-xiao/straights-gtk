@@ -71,6 +71,11 @@ class Player {
     void reset();
     // modifies: this
     // ensures: score = 0, discarded = empty
+
+    void undoMove(Card);
+    // modifies: this
+    // ensures: adds card to hand and removes the specified Card from discard pile (if is there)
+
 };
 
 #endif

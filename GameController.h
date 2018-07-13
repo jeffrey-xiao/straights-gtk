@@ -77,6 +77,16 @@ class GameController : public Subject {
     void setSeed(int);
     // modifies: this
     // ensures: sets the seed of the game
+
+    bool canUndoMove() const;
+    // return: true if a human player has made a move in the current round
+    //         false if a human player has not
+
+    void undoMove();
+    // modifies: this
+    // requires: canUndoMove()
+    // ensures: undos moves in the round until it undos a move by a human player, or
+    //          no moves have been played
 };
 
 #endif

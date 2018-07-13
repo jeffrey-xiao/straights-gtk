@@ -7,8 +7,8 @@ const int STEP_INCREMENT = 1;
 const int PAGE_INCREMENT = 1;
 
 MenuFrame::MenuFrame(GameController *gameController): Gtk::Frame(),
-  gameController_(gameController), newGameButton_("New Game With Seed:"), quitButton_("Quit Game"),
-  rageButton_("Rage")
+  gameController_(gameController), newGameButton_("New Game With Seed:"),
+  quitButton_("Quit Game"), rageButton_("Rage"), undoButton_("Undo")
 {
   set_border_width(6);
   gameController_->addObserver(this);
@@ -23,6 +23,7 @@ MenuFrame::MenuFrame(GameController *gameController): Gtk::Frame(),
 
   contents_.pack_start(rageButton_);
   contents_.pack_start(quitButton_);
+  contents_.pack_start(undoButton_);
 
   newGameButton_.signal_clicked().connect(sigc::mem_fun(*this, &MenuFrame::onNewGameButtonClick));
   seedEntry_.set_range(INT_MIN, INT_MAX);
@@ -30,6 +31,7 @@ MenuFrame::MenuFrame(GameController *gameController): Gtk::Frame(),
   seedEntry_.set_width_chars(MAX_DIGITS);
   rageButton_.signal_clicked().connect(sigc::mem_fun(*this, &MenuFrame::onRageButtonClick));
   quitButton_.signal_clicked().connect(sigc::mem_fun(*this, &MenuFrame::onQuitButtonClick));
+  undoButton_.signal_clicked().connect(sigc::mem_fun(*this, &MenuFrame::onUndoButtonClick));
 
   show_all_children();
 }
@@ -40,6 +42,12 @@ void MenuFrame::update() {
     rageButton_.set_sensitive(true);
   } else {
     rageButton_.set_sensitive(false);
+  }
+
+  if (gameController_->canUndoMove()) {
+    undoButton_.set_sensitive(true);
+  } else {
+    undoButton_.set_sensitive(false);
   }
 }
 
@@ -59,4 +67,8 @@ void MenuFrame::onQuitButtonClick() {
   Command command;
   command.type = QUIT;
   gameController_->executeCommand(command);
+}
+
+void MenuFrame::onUndoButtonClick() {
+  gameController_->undoMove();
 }

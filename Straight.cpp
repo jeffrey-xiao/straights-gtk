@@ -9,7 +9,7 @@ Straight::Straight(Suit suit): suit_(suit), loRank_(EIGHT), hiRank_(SIX) {};
 
 bool Straight::canPlayCard(Card card) const {
   Suit suit = card.getSuit();
-  if (suit != card.getSuit()) {
+  if (suit_ != suit) {
     return false;
   }
 
@@ -37,6 +37,42 @@ void Straight::playCard(Card card) {
   if (loRank_ == rank + 1) {
     loRank_ = rank;
   }
+}
+
+bool Straight::canUndoMove(Card card) const {
+  Suit suit = card.getSuit();
+  if (suit_ != suit) {
+    return false;
+  }
+
+  Rank rank = card.getRank();
+
+  if (hiRank_ == rank || loRank_ == rank) {
+    return true;
+  }
+
+  return false;
+}
+
+void Straight::undoMove(Card card) {
+  assert(canUndoMove(card));
+
+  Rank rank = card.getRank();
+
+  if (hiRank_ == rank) {
+    hiRank_ = (Rank) (hiRank_ - 1);
+  }
+
+  if (loRank_ == rank) {
+    loRank_ = (Rank) (loRank_ + 1);
+  }
+}
+
+bool Straight::hasCard(Card card) const {
+  if (card.getSuit() != suit_) {
+    return false;
+  }
+  return loRank_ <= card.getRank() && card.getRank() <= hiRank_;
 }
 
 std::ostream& operator<<(std::ostream &out, const Straight &straight) {

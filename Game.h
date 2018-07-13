@@ -98,8 +98,8 @@ class Game : public Subject {
     // returns: the id of the current player in the game
 
     Card getLastCard() const;
-    // returns: the last played or discarded in the game. In the case that there is no last card
-    //          played, the ace of spaces will be returned.
+    // requires: a card has been played
+    // returns: the last played or discarded in the game
 
     Deck getDeck() const;
     // returns: the deck of cards in the game
@@ -111,6 +111,16 @@ class Game : public Subject {
     // modifies: this
     // ensures: sets of the seed of the game
 
+    bool canUndoMove() const;
+    // return: true if a human player has made a move in the current round
+    //         false if a human player has not
+
+    void undoMove();
+    // modifies: this
+    // requires: canUndoMove()
+    // ensures: undos moves in the round until it undos a move by a human player, or
+    //          no moves have been played
+
   private:
     int seed_;
     GameBoard gameBoard_;
@@ -118,7 +128,7 @@ class Game : public Subject {
     int currentPlayer_;
     Deck deck_;
     GameState gameState_;
-    Card lastCard_;
+    std::vector<Card> cardsPlayed_;
 
     void runRound();
     // modifies: this
