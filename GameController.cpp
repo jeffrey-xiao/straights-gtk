@@ -100,3 +100,11 @@ void GameController::addObserver(Observer *observer) {
 void GameController::setSeed(int seed) {
   game_->setSeed(seed);
 }
+
+bool GameController::canUndoMove() const {
+  return game_->canUndoMove();
+}
+
+void GameController::undoMove() {
+  game_->undoMove();
+}

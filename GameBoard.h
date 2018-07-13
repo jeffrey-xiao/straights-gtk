@@ -33,6 +33,10 @@ class GameBoard {
     // requires: canPlayCard(card)
     // ensures: this represents this@pre with card played
 
+    void undoMove(Card card);
+    // modifies: this
+    // ensures: Card is not on the end of a straight
+
     friend std::ostream& operator<<(std::ostream &out, const GameBoard &gameBoard);
     // modifies: out
     // ensures: out = out@pre + clubs + \n + diamonds + \n + hearts + \n + spades + \n

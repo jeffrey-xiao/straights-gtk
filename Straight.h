@@ -24,6 +24,15 @@ class Straight {
     // requires: canPlayCard(Card) is true
     // ensures: cards = cards@pre + card
 
+    bool canUndoMove(Card card) const;
+    // returns: true if Card is on one of the ends of the straight
+    //          false if Card is not
+
+    void undoMove(Card card);
+    // modifies: this
+    // requires: canUndoMove(card)
+    // ensures: Card is not on the end of the straight
+
     friend std::ostream& operator<<(std::ostream &out, const Straight &straight);
     // modifies: out
     // ensures: out = out@pre + straight.cards (in ascending order of rank)

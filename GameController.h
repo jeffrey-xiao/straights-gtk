@@ -31,7 +31,7 @@ class GameController : public Subject {
     void initGame();
     // modifies: this
     // ensures: the game is prepared to start and all observers are notified
-    
+
     void startGame(std::vector<PlayerType>);
     // modifies: this
     // ensures: the game is started
@@ -75,6 +75,16 @@ class GameController : public Subject {
     void setSeed(int);
     // modifies: this
     // ensures: sets the seed of the game
+
+    bool canUndoMove() const;
+    // return: true if a human player has made a move in the game
+    //         false if a human player has not
+
+    void undoMove();
+    // modifies: this
+    // requires: canUndoMove()
+    // ensures: undos moves in the round until it undos a move by a human player, or
+    //          no moves have been played
 };
 
 #endif

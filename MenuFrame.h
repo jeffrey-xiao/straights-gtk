@@ -32,12 +32,13 @@ class MenuFrame : public Gtk::Frame, public Observer {
     GameController *gameController_;
     Gtk::ButtonBox contents_;
     Gtk::Box newGameBox_;
-    Gtk::Button newGameButton_, quitButton_, rageButton_;
+    Gtk::Button newGameButton_, quitButton_, rageButton_, undoButton_;
     Gtk::SpinButton seedEntry_;
 
     void onNewGameButtonClick();
     void onRageButtonClick();
     void onQuitButtonClick();
+    void onUndoButtonClick();
 };
 
 #endif
