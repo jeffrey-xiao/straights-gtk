@@ -20,8 +20,8 @@ void StraightsTui::update() {
     // Read in player types when game is initialized
     case Game::GameState::GAME_START: {
       std::vector<PlayerType> playerTypes;
-      playerTypes.reserve(4);
-      for (size_t i = 0; i < 4; i++) {
+      playerTypes.reserve(PLAYER_COUNT);
+      for (size_t i = 0; i < PLAYER_COUNT; i++) {
         std::cout << "Is player " << i + 1 << " a human(h) or a computer(c)?" << std::endl;
         char c;
         std::cout << ">";

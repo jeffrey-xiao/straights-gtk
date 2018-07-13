@@ -37,8 +37,9 @@ class Card {
   private:
     Suit suit_;
     Rank rank_;
-
 };
+
+const Card SEVEN_OF_SPADES = Card(SPADE, SEVEN);
 
 bool operator==(const Card &a, const Card &b);
 // returns: true if cards a and b have the same rank and suit

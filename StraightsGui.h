@@ -14,10 +14,18 @@ class GameController;
 class StraightsWindow;
 
 class StraightsGui : public Gtk::Application, public Observer {
+  // GUI that shows a game of straights
   public:
     explicit StraightsGui(GameController *gameController);
+    // ensures: initializes this to a GUI that represents an empty board of straights
+
     virtual ~StraightsGui();
+    // modifies: this
+    // ensures: this is no longer exists, owned memory is freed
+
     void update() override;
+    // modifies: this
+    // ensures: GUI is updated to reflect the state of the game
 
   protected:
     void on_activate() override;
@@ -26,7 +34,7 @@ class StraightsGui : public Gtk::Application, public Observer {
     bool isRunning_;
     GameController *gameController_;
     StraightsWindow window_;
-    std::array<Gtk::CheckButton*, 4> playerTypeButtons_;
+    std::array<Gtk::CheckButton*, PLAYER_COUNT> playerTypeButtons_;
 
     void openPlayerTypesDialog();
 };

@@ -12,6 +12,9 @@
 struct Command;
 class Observer;
 
+const int PLAYER_COUNT = 4;
+const int MAX_SCORE = 80;
+
 class Game : public Subject {
   // Represents the state of a game of straights
   // Specification Fields:

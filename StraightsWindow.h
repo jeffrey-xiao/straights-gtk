@@ -14,10 +14,27 @@ class GameController;
 class GraphicalUserInterface;
 
 class StraightsWindow : public Gtk::ApplicationWindow, public Observer {
+  // Window that shows a game of straights
+  // Specification Fields:
+  //   menu = the menu that holds buttons (
+  //   board = the frame that holds the straights of the game
+  //   hand = the frame that represents the cards in the current players hand
+  //   players = the frames that represents the scores and discards of all players
+  //   game = the game of straights the board is monitoring
+
   public:
     explicit StraightsWindow(GameController *);
+    // ensures: initializes this to an window representing a new game of straights
+    //          the window monitors the game managed by the specified GameController
+
     virtual ~StraightsWindow();
+    // modifies: this
+    // ensures: this is no longer exists, owned memory is freed
+
     void update() override;
+    // modifies: this
+    // ensures: menu, board, hand, and players frames are updated to reflect the state of
+    //          the game
 
   private:
     GameController *gameController_;

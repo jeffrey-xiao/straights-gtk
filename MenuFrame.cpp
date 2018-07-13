@@ -2,7 +2,7 @@
 #include "GameController.h"
 #include "MenuFrame.h"
 
-MenuFrame::MenuFrame(GameController *gameController): Gtk::Frame("Menu Frame"),
+MenuFrame::MenuFrame(GameController *gameController): Gtk::Frame(),
   gameController_(gameController), newGameButton_("New Game With Seed:"), quitButton_("Quit Game"),
   rageButton_("Rage")
 {
@@ -11,6 +11,7 @@ MenuFrame::MenuFrame(GameController *gameController): Gtk::Frame("Menu Frame"),
   add(contents_);
   contents_.set_layout(Gtk::BUTTONBOX_START);
   contents_.set_spacing(10);
+  contents_.set_border_width(4);
 
   contents_.pack_start(newGameBox_);
   newGameBox_.pack_start(newGameButton_);

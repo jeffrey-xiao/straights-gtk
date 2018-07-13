@@ -4,11 +4,9 @@
 
 #include <cassert>
 
-const int STRAIGHT_COUNT = 4;
-
 GameBoard::GameBoard() {
-  straights_.reserve(STRAIGHT_COUNT);
-  for (int i = 0; i < STRAIGHT_COUNT; i++) {
+  straights_.reserve(SUIT_COUNT);
+  for (int i = 0; i < SUIT_COUNT; i++) {
     straights_.push_back(Straight((Suit)i));
   }
 }

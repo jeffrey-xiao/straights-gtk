@@ -12,11 +12,26 @@
 class GameController;
 
 class HandFrame : public Gtk::Frame, public Observer {
+  // Frame that shows the hand of the current player (reflects game state)
+  // Specification Fields:
+  //   cards = the cards the HandFrame represents
+  //   game = the game of straights the is monitoring
+
   public:
     explicit HandFrame(GameController *);
+    // ensures: initializes this to a hand with 13 empty card slots
+
     virtual ~HandFrame() = default;
+    // modifies: this
+    // ensures: this no longer exists, owned memory is freed
+
     void update() override;
+    // modifies: this
+    // ensures: the cards in the hand represents the cards of current player
+
     void executeCommand(Card);
+    // requires: Card is a card in the current players hand
+    // ensures: signals to the game that the current card is being played/discarded
 
   private:
     GameController *gameController_;

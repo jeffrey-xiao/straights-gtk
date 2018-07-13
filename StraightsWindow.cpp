@@ -18,8 +18,8 @@ StraightsWindow::StraightsWindow(GameController *gameController): gameController
 
   contents_.pack_start(playerContents_);
   playerContents_.set_border_width(3);
-  playerFrames_.reserve(4);
-  for (size_t i = 0; i < 4; i++) {
+  playerFrames_.reserve(PLAYER_COUNT);
+  for (size_t i = 0; i < PLAYER_COUNT; i++) {
     playerFrames_.push_back(new PlayerFrame("Player " + std::to_string(i + 1)));
     playerContents_.pack_start(*playerFrames_[i]);
   }
@@ -41,12 +41,12 @@ void StraightsWindow::update() {
 
   int currentPlayer = -1;
 
-  if(gameState != Game::GameState::GAME_START) {
+  if (gameState != Game::GameState::GAME_START) {
     currentPlayer = gameController_->getCurrentPlayerId() - 1;
   }
 
-  for(size_t i = 0; i < players.size(); i++) {
-    bool isFocus = (currentPlayer == i);
+  for (size_t i = 0; i < players.size(); i++) {
+    bool isFocus = (currentPlayer == (int)i);
     playerFrames_[i]->setFocus(isFocus);
     playerFrames_[i]->setPoints(players[i].getScore(), isFocus);
     playerFrames_[i]->setDiscards(players[i].getDiscardedCards().size(), isFocus);

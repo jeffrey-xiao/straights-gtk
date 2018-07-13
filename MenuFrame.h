@@ -11,10 +11,22 @@
 class GameController;
 
 class MenuFrame : public Gtk::Frame, public Observer {
+  // Frame that shows the avaiable menu buttons of a game of straights
+  // Specification Fields:
+  //   game = the game of straights the menu is monitoring
+
   public:
     explicit MenuFrame(GameController *);
+    // ensures: initializes this to an Menu for a new game of straights,
+
     virtual ~MenuFrame() = default;
+    // modifies: this
+    // ensures: this is no longer exists, owned memory is freed
+
     void update() override;
+    // modifies: this
+    // ensures: sets valid buttons as clickable/unclickable depending on
+    //          the state of the game
 
   private:
     GameController *gameController_;

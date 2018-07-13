@@ -57,8 +57,8 @@ void StraightsGui::openPlayerTypesDialog() {
   playerTypesDialog.hide();
 
   std::vector<PlayerType> playerTypes;
-  playerTypes.reserve(4);
-  for (size_t i = 0; i < 4; i++) {
+  playerTypes.reserve(PLAYER_COUNT);
+  for (size_t i = 0; i < PLAYER_COUNT; i++) {
     playerTypes.push_back(playerTypeButtons_[i]->get_active() ? PlayerType::HUMAN : PlayerType::COMPUTER);
   }
   gameController_->startGame(playerTypes);

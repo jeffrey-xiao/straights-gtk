@@ -9,7 +9,7 @@
 #include <algorithm>
 #include <vector>
 
-HandFrame::HandFrame(GameController *gameController): Gtk::Frame("Hand Frame"),
+HandFrame::HandFrame(GameController *gameController): Gtk::Frame("Your Hand"),
   gameController_(gameController), isDiscard_(false)
 {
   set_border_width(6);

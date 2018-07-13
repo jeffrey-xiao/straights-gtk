@@ -9,10 +9,6 @@
 #include <cassert>
 #include <vector>
 
-const Card SEVEN_OF_SPADES = Card(SPADE, SEVEN);
-const int PLAYER_COUNT = 4;
-const int MAX_SCORE = 80;
-
 Game::Game(int seed): seed_(seed), currentPlayer_(0), gameState_(GameState::ROUND_START),
   lastCard_(Card(SPADE, ACE))
 {
@@ -90,7 +86,7 @@ void Game::playCard(Card card) {
     players_[currentPlayer_].playCard(card);
     lastCard_ = card;
     setGameState(GameState::PLAYED_CARD);
-    currentPlayer_ = (currentPlayer_ + 1) % 4;
+    currentPlayer_ = (currentPlayer_ + 1) % PLAYER_COUNT;
     runRound();
   }
 
@@ -110,7 +106,7 @@ void Game::discardCard(Card card) {
     players_[currentPlayer_].discardCard(card);
     lastCard_ = card;
     setGameState(GameState::DISCARDED_CARD);
-    currentPlayer_ = (currentPlayer_ + 1) % 4;
+    currentPlayer_ = (currentPlayer_ + 1) % PLAYER_COUNT;
     runRound();
   }
 
