@@ -17,11 +17,13 @@ class MenuFrame : public Gtk::Frame, public Observer {
 
   public:
     explicit MenuFrame(GameController *);
+    // modifies: this
     // ensures: initializes this to an Menu for a new game of straights,
+    //          this is added as an observer to gameController
 
     virtual ~MenuFrame() = default;
     // modifies: this
-    // ensures: this is no longer exists, owned memory is freed
+    // ensures: this no longer exists, owned memory is freed
 
     void update() override;
     // modifies: this

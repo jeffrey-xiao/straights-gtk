@@ -21,7 +21,7 @@ class StraightsGui : public Gtk::Application, public Observer {
 
     virtual ~StraightsGui();
     // modifies: this
-    // ensures: this is no longer exists, owned memory is freed
+    // ensures: this no longer exists, owned memory is freed
 
     void update() override;
     // modifies: this
