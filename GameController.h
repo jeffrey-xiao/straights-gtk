@@ -77,7 +77,7 @@ class GameController : public Subject {
     // ensures: sets the seed of the game
 
     bool canUndoMove() const;
-    // return: true if a human player has made a move in the game
+    // return: true if a human player has made a move in the current round
     //         false if a human player has not
 
     void undoMove();

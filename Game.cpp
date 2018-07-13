@@ -10,8 +10,7 @@
 #include <climits>
 #include <vector>
 
-Game::Game(int seed): seed_(seed), currentPlayer_(0), gameState_(GameState::ROUND_START)
-{
+Game::Game(int seed): seed_(seed), currentPlayer_(0), gameState_(GameState::ROUND_START) {
   players_.reserve(PLAYER_COUNT);
   for (int i = 0; i < PLAYER_COUNT; i++) {
     players_.push_back(Player(i + 1));
@@ -299,7 +298,7 @@ void Game::undoMove() {
   assert(canUndoMove());
 
   do {
-    currentPlayer_ = (currentPlayer_ - 1 + 4) % 4;
+    currentPlayer_ = (currentPlayer_ - 1 + PLAYER_COUNT) % PLAYER_COUNT;
     Card lastCard = cardsPlayed_[cardsPlayed_.size() - 1];
     cardsPlayed_.pop_back();
     players_[currentPlayer_].undoMove(lastCard);

@@ -94,8 +94,7 @@ class Game : public Subject {
 
     Card getLastCard() const;
     // requires: a card has been played
-    // returns: the last played or discarded in the game. In the case that there is no last card
-    //          played, the ace of spaces will be returned.
+    // returns: the last played or discarded in the game
 
     Deck getDeck() const;
     // returns: the deck of cards in the game
@@ -108,12 +107,14 @@ class Game : public Subject {
     // ensures: sets of the seed of the game
 
     bool canUndoMove() const;
-    // return: true if a human player has made a move in the game
+    // return: true if a human player has made a move in the current round
     //         false if a human player has not
+
     void undoMove();
     // modifies: this
     // requires: canUndoMove()
-    // ensures: undos moves in the round until the last human input
+    // ensures: undos moves in the round until it undos a move by a human player, or
+    //          no moves have been played
 
   private:
     int seed_;
