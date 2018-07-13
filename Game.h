@@ -47,25 +47,29 @@ class Game : public Subject {
 
     std::vector<Card> getCurrentPlayerValidCards() const;
     // returns: a list of cards associated with the current player that can be played on the boar
+
     void initGame();
     // modifies: this
-    // ensures: the game is prepared to start and all observers are notified
+    // ensures: the game is prepared to start and all observers are notified that a new game is
+    //          preparing to start.
 
     void startGame(std::vector<PlayerType>);
     // modifies: this
-    // ensures: the game is started
+    // ensures: the game is started. All observers are notified that a new game has started.
 
     void startRound();
     // modifies: this
     // ensures: the deck is reshuffled, all hands are dealt to players, the discard piles are
-    //          emptied, and a new round of straights is started
+    //          emptied, and a new round of straights is started. All observers are notified that
+    //          a new round has started.
 
     void playCard(Card);
     // modifies: this
     // ensures: if the card is able to be played, then the game state is changed to PLAYED_CARD and
     //          the card is removed from the hand of the player and put onto the game board. If the
     //          card is an invalid play, then the game state is changed to INVALID_PLAY_INPUT. The
-    //          state of the game board and hand does not change.
+    //          state of the game board and hand does not change. All observers are notified that a
+    //          card has been played.
 
     void discardCard(Card);
     // modifies: this
@@ -73,11 +77,12 @@ class Game : public Subject {
     //          DISCARDED_CARD and the card is removed from the hand of the player and put in the
     //          player's discard pile. If the card is an invalid discard, then the game state is
     //          changed to INVALID_DISCARD_INPUT. The state of the game board, hand, and discard
-    //          pile does not change
+    //          pile does not change. All observers are notified that a card has been discarded.
 
     void ragequit();
     // modifies: this
-    // ensures: the current player changed to a computer player
+    // ensures: the current player changed to a computer player and all observers are notified that
+    //          a human player has ragequit.
 
     void quit();
     // modifies: this

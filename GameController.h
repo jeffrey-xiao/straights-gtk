@@ -30,15 +30,17 @@ class GameController : public Subject {
 
     void initGame();
     // modifies: this
-    // ensures: the game is prepared to start and all observers are notified
+    // ensures: the game is prepared to start and all observers are notified that a new game is
+    //          preparing to start.
 
     void startGame(std::vector<PlayerType>);
     // modifies: this
-    // ensures: the game is started
+    // ensures: the game is started and all observers are notified that a new game has started.
 
     void executeCommand(Command command);
     // modifies: this
-    // ensures: the command is executed in the game
+    // ensures: the command is executed in the game and all observers are notified of the result of
+    //          the command.
 
     GameBoard getGameBoard() const;
     // returns: the game board associated with the game

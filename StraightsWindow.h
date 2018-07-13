@@ -26,7 +26,7 @@ class StraightsWindow : public Gtk::ApplicationWindow, public Observer {
 
     virtual ~StraightsWindow();
     // modifies: this
-    // ensures: this is no longer exists, owned memory is freed
+    // ensures: this no longer exists, owned memory is freed
 
     void update() override;
     // modifies: this

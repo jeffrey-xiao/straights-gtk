@@ -18,8 +18,10 @@ class HandFrame : public Gtk::Frame, public Observer {
   //   game = the game of straights the is monitoring
 
   public:
-    explicit HandFrame(GameController *);
+    explicit HandFrame(GameController *gameController);
+    // modifies: this
     // ensures: initializes this to a hand with 13 empty card slots
+    //          this is added as an observer to gameController
 
     virtual ~HandFrame() = default;
     // modifies: this

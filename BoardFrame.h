@@ -17,13 +17,15 @@ class BoardFrame : public Gtk::Frame, public Observer {
   //   board = UI displaying the cards played in a game of straights
   //   game = the game of straights the board is monitoring
   public:
-    explicit BoardFrame(GameController *);
+    explicit BoardFrame(GameController *gameController);
+    // modifies: gameController
     // ensures: initializes this to an empty board of straights,
-    //          board monitors the game managed by the specified GameController
+    //          board monitors the game managed by the specified GameController,
+    //          this is added as an observer to gameController
 
     virtual ~BoardFrame() = default;
     // modifies: this
-    // ensures: this is no longer exists, owned memory is freed
+    // ensures: this no longer exists, owned memory is freed
 
     void update() override;
     // modifies: this

@@ -11,13 +11,28 @@
 class GameController;
 
 class PlayerFrame : public Gtk::Frame {
+  // Frame that shows the statistics for a specific player. More specifically, the frame displays
+  // the points and discards of a particular player.
+
   public:
     explicit PlayerFrame(const std::string&);
-    virtual ~PlayerFrame() = default;
+    // ensures: initializes this to an empty PlayerFrame
 
-    void setFocus(bool);
-    void setPoints(int, bool = false);
-    void setDiscards(int, bool = false);
+    virtual ~PlayerFrame() = default;
+    // modifies: this
+    // ensures: this no longer exists, owned memory is freed
+
+    void setFocus(bool isFocus);
+    // modifies: this
+    // ensures: the focus of this is set to isFocus
+
+    void setPoints(int points, bool isFocus = false);
+    // modifies: this
+    // ensures: the focus of the points label is set to isFocus; the points displayed is set
+
+    void setDiscards(int points, bool isFocus = false);
+    // modifies: this
+    // ensures: the focus of the discards label is set to isFocus; the number of discards is set
 
   private:
     std::string name_;
