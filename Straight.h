@@ -33,6 +33,9 @@ class Straight {
     // requires: canUndoMove(card)
     // ensures: Card is not on the end of the straight
 
+    bool hasCard(Card card) const;
+    // returns: true if the card exists in the straight
+
     friend std::ostream& operator<<(std::ostream &out, const Straight &straight);
     // modifies: out
     // ensures: out = out@pre + straight.cards (in ascending order of rank)

@@ -27,9 +27,19 @@ BoardFrame::BoardFrame(GameController *gameController): Gtk::Frame("Cards on the
 
 void BoardFrame::update() {
   Game::GameState gameState = gameController_->getGameState();
-  if (gameState == Game::GameState::PLAYED_CARD) {
-    Card card = gameController_->getLastCard();
-    cardImages_[card.getSuit() * RANK_COUNT + card.getRank()].set("img/" + card.getString() + ".png");
+  if (gameState == Game::GameState::HUMAN_INPUT || gameState == Game::GameState::ROUND_END) {
+    GameBoard gameBoard = gameController_->getGameBoard();
+    for (size_t i = 0; i < SUIT_COUNT; i++) {
+      for (size_t j = 0; j < RANK_COUNT; j++) {
+        size_t index = i * RANK_COUNT + j;
+        Card currCard((Suit)i, (Rank)j);
+        if (gameBoard.hasCard(currCard)) {
+          cardImages_[index].set(CARD_IMG_PREFIX + currCard.getString() + CARD_IMG_SUFFIX);
+        } else {
+          cardImages_[index].set(NOTHING_IMG);
+        }
+      }
+    }
   } else if (gameState == Game::GameState::ROUND_START) {
     reset();
   }

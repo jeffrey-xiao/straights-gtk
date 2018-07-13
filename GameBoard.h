@@ -36,6 +36,9 @@ class GameBoard {
     void undoMove(Card card);
     // modifies: this
     // ensures: Card is not on the end of a straight
+    
+    bool hasCard(Card card) const;
+    // returns: true if the card exists on the board
 
     friend std::ostream& operator<<(std::ostream &out, const GameBoard &gameBoard);
     // modifies: out

@@ -4,6 +4,10 @@
 #include <ostream>
 #include <istream>
 
+const std::string CARD_IMG_PREFIX = "./img/";
+const std::string CARD_IMG_SUFFIX = ".png";
+const std::string NOTHING_IMG = CARD_IMG_PREFIX + "nothing" + CARD_IMG_SUFFIX;
+
 enum Suit { CLUB, DIAMOND, HEART, SPADE, SUIT_COUNT };
 // enum representing the suit of the card
 

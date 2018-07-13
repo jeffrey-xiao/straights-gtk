@@ -35,6 +35,15 @@ void GameBoard::undoMove(Card card) {
   }
 }
 
+bool GameBoard::hasCard(Card card) const {
+  for (size_t i = 0; i < SUIT_COUNT; i++) {
+    if (straights_[i].hasCard(card)) {
+      return true;
+    }
+  }
+  return false;
+}
+
 std::ostream& operator<<(std::ostream &out, const GameBoard &gameBoard) {
   out << "Cards on the table:" << std::endl;
   for (Straight straight : gameBoard.straights_) {

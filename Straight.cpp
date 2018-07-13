@@ -68,6 +68,13 @@ void Straight::undoMove(Card card) {
   }
 }
 
+bool Straight::hasCard(Card card) const {
+  if (card.getSuit() != suit_) {
+    return false;
+  }
+  return loRank_ <= card.getRank() && card.getRank() <= hiRank_;
+}
+
 std::ostream& operator<<(std::ostream &out, const Straight &straight) {
   std::string suits[SUIT_COUNT] = {"Clubs", "Diamonds", "Hearts", "Spades"};
   std::string ranks[RANK_COUNT] = {"A", "2", "3", "4", "5", "6",
