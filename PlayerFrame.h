@@ -34,6 +34,10 @@ class PlayerFrame : public Gtk::Frame {
     // modifies: this
     // ensures: the focus of the discards label is set to isFocus; the number of discards is set
 
+    void setName(std::string);
+    // modifies: this
+    // ensures: the label of the frame is set to the specified string
+
   private:
     std::string name_;
     Gtk::VBox contents_;

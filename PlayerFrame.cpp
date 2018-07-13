@@ -40,3 +40,7 @@ void PlayerFrame::setDiscards(int discards, bool isFocus) {
     discardsLabel_.set_text(std::to_string(discards) + " discards");
   }
 }
+
+void PlayerFrame::setName(std::string name) {
+  name_ = name;
+}

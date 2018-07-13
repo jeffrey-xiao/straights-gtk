@@ -47,6 +47,11 @@ void StraightsWindow::update() {
 
   for (size_t i = 0; i < players.size(); i++) {
     bool isFocus = (currentPlayer == (int)i);
+    if (players[i].getPlayerType() == PlayerType::HUMAN) {
+      playerFrames_[i]->setName("Player " + std::to_string(i + 1));
+    } else {
+      playerFrames_[i]->setName("Player " + std::to_string(i + 1) + " (Computer)");
+    }
     playerFrames_[i]->setFocus(isFocus);
     playerFrames_[i]->setPoints(players[i].getScore(), isFocus);
     playerFrames_[i]->setDiscards(players[i].getDiscardedCards().size(), isFocus);
