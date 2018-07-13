@@ -2,6 +2,10 @@
 #include "GameController.h"
 #include "MenuFrame.h"
 
+const int MAX_DIGITS = 11;
+const int STEP_INCREMENT = 1;
+const int PAGE_INCREMENT = 1;
+
 MenuFrame::MenuFrame(GameController *gameController): Gtk::Frame(),
   gameController_(gameController), newGameButton_("New Game With Seed:"), quitButton_("Quit Game"),
   rageButton_("Rage")
@@ -21,16 +25,26 @@ MenuFrame::MenuFrame(GameController *gameController): Gtk::Frame(),
   contents_.pack_start(quitButton_);
 
   newGameButton_.signal_clicked().connect(sigc::mem_fun(*this, &MenuFrame::onNewGameButtonClick));
+  seedEntry_.set_range(INT_MIN, INT_MAX);
+  seedEntry_.set_increments(STEP_INCREMENT, PAGE_INCREMENT);
+  seedEntry_.set_width_chars(MAX_DIGITS);
   rageButton_.signal_clicked().connect(sigc::mem_fun(*this, &MenuFrame::onRageButtonClick));
   quitButton_.signal_clicked().connect(sigc::mem_fun(*this, &MenuFrame::onQuitButtonClick));
 
   show_all_children();
 }
 
-void MenuFrame::update() {}
+void MenuFrame::update() {
+  Game::GameState gameState = gameController_->getGameState();
+  if (gameState == Game::GameState::HUMAN_INPUT) {
+    rageButton_.set_sensitive(true);
+  } else {
+    rageButton_.set_sensitive(false);
+  }
+}
 
 void MenuFrame::onNewGameButtonClick() {
-  gameController_->setSeed(atoi(seedEntry_.get_text().c_str()));
+  gameController_->setSeed(seedEntry_.get_value_as_int());
   gameController_->initGame();
 }
 

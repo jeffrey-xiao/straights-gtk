@@ -3,6 +3,8 @@
 
 #include <vector>
 
+Subject::~Subject() {}
+
 void Subject::addObserver(Observer *observer) {
   observers_.push_back(observer);
 }

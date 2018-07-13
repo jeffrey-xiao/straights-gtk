@@ -7,6 +7,7 @@ class Observer;
 
 class Subject {
   public:
+    virtual ~Subject() = 0;
     void addObserver(Observer *);
   protected:
     void notify();
