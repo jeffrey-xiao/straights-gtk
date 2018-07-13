@@ -71,7 +71,7 @@ void Player::reset() {
 void Player::undoMove(Card card) {
   auto iter = std::find(discardedCards_.begin(), discardedCards_.end(), card);
 
-  if(iter != discardedCards_.end()) {
+  if (iter != discardedCards_.end()) {
     discardedCards_.erase(iter);
   }
   cards_.push_back(card);

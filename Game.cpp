@@ -287,8 +287,8 @@ void Game::setSeed(int seed) {
 }
 
 bool Game::canUndoMove() const {
-  for(size_t i = 0; i < players_.size(); i++) {
-    if(players_[i].getPlayerType() == PlayerType::HUMAN &&
+  for (size_t i = 0; i < players_.size(); i++) {
+    if (players_[i].getPlayerType() == PlayerType::HUMAN &&
        players_[i].getCards().size() != RANK_COUNT) {
       return true;
     }
@@ -304,7 +304,7 @@ void Game::undoMove() {
     cardsPlayed_.pop_back();
     players_[currentPlayer_].undoMove(lastCard);
     gameBoard_.undoMove(lastCard);
-  } while(!cardsPlayed_.empty() && players_[currentPlayer_].getPlayerType() != PlayerType::HUMAN);
+  } while (!cardsPlayed_.empty() && players_[currentPlayer_].getPlayerType() != PlayerType::HUMAN);
 
   notify();
 }
