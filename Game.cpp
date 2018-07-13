@@ -8,7 +8,6 @@
 #include <algorithm>
 #include <cassert>
 #include <climits>
-#include <iostream>
 #include <vector>
 
 Game::Game(int seed): seed_(seed), currentPlayer_(0), gameState_(GameState::ROUND_START)
