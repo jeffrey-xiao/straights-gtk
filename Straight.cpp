@@ -45,6 +45,10 @@ bool Straight::canUndoMove(Card card) const {
     return false;
   }
 
+  if (hiRank_ == SIX && loRank_ == EIGHT) {
+    return false;
+  }
+
   Rank rank = card.getRank();
 
   if (hiRank_ == rank || loRank_ == rank) {
