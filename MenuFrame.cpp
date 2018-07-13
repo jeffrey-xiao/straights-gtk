@@ -44,7 +44,7 @@ void MenuFrame::update() {
     rageButton_.set_sensitive(false);
   }
 
-  if(gameController_->canUndoMove()) {
+  if (gameController_->canUndoMove()) {
     undoButton_.set_sensitive(true);
   } else {
     undoButton_.set_sensitive(false);

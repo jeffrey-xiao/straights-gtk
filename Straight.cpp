@@ -59,11 +59,11 @@ void Straight::undoMove(Card card) {
 
   Rank rank = card.getRank();
 
-  if(hiRank_ == rank) {
+  if (hiRank_ == rank) {
     hiRank_ = (Rank) (hiRank_ - 1);
   }
 
-  if(loRank_ == rank) {
+  if (loRank_ == rank) {
     loRank_ = (Rank) (loRank_ + 1);
   }
 }

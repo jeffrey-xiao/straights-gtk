@@ -30,7 +30,7 @@ void GameBoard::playCard(Card card) {
 
 void GameBoard::undoMove(Card card) {
   Suit suit = card.getSuit();
-  if(straights_[suit].canUndoMove(card)) {
+  if (straights_[suit].canUndoMove(card)) {
     straights_[suit].undoMove(card);
   }
 }
