@@ -1,4 +1,0 @@
-1) Cards are highlighted in green if it can be played and red if it can be discarded. If it is not a valid move, the card is not clickable.
-2) Intelligent AI use a points heuristic to determine the best card to play and discard.
-3) Can undo moves in the current round.
-4) Cards are sorted in hand.
