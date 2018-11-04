@@ -13,7 +13,7 @@ A modular implementation of the Straights card game using GTK+ 3.
 ### Building
 
 ```
-git clone https://github.com/jeffrey-xiao/straights-gtk
+git clone https://gitlab.com/jeffrey-xiao/straights-gtk
 cd straights-gtk
 make
 ./straights
