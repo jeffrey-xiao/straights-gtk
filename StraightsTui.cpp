@@ -1,12 +1,12 @@
+#include "StraightsTui.h"
 #include "Command.h"
 #include "GameController.h"
-#include "StraightsTui.h"
 
 #include <cassert>
 #include <iostream>
 #include <vector>
 
-StraightsTui::StraightsTui(GameController *gameController): gameController_(gameController) {
+StraightsTui::StraightsTui(GameController *gameController) : gameController_(gameController) {
   gameController_->addObserver(this);
 }
 
@@ -45,7 +45,7 @@ void StraightsTui::update() {
           // Set the current player to be controlled by the computer
           case RAGEQUIT:
             std::cout << "Player " << gameController_->getCurrentPlayerId()
-              << " ragequits. A computer will now take over." << std::endl;
+                      << " ragequits. A computer will now take over." << std::endl;
 
           // Tell the game to play/discard a card
           case PLAY:
@@ -84,7 +84,7 @@ void StraightsTui::update() {
     // Notify the user that a round is starting
     case Game::GameState::ROUND_START:
       cout << "A new round begins. It's player " << gameController_->getCurrentPlayerId()
-        << "'s turn to play." << endl;
+           << "'s turn to play." << endl;
       break;
 
     // Notify the user that it is a Human player's turn
@@ -129,13 +129,13 @@ void StraightsTui::update() {
     // Notify the user that a player has discarded a card
     case Game::GameState::DISCARDED_CARD:
       cout << "Player " << gameController_->getCurrentPlayerId() << " discards "
-        << gameController_->getLastCard() << "." << endl;
+           << gameController_->getLastCard() << "." << endl;
       break;
 
     // Notify the user that a player has played a card
     case Game::GameState::PLAYED_CARD:
       cout << "Player " << gameController_->getCurrentPlayerId() << " plays "
-        << gameController_->getLastCard() << "." << endl;
+           << gameController_->getLastCard() << "." << endl;
       break;
 
     // Notify the user that a round has ended
@@ -157,8 +157,8 @@ void StraightsTui::update() {
 
         int score = players[i].getScore();
         int roundScore = players[i].getRoundScore();
-        cout << "Player " << players[i].getId() << "'s score: " << score << " + " << roundScore << " = "
-          << score + roundScore << endl;
+        cout << "Player " << players[i].getId() << "'s score: " << score << " + " << roundScore
+             << " = " << score + roundScore << endl;
       }
       break;
     }

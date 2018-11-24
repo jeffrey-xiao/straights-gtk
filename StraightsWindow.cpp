@@ -1,13 +1,13 @@
+#include "StraightsWindow.h"
 #include "GameController.h"
 #include "Player.h"
-#include "StraightsWindow.h"
 
 #include <gtkmm/messagedialog.h>
 #include <vector>
 
-StraightsWindow::StraightsWindow(GameController *gameController): gameController_(gameController),
-  boardFrame_(gameController), menuFrame_(gameController), handFrame_(gameController)
-{
+StraightsWindow::StraightsWindow(GameController *gameController)
+    : gameController_(gameController), boardFrame_(gameController), menuFrame_(gameController),
+      handFrame_(gameController) {
   gameController->addObserver(this);
   set_title("Straights");
   set_default_size(400, 400);
@@ -56,7 +56,6 @@ void StraightsWindow::update() {
     playerFrames_[i]->setPoints(players[i].getScore(), isFocus);
     playerFrames_[i]->setDiscards(players[i].getDiscardedCards().size(), isFocus);
   }
-
 
   if (gameState == Game::GameState::ROUND_END) {
     Gtk::MessageDialog roundEndDialog(*this, "Round Over.");

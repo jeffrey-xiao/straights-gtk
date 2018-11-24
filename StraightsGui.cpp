@@ -1,7 +1,7 @@
+#include "StraightsGui.h"
 #include "Command.h"
 #include "GameController.h"
 #include "Player.h"
-#include "StraightsGui.h"
 #include "StraightsWindow.h"
 
 #include <gtkmm/applicationwindow.h>
@@ -9,9 +9,8 @@
 #include <gtkmm/dialog.h>
 #include <gtkmm/main.h>
 
-StraightsGui::StraightsGui(GameController *gameController): gameController_(gameController),
-  window_(gameController)
-{
+StraightsGui::StraightsGui(GameController *gameController)
+    : gameController_(gameController), window_(gameController) {
   gameController_->addObserver(this);
   for (size_t i = 0; i < playerTypeButtons_.size(); i++) {
     playerTypeButtons_[i] = new Gtk::CheckButton("Human Player " + std::to_string(i + 1));
@@ -59,7 +58,8 @@ void StraightsGui::openPlayerTypesDialog() {
   std::vector<PlayerType> playerTypes;
   playerTypes.reserve(PLAYER_COUNT);
   for (size_t i = 0; i < PLAYER_COUNT; i++) {
-    playerTypes.push_back(playerTypeButtons_[i]->get_active() ? PlayerType::HUMAN : PlayerType::COMPUTER);
+    playerTypes.push_back(
+        playerTypeButtons_[i]->get_active() ? PlayerType::HUMAN : PlayerType::COMPUTER);
   }
   gameController_->startGame(playerTypes);
 }

@@ -4,7 +4,7 @@
 
 #include <vector>
 
-int main(int argc, char** argv) {
+int main(int argc, char **argv) {
   int seed = 0;
   if (argc == 2) {
     seed = atoi(argv[1]);

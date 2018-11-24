@@ -1,8 +1,8 @@
-#include "Card.h"
 #include "Deck.h"
+#include "Card.h"
 
-#include <vector>
 #include <random>
+#include <vector>
 
 Deck::Deck() {
   cards_.reserve(SUIT_COUNT * RANK_COUNT);
@@ -29,6 +29,6 @@ void Deck::shuffle(int seed) {
   }
 }
 
-Card& Deck::operator[](const int index) {
+Card &Deck::operator[](const int index) {
   return cards_[index];
 }

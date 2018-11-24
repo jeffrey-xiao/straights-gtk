@@ -1,10 +1,11 @@
-#include "Card.h"
 #include "Player.h"
+#include "Card.h"
 
 #include <algorithm>
 #include <cassert>
 
-Player::Player(int id): id_(id), cards_(), discardedCards_(), score_(0), type_(PlayerType::COMPUTER) {}
+Player::Player(int id)
+    : id_(id), cards_(), discardedCards_(), score_(0), type_(PlayerType::COMPUTER) {}
 
 std::vector<Card> Player::getCards() const {
   return cards_;

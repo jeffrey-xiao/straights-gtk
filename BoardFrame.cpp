@@ -3,9 +3,8 @@
 #include "Game.h"
 #include "GameController.h"
 
-BoardFrame::BoardFrame(GameController *gameController): Gtk::Frame("Cards on the table"),
-  gameController_(gameController)
-{
+BoardFrame::BoardFrame(GameController *gameController)
+    : Gtk::Frame("Cards on the table"), gameController_(gameController) {
   set_border_width(6);
   gameController_->addObserver(this);
   add(contents_);

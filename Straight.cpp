@@ -1,11 +1,11 @@
-#include "Card.h"
 #include "Straight.h"
+#include "Card.h"
 
 #include <cassert>
 
 // initialize loRank_ to EIGHT and hiRank_ to SIX to account for the corner cases where no cards
 // have been played for a particular straight.
-Straight::Straight(Suit suit): suit_(suit), loRank_(EIGHT), hiRank_(SIX) {};
+Straight::Straight(Suit suit) : suit_(suit), loRank_(EIGHT), hiRank_(SIX){};
 
 bool Straight::canPlayCard(Card card) const {
   Suit suit = card.getSuit();
@@ -64,11 +64,11 @@ void Straight::undoMove(Card card) {
   Rank rank = card.getRank();
 
   if (hiRank_ == rank) {
-    hiRank_ = (Rank) (hiRank_ - 1);
+    hiRank_ = (Rank)(hiRank_ - 1);
   }
 
   if (loRank_ == rank) {
-    loRank_ = (Rank) (loRank_ + 1);
+    loRank_ = (Rank)(loRank_ + 1);
   }
 }
 
@@ -79,10 +79,10 @@ bool Straight::hasCard(Card card) const {
   return loRank_ <= card.getRank() && card.getRank() <= hiRank_;
 }
 
-std::ostream& operator<<(std::ostream &out, const Straight &straight) {
+std::ostream &operator<<(std::ostream &out, const Straight &straight) {
   std::string suits[SUIT_COUNT] = {"Clubs", "Diamonds", "Hearts", "Spades"};
-  std::string ranks[RANK_COUNT] = {"A", "2", "3", "4", "5", "6",
-    "7", "8", "9", "10", "J", "Q", "K"};
+  std::string ranks[RANK_COUNT] = {
+      "A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"};
 
   out << suits[straight.suit_] << ":";
   if (straight.loRank_ <= straight.hiRank_) {

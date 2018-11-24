@@ -1,15 +1,14 @@
+#include "MenuFrame.h"
 #include "Command.h"
 #include "GameController.h"
-#include "MenuFrame.h"
 
 const int MAX_DIGITS = 11;
 const int STEP_INCREMENT = 1;
 const int PAGE_INCREMENT = 1;
 
-MenuFrame::MenuFrame(GameController *gameController): Gtk::Frame(),
-  gameController_(gameController), newGameButton_("New Game With Seed:"),
-  quitButton_("Quit Game"), rageButton_("Rage"), undoButton_("Undo")
-{
+MenuFrame::MenuFrame(GameController *gameController)
+    : Gtk::Frame(), gameController_(gameController), newGameButton_("New Game With Seed:"),
+      quitButton_("Quit Game"), rageButton_("Rage"), undoButton_("Undo") {
   set_border_width(6);
   gameController_->addObserver(this);
   add(contents_);
@@ -61,7 +60,6 @@ void MenuFrame::onRageButtonClick() {
   command.type = RAGEQUIT;
   gameController_->executeCommand(command);
 }
-
 
 void MenuFrame::onQuitButtonClick() {
   Command command;

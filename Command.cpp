@@ -3,7 +3,7 @@
 #include <sstream>
 using namespace std;
 
-istream &operator>>(istream &in, Command &c){
+istream &operator>>(istream &in, Command &c) {
   c.type = BAD_COMMAND;
 
   string cmd;

@@ -1,11 +1,11 @@
+#include "GameController.h"
 #include "Command.h"
 #include "Game.h"
-#include "GameController.h"
 
 #include <algorithm>
 #include <cassert>
 
-GameController::GameController(int seed): game_(new Game(seed)) {}
+GameController::GameController(int seed) : game_(new Game(seed)) {}
 
 GameController::~GameController() {
   delete game_;

@@ -1,17 +1,16 @@
+#include "HandFrame.h"
 #include "Card.h"
 #include "Command.h"
 #include "Game.h"
 #include "GameController.h"
-#include "HandFrame.h"
 
 #include <gtkmm/button.h>
 
 #include <algorithm>
 #include <vector>
 
-HandFrame::HandFrame(GameController *gameController): Gtk::Frame("Your Hand"),
-  gameController_(gameController), isDiscard_(false)
-{
+HandFrame::HandFrame(GameController *gameController)
+    : Gtk::Frame("Your Hand"), gameController_(gameController), isDiscard_(false) {
   set_border_width(6);
   gameController_->addObserver(this);
   hand_.reserve(RANK_COUNT);
@@ -51,7 +50,8 @@ void HandFrame::update() {
 
     for (size_t i = 0; i < cards.size(); i++) {
       hand_[i].setCard(cards[i]);
-      if (isDiscard_ || std::find(legalPlays.begin(), legalPlays.end(), cards[i]) != legalPlays.end()) {
+      if (isDiscard_ ||
+          std::find(legalPlays.begin(), legalPlays.end(), cards[i]) != legalPlays.end()) {
         if (isDiscard_) {
           hand_[i].setColor(Gdk::RGBA("red"));
         } else {

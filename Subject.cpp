@@ -1,5 +1,5 @@
-#include "Observer.h"
 #include "Subject.h"
+#include "Observer.h"
 
 #include <vector>
 
@@ -14,4 +14,3 @@ void Subject::notify() {
     observer->update();
   }
 }
-

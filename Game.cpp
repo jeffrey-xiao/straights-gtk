@@ -1,16 +1,16 @@
+#include "Game.h"
 #include "Card.h"
 #include "Command.h"
-#include "Game.h"
+#include "Deck.h"
 #include "Observer.h"
 #include "Player.h"
-#include "Deck.h"
 
 #include <algorithm>
 #include <cassert>
 #include <climits>
 #include <vector>
 
-Game::Game(int seed): seed_(seed), currentPlayer_(0), gameState_(GameState::ROUND_START) {
+Game::Game(int seed) : seed_(seed), currentPlayer_(0), gameState_(GameState::ROUND_START) {
   players_.reserve(PLAYER_COUNT);
   for (int i = 0; i < PLAYER_COUNT; i++) {
     players_.push_back(Player(i + 1));
@@ -27,19 +27,14 @@ std::vector<Card> Game::getCurrentPlayerValidCards() const {
   // If the player has a seven of spades, then it must be the first turn of the game. That player
   // must play the seven of spades regardless if the player has other sevens
   if (std::find(validCards.begin(), validCards.end(), SEVEN_OF_SPADES) != validCards.end()) {
-    return { SEVEN_OF_SPADES };
+    return {SEVEN_OF_SPADES};
   }
 
   // Else, remove all cards that cannot be played in the current game board
   else {
-    validCards.erase(
-      std::remove_if(
-        validCards.begin(),
-        validCards.end(),
-        [this](const Card &card) { return !gameBoard_.canPlayCard(card); }
-      ),
-      validCards.end()
-    );
+    validCards.erase(std::remove_if(validCards.begin(), validCards.end(),
+                         [this](const Card &card) { return !gameBoard_.canPlayCard(card); }),
+        validCards.end());
   }
   return validCards;
 }
@@ -102,7 +97,8 @@ void Game::discardCard(Card card) {
   // if there are no valid cards to be played and the player has card, then card can be discarded
   // the card is removed from the player's hand and added to the player's discard pile, and play is
   // continued
-  if (getCurrentPlayerValidCards().empty() && std::find(cards.begin(), cards.end(), card) != cards.end()) {
+  if (getCurrentPlayerValidCards().empty() &&
+      std::find(cards.begin(), cards.end(), card) != cards.end()) {
     cardsPlayed_.push_back(card);
     players_[currentPlayer_].discardCard(card);
     setGameState(GameState::DISCARDED_CARD);
@@ -240,8 +236,8 @@ void Game::runRound() {
       discardCard(cards[maxIndex]);
     }
 
-    // play the card that maximizes the points of your future plays subtracted by the average opponent
-    // plays
+    // play the card that maximizes the points of your future plays subtracted by the average
+    // opponent plays
     else {
       double maxValue = INT_MIN;
       int maxIndex = -1;
@@ -251,7 +247,8 @@ void Game::runRound() {
 
         if (validCards[i].getRank() >= SEVEN) {
           int cardCount = KING - validCards[i].getRank();
-          currValue -= (KING + 1 + validCards[i].getRank() + 2) * cardCount / 2.0 / (PLAYER_COUNT - 1.0);
+          currValue -=
+              (KING + 1 + validCards[i].getRank() + 2) * cardCount / 2.0 / (PLAYER_COUNT - 1.0);
         }
 
         if (validCards[i].getRank() <= SEVEN) {
@@ -288,7 +285,7 @@ void Game::setSeed(int seed) {
 bool Game::canUndoMove() const {
   for (size_t i = 0; i < players_.size(); i++) {
     if (players_[i].getPlayerType() == PlayerType::HUMAN &&
-       players_[i].getCards().size() != RANK_COUNT) {
+        players_[i].getCards().size() != RANK_COUNT) {
       return true;
     }
   }

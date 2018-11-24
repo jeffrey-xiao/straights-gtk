@@ -1,5 +1,5 @@
-#include "Card.h"
 #include "GameBoard.h"
+#include "Card.h"
 #include "Straight.h"
 
 #include <cassert>
@@ -44,7 +44,7 @@ bool GameBoard::hasCard(Card card) const {
   return false;
 }
 
-std::ostream& operator<<(std::ostream &out, const GameBoard &gameBoard) {
+std::ostream &operator<<(std::ostream &out, const GameBoard &gameBoard) {
   out << "Cards on the table:" << std::endl;
   for (Straight straight : gameBoard.straights_) {
     out << straight << std::endl;
