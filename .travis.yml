@@ -34,7 +34,7 @@ matrix:
 
 before_install:
   - eval "${MATRIX_EVAL}"
-  - sudo apt-get install -y libgtkmm-3.0-dev
+  - sudo apt-get install -y libgtkmm-3.0-dev cppcheck valgrind
 
 script:
   - diff <(find . -regex '.*\.\(cc\|h\)' -exec cat {} \;) <(find . -regex '.*\.\(cc\|h\)' -exec clang-format {} \;)
