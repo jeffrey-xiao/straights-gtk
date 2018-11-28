@@ -2,13 +2,13 @@ h
 h
 h
 h
-play 7D
+play 7S
 deck
 play 4S
 discard 8H
 discard 4D
 deck
-play 7S
+play 7D
 play 6H
 discard 2S
 play 7H
@@ -77,29 +77,29 @@ ragequit
 ragequit
 ragequit
 deck
-play 6C
 play 6H
+play 6C
 play 5H
-play 3S
 play 2H
+play 3S
 play AH
+play 10S
 play 10D
-play 2D
 play 9H
 play 10H
-discard KH
-play 10S
 play QS
+play KH
+play 2D
 play 7S
 play 8S
-play 5C
-play 9D
-play JD
-play JS
-play KD
-play QS
-play 9H
-play 10H
 discard 10C
 discard KC
 discard 2C
+discard KD
+play 5C
+discard QS
+discard JS
+discard JD
+play 9D
+play 9H
+play 10H
