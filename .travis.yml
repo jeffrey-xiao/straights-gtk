@@ -1,5 +1,7 @@
 language: cpp
 
+dist: xenial
+
 matrix:
   include:
     - os: linux

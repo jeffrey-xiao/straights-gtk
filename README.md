@@ -10,7 +10,7 @@ A modular implementation of the Straights card game using GTK+ 3.
 
 ### Dependencies
 
- - libgtk-3-dev
+ - `libgtkmm-3.0-dev`
 
 ### Building
 
