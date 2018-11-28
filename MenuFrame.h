@@ -15,32 +15,32 @@ class MenuFrame : public Gtk::Frame, public Observer {
   // Specification Fields:
   //   game = the game of straights the menu is monitoring
 
-  public:
-    explicit MenuFrame(GameController *);
-    // modifies: this
-    // ensures: initializes this to an Menu for a new game of straights,
-    //          this is added as an observer to gameController
+ public:
+  explicit MenuFrame(GameController *);
+  // modifies: this
+  // ensures: initializes this to an Menu for a new game of straights,
+  //          this is added as an observer to gameController
 
-    virtual ~MenuFrame() = default;
-    // modifies: this
-    // ensures: this no longer exists, owned memory is freed
+  virtual ~MenuFrame() = default;
+  // modifies: this
+  // ensures: this no longer exists, owned memory is freed
 
-    void update() override;
-    // modifies: this
-    // ensures: sets valid buttons as clickable/unclickable depending on
-    //          the state of the game
+  void update() override;
+  // modifies: this
+  // ensures: sets valid buttons as clickable/unclickable depending on
+  //          the state of the game
 
-  private:
-    GameController *gameController_;
-    Gtk::ButtonBox contents_;
-    Gtk::Box newGameBox_;
-    Gtk::Button newGameButton_, quitButton_, rageButton_, undoButton_;
-    Gtk::SpinButton seedEntry_;
+ private:
+  GameController *gameController_;
+  Gtk::ButtonBox contents_;
+  Gtk::Box newGameBox_;
+  Gtk::Button newGameButton_, quitButton_, rageButton_, undoButton_;
+  Gtk::SpinButton seedEntry_;
 
-    void onNewGameButtonClick();
-    void onRageButtonClick();
-    void onQuitButtonClick();
-    void onUndoButtonClick();
+  void onNewGameButtonClick();
+  void onRageButtonClick();
+  void onQuitButtonClick();
+  void onUndoButtonClick();
 };
 
 #endif

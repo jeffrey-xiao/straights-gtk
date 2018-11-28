@@ -1,4 +1,5 @@
 #include "Command.h"
+
 #include <cassert>
 #include <sstream>
 using namespace std;

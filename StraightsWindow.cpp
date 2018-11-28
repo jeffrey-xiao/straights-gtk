@@ -1,4 +1,5 @@
 #include "StraightsWindow.h"
+
 #include "GameController.h"
 #include "Player.h"
 

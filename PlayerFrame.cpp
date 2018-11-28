@@ -1,4 +1,5 @@
 #include "PlayerFrame.h"
+
 #include "GameController.h"
 
 PlayerFrame::PlayerFrame(const std::string &name) : Gtk::Frame(), name_(name) {

@@ -1,4 +1,5 @@
 #include "Subject.h"
+
 #include "Observer.h"
 
 #include <vector>

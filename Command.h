@@ -2,6 +2,7 @@
 #define COMMAND_H
 
 #include "Card.h"
+
 #include <istream>
 
 enum Type { PLAY, DISCARD, DECK, QUIT, RAGEQUIT, BAD_COMMAND };
@@ -16,14 +17,14 @@ struct Command {
   Type type;
   Card card;
 
-  Command(): type(BAD_COMMAND), card(SPADE, ACE) {}
+  Command() : type(BAD_COMMAND), card(SPADE, ACE) {}
   // ensures: initializes this to Command with type BAD_COMMAND and card Ace of Spades
 };
 
 std::istream &operator>>(std::istream &in, Command &c);
-  // modifies: in, c
-  // ensures: in@pre = commandString + cardString (only if commandString = play, discard) + in,
-  //          c.type = commandString, c.card = cardString
-  // returns: in
+// modifies: in, c
+// ensures: in@pre = commandString + cardString (only if commandString = play, discard) + in,
+//          c.type = commandString, c.card = cardString
+// returns: in
 
 #endif

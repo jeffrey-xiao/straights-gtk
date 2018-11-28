@@ -1,4 +1,5 @@
 #include "Straight.h"
+
 #include "Card.h"
 
 #include <cassert>

@@ -1,12 +1,12 @@
 #include "HandFrame.h"
+
 #include "Card.h"
 #include "Command.h"
 #include "Game.h"
 #include "GameController.h"
 
-#include <gtkmm/button.h>
-
 #include <algorithm>
+#include <gtkmm/button.h>
 #include <vector>
 
 HandFrame::HandFrame(GameController *gameController)

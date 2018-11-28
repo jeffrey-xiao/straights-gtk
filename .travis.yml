@@ -1,0 +1,14 @@
+language: cpp
+
+compiler:
+  - clang
+  - gcc
+
+before_install:
+  - sudo apt-get install -y libgtk-3-dev
+
+script:
+  - diff <(find . -regex '.*\.\(cc\|h\)' -exec cat {} \;) <(find . -regex '.*\.\(cc\|h\)' -exec clang-format {} \;)
+  - make
+  - make test
+  - make check

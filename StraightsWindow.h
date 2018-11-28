@@ -19,30 +19,30 @@ class StraightsWindow : public Gtk::ApplicationWindow, public Observer {
   //   players = the frames that represents the scores and discards of all players
   //   game = the game of straights the board is monitoring
 
-  public:
-    explicit StraightsWindow(GameController *);
-    // ensures: initializes this to an window representing a new game of straights
-    //          the window monitors the game managed by the specified GameController
+ public:
+  explicit StraightsWindow(GameController *);
+  // ensures: initializes this to an window representing a new game of straights
+  //          the window monitors the game managed by the specified GameController
 
-    virtual ~StraightsWindow();
-    // modifies: this
-    // ensures: this no longer exists, owned memory is freed
+  virtual ~StraightsWindow();
+  // modifies: this
+  // ensures: this no longer exists, owned memory is freed
 
-    void update() override;
-    // modifies: this
-    // ensures: players frames are updated to reflect the state of the game
+  void update() override;
+  // modifies: this
+  // ensures: players frames are updated to reflect the state of the game
 
-  private:
-    GameController *gameController_;
+ private:
+  GameController *gameController_;
 
-    Gtk::VBox contents_;
-    BoardFrame boardFrame_;
-    MenuFrame menuFrame_;
+  Gtk::VBox contents_;
+  BoardFrame boardFrame_;
+  MenuFrame menuFrame_;
 
-    Gtk::Box playerContents_;
-    std::vector<PlayerFrame*> playerFrames_;
+  Gtk::Box playerContents_;
+  std::vector<PlayerFrame *> playerFrames_;
 
-    HandFrame handFrame_;
+  HandFrame handFrame_;
 };
 
 #endif
