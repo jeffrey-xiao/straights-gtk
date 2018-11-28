@@ -5,6 +5,5 @@ Language: Cpp
 AccessModifierOffset: -1
 AlignAfterOpenBracket: DontAlign
 AllowShortFunctionsOnASingleLine: Empty
-IncludeBlocks: Regroup
 IndentCaseLabels: true
 ---
