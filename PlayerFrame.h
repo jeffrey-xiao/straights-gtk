@@ -30,7 +30,7 @@ class PlayerFrame : public Gtk::Frame {
   // modifies: this
   // ensures: the focus of the points label is set to isFocus; the points displayed is set
 
-  void setDiscards(int points, bool isFocus = false);
+  void setDiscards(int discards, bool isFocus = false);
   // modifies: this
   // ensures: the focus of the discards label is set to isFocus; the number of discards is set
 

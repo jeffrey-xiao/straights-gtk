@@ -39,5 +39,4 @@ before_install:
 script:
   - diff <(find . -regex '.*\.\(cc\|h\)' -exec cat {} \;) <(find . -regex '.*\.\(cc\|h\)' -exec clang-format {} \;)
   - make DEBUG=1
-  - make test
   - make check

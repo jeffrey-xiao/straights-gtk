@@ -5,8 +5,8 @@ OBJECTS = $(SOURCES:.cpp=.o)
 DEPENDS = ${OBJECTS:.o=.d}
 EXEC=straights
 
-DEBUG ?= 1
-ifeq ($(DEBUG), 0)
+DEBUG ?= 0
+ifeq ($(DEBUG), 1)
 	CXXFLAGS = -std=c++14 -Wall -O -g -MMD -DDEBUG
 else
 	CXXFLAGS = -std=c++14 -Wall -O -g -MMD -DNDEBUG
