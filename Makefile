@@ -1,5 +1,5 @@
-CXX = g++ -std=c++14
-CXXFLAGS = -Wall -O -g -MMD
+CXX = g++
+CXXFLAGS = -std=c++14 -Wall -O -g -MMD
 GTKFLAGS = `pkg-config gtkmm-3.0 --cflags`
 GTKLIBS = `pkg-config gtkmm-3.0 --libs`
 SOURCES = $(wildcard *.cpp)

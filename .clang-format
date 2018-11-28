@@ -1,10 +1,9 @@
 ---
 ColumnLimit: 100
 ---
-Language: Cpp
-IndentCaseLabels: true
+AccessModifierOffset: -1
 AlignAfterOpenBracket: DontAlign
 AllowShortFunctionsOnASingleLine: Empty
-IncludeBlocks: Regroup
-AccessModifierOffset: -1
+IndentCaseLabels: true
+Language: Cpp
 ---
